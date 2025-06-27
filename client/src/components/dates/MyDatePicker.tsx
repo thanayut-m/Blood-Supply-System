@@ -1,17 +1,28 @@
-import { useState } from "react";
+import { Controller, type Control, type FieldValues, type Path } from "react-hook-form";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export const MyDatePicker = () => {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+interface MyDatePickerProps<T extends FieldValues> {
+    control: Control<T>;
+    name: Path<T>;
+}
 
+export const MyDatePicker = <T extends FieldValues>({
+    control,
+    name,
+}: MyDatePickerProps<T>) => {
     return (
-        <DatePicker
-            selected={selectedDate}
-            onChange={(date: Date | null) => setSelectedDate(date)}
-            dateFormat="dd/MM/yyyy"
-            className="w-full px-3 py-2 border bg-white  border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-
+        <Controller
+            control={control}
+            name={name}
+            render={({ field }) => (
+                <DatePicker
+                    selected={field.value ?? new Date()}
+                    onChange={(date) => field.onChange(date)}
+                    dateFormat="dd/MM/yyyy"
+                    className="w-full px-3 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+            )}
         />
     );
 };
