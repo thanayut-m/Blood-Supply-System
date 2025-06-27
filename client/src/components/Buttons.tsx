@@ -4,7 +4,7 @@ interface ButtonProps {
     className?: string;
     type?: "button" | "submit" | "reset";
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
-    isSubmitting: boolean;
+    isSubmitting?: boolean;
 }
 
 export const Buttons = ({

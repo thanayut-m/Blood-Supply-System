@@ -18,7 +18,7 @@ export const Input = <T extends FieldValues>({
     const hasError = !!errors[name];
 
     return (
-        <fieldset className="fieldset">
+        <div >
             <input
                 {...register(name)}
                 type={type}
@@ -28,6 +28,6 @@ export const Input = <T extends FieldValues>({
             {
                 hasError && (<p className="text-red-500 font-bold">{errors[name]?.message?.toString()}</p>)
             }
-        </fieldset>
+        </div>
     );
 };

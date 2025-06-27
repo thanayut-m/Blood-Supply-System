@@ -3,7 +3,7 @@ import type { FieldValues, FieldErrors, Path, UseFormRegister } from "react-hook
 
 interface FormInputProps<T extends FieldValues> {
     type: string;
-    label: string;
+    label?: string;
     placeholder: string;
     name: Path<T>;
     register: UseFormRegister<T>;
