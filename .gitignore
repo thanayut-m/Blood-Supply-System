@@ -128,3 +128,24 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Ignore frontend env
+/client/.env
+
+# Ignore backend env
+/server/.env
+
+# Optional: ignore other env variants if you use them
+/client/.env.*
+/server/.env.*
+
+# Optional: ignore Node modules
+/client/node_modules/
+/server/node_modules/
+
+# Optional: build output (if any)
+/client/dist/
+/server/dist/
+/client/build/
+/server/build/
+
