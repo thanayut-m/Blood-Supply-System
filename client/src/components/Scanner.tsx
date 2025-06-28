@@ -41,12 +41,13 @@ export const Scanner = ({ onResult }: ScannerProps) => {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <IoIosQrScanner size={200} className="text-white opacity-40" />
       </div>
+      {/* <p>
+        <span>Last result:</span> <span>{result}</span>
+      </p> */}
     </div>
 
   );
 };
 
 
-{/* <p>
-        <span>Last result:</span> <span>{result}</span>
-      </p> */}
+
