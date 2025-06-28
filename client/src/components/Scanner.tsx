@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
 
 interface ScannerProps {
@@ -6,7 +6,7 @@ interface ScannerProps {
 }
 
 export const Scanner = ({ onResult }: ScannerProps) => {
-  const [result, setResult] = useState("");
+  // const [result, setResult] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
 
@@ -17,7 +17,7 @@ export const Scanner = ({ onResult }: ScannerProps) => {
     codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (res) => {
       if (res) {
         const text = res.getText();
-        setResult(text);
+        // setResult(text);
         onResult?.(text);
 
         (codeReader as unknown as { reset: () => void }).reset();
@@ -32,9 +32,9 @@ export const Scanner = ({ onResult }: ScannerProps) => {
   return (
     <>
       <video ref={videoRef} style={{ width: 250, maxWidth: 400 }} />
-      <p>
+      {/* <p>
         <span>Last result:</span> <span>{result}</span>
-      </p>
+      </p> */}
     </>
   );
 };

@@ -1,32 +1,38 @@
-import type { FieldValues, Path, UseFormRegister } from "react-hook-form"
+import type { FieldValues, Path, UseFormRegister, UseFormSetValue } from "react-hook-form"
 import { Input } from "./Input"
 import { AiOutlineScan } from "react-icons/ai";
 import { Modals } from "../modal/Modals";
 import { useState } from "react";
 import { Scanner } from "../Scanner";
+import { Buttons } from "../Buttons";
 
 interface FormInputScanProps<T extends FieldValues> {
     register: UseFormRegister<T>;
+    setValue: UseFormSetValue<T>;
     name: Path<T>;
     label: string;
     placeholder?: string;
+    type: string;
 }
 
 export const FormInputScan = <T extends FieldValues>({
     register,
+    setValue,
     name,
     label,
-    placeholder
+    placeholder,
+    type
 }: FormInputScanProps<T>) => {
     const [openModal, setOpenModal] = useState<string | null>(null);
 
-    const handleOpen = (modal: string) => {
-        setOpenModal(modal);
-        console.log(modal);
-    };
-
+    const handleOpen = (modal: string) => setOpenModal(modal);
     const handleClose = () => {
         setOpenModal(null);
+    };
+
+    const handleScanResult = (value: string) => {
+        setValue(name, value as T[typeof name]);
+        handleClose();
     };
 
     return (
@@ -37,7 +43,7 @@ export const FormInputScan = <T extends FieldValues>({
                     <Input
                         register={register}
                         name={name}
-                        type="number"
+                        type={type}
                         placeholder={placeholder}
                     />
                     <button
@@ -55,15 +61,20 @@ export const FormInputScan = <T extends FieldValues>({
                 onClose={handleClose}
                 title="Scan"
                 content={
-                    <Scanner />
-                }
+                    <Scanner
+                        onResult={handleScanResult}
+                    />}
                 actions={
                     <>
-                        <button className="btn btn-primary" onClick={handleClose}>บันทึก</button>
-                        <button className="btn" onClick={handleClose}>ยกเลิก</button>
+                        <Buttons
+                            onClick={handleClose}
+                            variant="error"
+                        >
+                            ปิด
+                        </Buttons>
                     </>
                 }
             />
         </div>
-    )
-}
+    );
+};

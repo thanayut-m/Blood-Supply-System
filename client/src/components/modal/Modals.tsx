@@ -27,7 +27,7 @@ export const Modals = ({ open, onClose, title, content, actions, width }: Modals
             <div
                 className={`absolute inset-0 bg-black transition-opacity duration-300 ease-in-out ${show ? "opacity-50" : "opacity-0"
                     }`}
-                onClick={onClose}
+            // onClick={onClose}
             ></div>
 
             <div

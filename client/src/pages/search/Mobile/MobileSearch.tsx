@@ -5,6 +5,7 @@ import { FormSelect } from "../../../components/Select/FormSelect";
 import { FormMyDatePicker } from "../../../components/dates/FormMyDatePicker";
 import { format } from "date-fns";
 import { FormInputScan } from "../../../components/inputs/FormInputScan";
+import { useNavigate } from "react-router";
 
 type FormData = {
     startDate?: Date;
@@ -12,11 +13,11 @@ type FormData = {
     search?: string;
     s_department?: string
     s_ward?: string
-    test?: string
 };
 
 export const MobileSearch = () => {
-    const { register, control, handleSubmit } = useForm<FormData>({
+    const nevigate = useNavigate();
+    const { register, control, handleSubmit, setValue } = useForm<FormData>({
         defaultValues: {
             startDate: new Date(),
             endDate: new Date(),
@@ -35,6 +36,7 @@ export const MobileSearch = () => {
                 s_department: data.s_department,
                 s_ward: data.s_ward
             });
+            nevigate("/BloodBankGiveList");
         } catch (error) {
             console.error(error);
         };
@@ -78,12 +80,17 @@ export const MobileSearch = () => {
 
                 <FormInputScan
                     register={register}
-                    name="test"
+                    name="search"
+                    setValue={setValue}
                     label="ค้นหา"
+                    type="text"
                     placeholder="Search...."
                 />
                 <div className="flex flex-col gap-2 mt-2">
-                    <Buttons onClick={handleSubmit(onSaveSearch)} variant="info">
+                    <Buttons
+                        onClick={handleSubmit(onSaveSearch)}
+                        variant="info"
+                    >
                         ค้นหา
                     </Buttons>
                 </div>
