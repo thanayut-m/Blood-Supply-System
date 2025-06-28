@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router";
 import { MobileSignIn } from "../auth/mobile/MobileSignIn";
 import { MobileSignup } from "../auth/mobile/MobileSignup";
 import { MobileBloodBankGiveList } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveList";
-import { Search } from "../pages/search/Mobile/search";
+import { MobileSearch } from "../pages/search/Mobile/MobileSearch";
 
 //Desktop
 import { DesktopSignIn } from "../auth/desktop/DesktopSignIn";
@@ -60,7 +60,7 @@ export const AppRouters = () => {
                 <Route
                     path="/search"
                     element={isMobile &&
-                        <Search />
+                        <MobileSearch />
                     }
                 />
                 {/* <Route path="/private/*" element={<PrivateRouters />} /> */}

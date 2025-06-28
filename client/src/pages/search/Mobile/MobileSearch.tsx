@@ -11,9 +11,11 @@ type FormData = {
     startDate?: Date;
     endDate?: Date;
     search?: string;
+    s_department?: string
+    s_ward?: string
 };
 
-export const Search = () => {
+export const MobileSearch = () => {
     const { register, control, handleSubmit } = useForm<FormData>({
         defaultValues: {
             startDate: new Date(),
@@ -30,11 +32,29 @@ export const Search = () => {
                 formattedStartDate,
                 formattedEndDate,
                 search: data.search,
+                s_department: data.s_department,
+                s_ward: data.s_ward
             });
         } catch (error) {
             console.error(error);
-        }
-    };
+        };
+    }
+
+    const dataDepartment = [
+        { value: "1", name: "Department 1" },
+        { value: "2", name: "Department 2" },
+        { value: "3", name: "Department 3" },
+        { value: "4", name: "Department 4" },
+        { value: "5", name: "Department 5" },
+    ];
+
+    const dataWard = [
+        { value: "1", name: "Ward 1" },
+        { value: "2", name: "Ward 2" },
+        { value: "3", name: "Ward 3" },
+        { value: "4", name: "Ward 4" },
+        { value: "5", name: "Ward 5" },
+    ];
 
     return (
         <MobilePrivateLayout>
@@ -42,8 +62,19 @@ export const Search = () => {
                 <FormMyDatePicker control={control} name="startDate" label="วันที่เริ่มต้น" />
                 <FormMyDatePicker control={control} name="endDate" label="วันที่สิ้นสุด" />
 
-                <FormSelect label="จุดขอ" />
-                <FormSelect label="Ward" />
+                <FormSelect
+                    register={register}
+                    name="s_department"
+                    data={dataDepartment}
+                    label="จุดขอ"
+
+                />
+                <FormSelect
+                    register={register}
+                    name="s_ward"
+                    data={dataWard}
+                    label="Ward"
+                />
 
                 <div className="col-span-10">
                     <FormInput register={register} name="search" type="text" label="ค้นหา" placeholder="Search...." />
