@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Buttons } from "../../../components/Buttons";
-import { FormInput } from "../../../components/inputs/FormInput";
 import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout";
 import { AiOutlineScan } from "react-icons/ai";
 import { FormSelect } from "../../../components/Select/FormSelect";
 import { FormMyDatePicker } from "../../../components/dates/FormMyDatePicker";
 import { format } from "date-fns";
+import { FormInputScan } from "../../../components/inputs/FormInputScan";
 
 type FormData = {
     startDate?: Date;
@@ -13,6 +13,7 @@ type FormData = {
     search?: string;
     s_department?: string
     s_ward?: string
+    test?: string
 };
 
 export const MobileSearch = () => {
@@ -76,10 +77,12 @@ export const MobileSearch = () => {
                     label="Ward"
                 />
 
-                <div className="col-span-10">
-                    <FormInput register={register} name="search" type="text" label="ค้นหา" placeholder="Search...." />
-                </div>
-
+                <FormInputScan
+                    register={register}
+                    name="test"
+                    label="ค้นหา"
+                    placeholder="Search...."
+                />
                 <div className="flex flex-col gap-2 mt-2">
                     <Buttons variant="info" className="w-full flex justify-center items-center h-[42px]">
                         <AiOutlineScan className="text-2xl text-white" />

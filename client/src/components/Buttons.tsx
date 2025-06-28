@@ -1,5 +1,5 @@
 interface ButtonProps {
-    variant?: "default" | "primary" | "secondary" | "accent" | "info" | "success" | "warning" | "error";
+    variant?: "default" | "primary" | "secondary" | "accent" | "info" | "success" | "warning" | "error" | "square";
     children: React.ReactNode;
     className?: string;
     type?: "button" | "submit" | "reset";
@@ -24,6 +24,7 @@ export const Buttons = ({
     else if (variant === "success") variantClass = "btn-success";
     else if (variant === "warning") variantClass = "btn-warning";
     else if (variant === "error") variantClass = "btn-error";
+    else if (variant === "square") variantClass = "btn-square";
 
     const btnClass = `btn btn-active w-full ${variantClass} ${className}`;
 
