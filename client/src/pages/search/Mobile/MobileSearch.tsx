@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Buttons } from "../../../components/Buttons";
 import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout";
-import { AiOutlineScan } from "react-icons/ai";
 import { FormSelect } from "../../../components/Select/FormSelect";
 import { FormMyDatePicker } from "../../../components/dates/FormMyDatePicker";
 import { format } from "date-fns";
@@ -84,9 +83,6 @@ export const MobileSearch = () => {
                     placeholder="Search...."
                 />
                 <div className="flex flex-col gap-2 mt-2">
-                    <Buttons variant="info" className="w-full flex justify-center items-center h-[42px]">
-                        <AiOutlineScan className="text-2xl text-white" />
-                    </Buttons>
                     <Buttons onClick={handleSubmit(onSaveSearch)} variant="info">
                         ค้นหา
                     </Buttons>

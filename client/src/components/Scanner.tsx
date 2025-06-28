@@ -1,21 +1,39 @@
-import { useState } from "react";
-import { useZxing } from "react-zxing";
+import { useEffect, useRef, useState } from "react";
+import { BrowserMultiFormatReader } from "@zxing/browser";
 
-export const Scanner = () => {
+interface ScannerProps {
+  onResult?: (value: string) => void;
+}
+
+export const Scanner = ({ onResult }: ScannerProps) => {
   const [result, setResult] = useState("");
-  const { ref } = useZxing({
-    onDecodeResult(result) {
-      setResult(result.getText());
-    },
-  });
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const readerRef = useRef<BrowserMultiFormatReader | null>(null);
+
+  useEffect(() => {
+    const codeReader = new BrowserMultiFormatReader();
+    readerRef.current = codeReader;
+
+    codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (res) => {
+      if (res) {
+        const text = res.getText();
+        setResult(text);
+        onResult?.(text);
+
+        (codeReader as unknown as { reset: () => void }).reset();
+      }
+    });
+
+    return () => {
+      (readerRef.current as unknown as { reset: () => void })?.reset?.();
+    };
+  }, [onResult]);
 
   return (
     <>
-      <video ref={ref} style={{ width: 250, maxWidth: 400 }} />
-
+      <video ref={videoRef} style={{ width: 250, maxWidth: 400 }} />
       <p>
-        <span>Last result:</span>
-        <span>{result}</span>
+        <span>Last result:</span> <span>{result}</span>
       </p>
     </>
   );
