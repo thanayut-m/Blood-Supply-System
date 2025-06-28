@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
+import { IoIosQrScanner } from "react-icons/io";
 
 interface ScannerProps {
   onResult?: (value: string) => void;
@@ -30,11 +31,22 @@ export const Scanner = ({ onResult }: ScannerProps) => {
   }, [onResult]);
 
   return (
-    <>
-      <video ref={videoRef} style={{ width: 250, maxWidth: 400 }} />
-      {/* <p>
-        <span>Last result:</span> <span>{result}</span>
-      </p> */}
-    </>
+    <div className="relative w-full max-w-[400px] mx-auto">
+      <video
+        ref={videoRef}
+        className="w-full h-auto object-cover rounded-md"
+        style={{ width: 250, maxWidth: 400 }}
+      />
+
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <IoIosQrScanner size={200} className="text-white opacity-40" />
+      </div>
+    </div>
+
   );
 };
+
+
+{/* <p>
+        <span>Last result:</span> <span>{result}</span>
+      </p> */}
