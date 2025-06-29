@@ -23,6 +23,17 @@ export const MobileBloodBankGiveList = () => {
         { hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ5", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" }
     ]
 
+
+    const handleGiveBlood = async () => {
+        try {
+            if (!selectRow) return;
+
+            console.log(selectRow.hn)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div>
             <MobilePrivateLayout>
@@ -103,18 +114,21 @@ export const MobileBloodBankGiveList = () => {
                         infoList={[
                             { label: "HN", value: selectRow.hn },
                             { label: "ชื่อ", value: selectRow.patient },
+                            { label: "ถุงเลือด", value: selectRow.bloodCode },
                         ]}
                         content={
                             <div className="flex flex-col gap-3">
                                 <Buttons
                                     variant="info"
                                     className="text-black"
+                                    onClick={handleGiveBlood}
                                 >
                                     ให้เลือดคนไข้
                                 </Buttons>
                                 <Buttons
                                     variant="accent"
                                     className="text-black"
+                                    onClick={handleGiveBlood}
                                 >
                                     ปฏิกิริยารับเลือด
                                 </Buttons>
