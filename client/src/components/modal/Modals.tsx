@@ -6,10 +6,11 @@ interface ModalsProps {
     title?: string;
     content?: React.ReactNode;
     actions?: React.ReactNode;
-    width?: string
+    width?: string;
+    infoList?: { label: string; value: string }[];
 }
 
-export const Modals = ({ open, onClose, title, content, actions, width }: ModalsProps) => {
+export const Modals = ({ open, onClose, width, title, content, actions, infoList }: ModalsProps) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -39,6 +40,19 @@ export const Modals = ({ open, onClose, title, content, actions, width }: Modals
                         {title}
                     </h3>
                 )}
+
+                {infoList?.length ? (
+                    <div className="mb-4 space-y-1">
+                        {infoList.map((item, index) => (
+                            <p key={index} className="text-sm">
+                                {item.label} : {item.value}
+                            </p>
+                        ))}
+                    </div>
+                ) : null}
+
+
+
                 {content && (
                     <div className="py-4">
                         {content}

@@ -1,20 +1,26 @@
+import { useState } from "react";
 import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout"
+import { Modals } from "../../../components/modal/Modals";
+import { Buttons } from "../../../components/Buttons";
 
 export const MobileBloodBankGiveList = () => {
+    const [openModal, setOpenModal] = useState(null);
+    const [selectRow, setSelectRow] = useState<typeof data[0] | null>(null)
 
-    // const [openModal, setOpenModal] = useState(null);
-
-    // const handleOpen = (modal: string) => setOpenModal(modal);
-    // const handleClose = () => {
-    //     setOpenModal(null);
-    // };
+    const handleOpen = (modal: string, row: typeof data[0]) => {
+        setSelectRow(row);
+        setOpenModal(modal);
+    };
+    const handleClose = () => {
+        setOpenModal(null);
+    };
 
     const data = [
-        { hn: "85652466", status: "รอจ่ายเลือด", patient: "นาย ทดสอบ ทดสอบ", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
+        { hn: "85652466", status: "Y", patient: "นาย ทดสอบ ทดสอบ1", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
+        { hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ2", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
+        { hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ3", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
         { hn: "85652466", status: "จ่ายเลือดแล้ว", patient: "นาย ทดสอบ ทดสอบ", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { hn: "85652466", status: "จ่ายเลือดแล้ว", patient: "นาย ทดสอบ ทดสอบ", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { hn: "85652466", status: "จ่ายเลือดแล้ว", patient: "นาย ทดสอบ ทดสอบ", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { hn: "85652466", status: "จ่ายเลือดแล้ว", patient: "นาย ทดสอบ ทดสอบ", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" }
+        { hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ5", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" }
     ]
 
     return (
@@ -24,6 +30,7 @@ export const MobileBloodBankGiveList = () => {
                     <div className="flex flex-col gap-2">
                         {data.map((item, index) => (
                             <div
+                                onClick={() => handleOpen("openMenuBloodBank", item)}
                                 key={index}
                                 className="bg-white shadow-xl rounded-xl p-4 text-sm border-gray-200"
                             >
@@ -33,10 +40,10 @@ export const MobileBloodBankGiveList = () => {
                                         <p className="text-gray-900">{item.hn}</p>
                                     </div>
                                     <span
-                                        className={`${item.status === "รอจ่ายเลือด" ? "text-orange-500" : "text-green-500"
+                                        className={`${item.status === null ? "text-orange-500" : "text-green-500"
                                             } font-semibold`}
                                     >
-                                        {item.status}
+                                        {item.status === "Y" ? "จ่ายเลือดแล้ว" : "รอจ่ายเลือด"}
                                     </span>
                                 </div>
 
@@ -85,6 +92,47 @@ export const MobileBloodBankGiveList = () => {
                     </div>
                 </div>
             </MobilePrivateLayout>
+
+            {
+                selectRow && (
+                    <Modals
+                        open={openModal === "openMenuBloodBank"}
+                        onClose={handleClose}
+                        width="w-[80%]"
+                        title="เมนู"
+                        infoList={[
+                            { label: "HN", value: selectRow.hn },
+                            { label: "ชื่อ", value: selectRow.patient },
+                        ]}
+                        content={
+                            <div className="flex flex-col gap-3">
+                                <Buttons
+                                    variant="info"
+                                    className="text-black"
+                                >
+                                    ให้เลือดคนไข้
+                                </Buttons>
+                                <Buttons
+                                    variant="accent"
+                                    className="text-black"
+                                >
+                                    ปฏิกิริยารับเลือด
+                                </Buttons>
+                            </div>
+                        }
+                        actions={
+                            <Buttons
+                                variant="error"
+                                className="text-black"
+                                onClick={handleClose}
+                            >
+                                ยกเลิก
+                            </Buttons>
+                        }
+                    />
+                )
+            }
+
         </div >
     )
 }
