@@ -4,7 +4,7 @@ import { Modals } from "../../../components/modal/Modals";
 import { Buttons } from "../../../components/Buttons";
 
 export const MobileBloodBankGiveList = () => {
-    const [openModal, setOpenModal] = useState(null);
+    const [openModal, setOpenModal] = useState<string | null>(null);
     const [selectRow, setSelectRow] = useState<typeof data[0] | null>(null)
 
     const handleOpen = (modal: string, row: typeof data[0]) => {
