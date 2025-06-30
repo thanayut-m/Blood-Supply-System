@@ -1,5 +1,5 @@
 
-interface CheckBoxProps {
+interface RadioBoxProps {
     label: string;
     name: string;
     value: string;
@@ -7,7 +7,7 @@ interface CheckBoxProps {
     onChange: (value: string) => void;
 }
 
-export const CheckBox = ({ label, name, value, checkedValue, onChange }: CheckBoxProps) => {
+export const RadioBox = ({ label, name, value, checkedValue, onChange }: RadioBoxProps) => {
     return (
         <label className="label text-black">
             <input

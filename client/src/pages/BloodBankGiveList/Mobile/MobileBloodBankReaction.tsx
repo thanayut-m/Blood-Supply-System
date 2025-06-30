@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout"
-import { CheckBox } from "../../../components/Checkbox/Checkbox";
+import { RadioBox } from "../../../components/Checkbox/Checkbox";
 
 export const MobileBloodBankReaction = () => {
     const [selected, setSelected] = useState("");
@@ -66,9 +66,9 @@ export const MobileBloodBankReaction = () => {
                         </div>
                     </div>
                     <div className="grid grid-cols-3" >
-                        <CheckBox label="ปกติ" name="bloodStatus" value="normal" checkedValue={selected} onChange={setSelected} />
-                        <CheckBox label="ไม่ปกติ" name="bloodStatus" value="abnormal" checkedValue={selected} onChange={setSelected} />
-                        <CheckBox label="ไม่ทราบผล" name="bloodStatus" value="pending" checkedValue={selected} onChange={setSelected} />
+                        <RadioBox label="ปกติ" name="bloodStatus" value="normal" checkedValue={selected} onChange={setSelected} />
+                        <RadioBox label="ไม่ปกติ" name="bloodStatus" value="abnormal" checkedValue={selected} onChange={setSelected} />
+                        <RadioBox label="ไม่ทราบผล" name="bloodStatus" value="pending" checkedValue={selected} onChange={setSelected} />
                     </div>
                 </div>
             </div>
