@@ -1,24 +1,13 @@
-
-interface RadioBoxProps {
-    label: string;
-    name: string;
-    value: string;
-    checkedValue: string;
-    onChange: (value: string) => void;
+interface CheckBoxProps {
+    label?: string;
 }
 
-export const RadioBox = ({ label, name, value, checkedValue, onChange }: RadioBoxProps) => {
+
+export const Checkbox = ({ label }: CheckBoxProps) => {
     return (
         <label className="label text-black">
-            <input
-                type="radio"
-                name={name}
-                value={value}
-                checked={checkedValue === value}
-                onChange={() => onChange(value)}
-                className="radio radio-xs"
-            />
-            <span>{label}</span>
-        </label>
-    );
-};
+            <input type="checkbox" defaultChecked className="checkbox checkbox-sm" />
+            {label}
+        </label >
+    )
+}

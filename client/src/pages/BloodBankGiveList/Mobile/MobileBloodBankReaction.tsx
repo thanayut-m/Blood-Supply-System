@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout"
-import { RadioBox } from "../../../components/Checkbox/Checkbox";
+import { Input } from "../../../components/inputs/Input";
+import { useForm } from "react-hook-form";
+import { FormInput } from "../../../components/inputs/FormInput";
+import { RadioBox } from './../../../components/Checkbox/RadioBox';
+import { Checkbox } from "../../../components/Checkbox/Checkbox";
+import { Buttons } from "../../../components/Buttons";
 
 export const MobileBloodBankReaction = () => {
+    const { register } = useForm({});
     const [selected, setSelected] = useState("");
     return (
         <MobilePrivateLayout>
@@ -70,7 +76,64 @@ export const MobileBloodBankReaction = () => {
                         <RadioBox label="ไม่ปกติ" name="bloodStatus" value="abnormal" checkedValue={selected} onChange={setSelected} />
                         <RadioBox label="ไม่ทราบผล" name="bloodStatus" value="pending" checkedValue={selected} onChange={setSelected} />
                     </div>
+                    <div className="grid grid-cols-3 gap-1">
+                        <FormInput
+                            register={register}
+                            name="test"
+                            type="number"
+                            label="ปริมาณโลหิตที่รับ"
+                            placeholder="กี่ CC"
+                        />
+                        <FormInput
+                            register={register}
+                            name="test"
+                            type="time"
+                            label="เวลาที่ให้"
+                        />
+                        <FormInput
+                            register={register}
+                            name="test"
+                            type="time"
+                            label="เวลามีอาการ"
+                        />
+                    </div>
+                    <div className="flex flex-row items-center gap-4">
+                        <Checkbox label="มีไข้" />
+                        <div className="w-full">
+                            <Input
+                                register={register}
+                                name="test"
+                                type="number"
+                                placeholder="กี่องศา"
+                            />
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-3">
+                        <Checkbox label="หนาวสั่น" />
+                        <Checkbox label="มีผื่นแดง" />
+                        <Checkbox label="ปวกศีรษะ" />
+                        <Checkbox label="BP ต่ำ" />
+                        <Checkbox label="คลื่นไส้" />
+                        <Checkbox label="อาเจียน" />
+                        <Checkbox label="ปวดหลัง" />
+                        <Checkbox label="หายใจขัด" />
+                        <Checkbox label="ตัวเขียว" />
+                        <Checkbox label="Shock" />
+                        <div className="col-span-2 ">
+                            <div className="flex flex-row gap-2">
+                                <Checkbox label="อื่นๆ" />
+                                <Input
+                                    register={register}
+                                    name="test"
+                                    type="text"
+                                    placeholder="อื่นๆ"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <Buttons variant="info">บันทึก</Buttons>
                 </div>
+
             </div>
         </MobilePrivateLayout>
     )
