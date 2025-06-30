@@ -6,12 +6,14 @@ import { MobileSignIn } from "../auth/mobile/MobileSignIn";
 import { MobileSignup } from "../auth/mobile/MobileSignup";
 import { MobileBloodBankGiveList } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveList";
 import { MobileSearch } from "../pages/search/Mobile/MobileSearch";
+import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
 
 //Desktop
 import { DesktopSignIn } from "../auth/desktop/DesktopSignIn";
 import { DesktopSignup } from "../auth/desktop/DesktopSignup";
 import { DesktopBloodBankGiveList } from "../pages/BloodBankGiveList/Desktop/DesktopBloodBankGiveList";
-import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
+import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
+
 
 
 
@@ -71,6 +73,15 @@ export const AppRouters = () => {
                         <MobileBloodBankGiveDetail />
                     }
                 />
+
+                <Route
+                    path="/MobileBloodBankReaction"
+                    element={isMobile &&
+                        <MobileBloodBankReaction />
+                    }
+                />
+
+
 
 
                 {/* <Route path="/private/*" element={<PrivateRouters />} /> */}

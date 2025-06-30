@@ -26,14 +26,18 @@ export const MobileBloodBankGiveList = () => {
     ]
 
 
-    const handleGiveBlood = async () => {
+    const handleGiveBlood = async (actionType: "give" | "reaction") => {
         try {
             if (!selectRow) return;
 
             console.log(selectRow.hn)
             console.log(selectRow.id)
 
-            navigate("/MobileBloodBankGiveDetail");
+            if (actionType === "give") {
+                navigate("/MobileBloodBankGiveDetail");
+            } else {
+                navigate("/MobileBloodBankReaction");
+            }
         } catch (error) {
             console.log(error)
         }
@@ -126,14 +130,14 @@ export const MobileBloodBankGiveList = () => {
                                 <Buttons
                                     variant="info"
                                     className="text-black"
-                                    onClick={handleGiveBlood}
+                                    onClick={() => handleGiveBlood("give")}
                                 >
                                     ให้เลือดคนไข้
                                 </Buttons>
                                 <Buttons
                                     variant="accent"
                                     className="text-black"
-                                    onClick={handleGiveBlood}
+                                    onClick={() => handleGiveBlood("reaction")}
                                 >
                                     ปฏิกิริยารับเลือด
                                 </Buttons>
