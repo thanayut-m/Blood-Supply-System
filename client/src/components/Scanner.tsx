@@ -35,7 +35,7 @@ export const Scanner = ({ onResult }: ScannerProps) => {
       <video
         ref={videoRef}
         className="w-full h-auto object-cover rounded-md"
-        style={{ width: 250, maxWidth: 400 }}
+        style={{ maxWidth: 400 }}
       />
 
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

@@ -2,8 +2,10 @@ import { useState } from "react";
 import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout"
 import { Modals } from "../../../components/modal/Modals";
 import { Buttons } from "../../../components/Buttons";
+import { useNavigate } from "react-router";
 
 export const MobileBloodBankGiveList = () => {
+    const navigate = useNavigate();
     const [openModal, setOpenModal] = useState<string | null>(null);
     const [selectRow, setSelectRow] = useState<typeof data[0] | null>(null)
 
@@ -16,11 +18,11 @@ export const MobileBloodBankGiveList = () => {
     };
 
     const data = [
-        { hn: "85652466", status: "Y", patient: "นาย ทดสอบ ทดสอบ1", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ2", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ3", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { hn: "85652466", status: "จ่ายเลือดแล้ว", patient: "นาย ทดสอบ ทดสอบ", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ5", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" }
+        { id: 1, hn: "85652466", status: "Y", patient: "นาย ทดสอบ ทดสอบ1", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
+        { id: 2, hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ2", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
+        { id: 3, hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ3", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
+        { id: 4, hn: "85652466", status: "จ่ายเลือดแล้ว", patient: "นาย ทดสอบ ทดสอบ", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
+        { id: 5, hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ5", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" }
     ]
 
 
@@ -29,6 +31,9 @@ export const MobileBloodBankGiveList = () => {
             if (!selectRow) return;
 
             console.log(selectRow.hn)
+            console.log(selectRow.id)
+
+            navigate("/MobileBloodBankGiveDetail");
         } catch (error) {
             console.log(error)
         }

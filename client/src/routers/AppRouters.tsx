@@ -11,6 +11,7 @@ import { MobileSearch } from "../pages/search/Mobile/MobileSearch";
 import { DesktopSignIn } from "../auth/desktop/DesktopSignIn";
 import { DesktopSignup } from "../auth/desktop/DesktopSignup";
 import { DesktopBloodBankGiveList } from "../pages/BloodBankGiveList/Desktop/DesktopBloodBankGiveList";
+import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
 
 
 
@@ -63,6 +64,15 @@ export const AppRouters = () => {
                         <MobileSearch />
                     }
                 />
+
+                <Route
+                    path="/MobileBloodBankGiveDetail"
+                    element={isMobile &&
+                        <MobileBloodBankGiveDetail />
+                    }
+                />
+
+
                 {/* <Route path="/private/*" element={<PrivateRouters />} /> */}
             </Routes>
         </div >

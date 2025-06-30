@@ -9,6 +9,8 @@ export const MobileNavbar = () => {
                 return "ให้เลือดผู้ป่วย";
             case "/search":
                 return "ค้นหา";
+            case "/MobileBloodBankGiveDetail":
+                return "ธนาคารเลือด";
             default:
                 return "Blood Bank";
         }
