@@ -36,13 +36,13 @@ export const Modals = ({ open, onClose, width, title, content, actions, infoList
                     }`}
             >
                 {title && (
-                    <h3 className="font-bold text-lg">
+                    <h3 className="font-bold text-lg py-2">
                         {title}
                     </h3>
                 )}
 
                 {infoList?.length ? (
-                    <div className="mb-4 space-y-1">
+                    <div className=" py-2">
                         {infoList.map((item, index) => (
                             <p key={index} className="text-sm">
                                 {item.label} : {item.value}
@@ -54,7 +54,7 @@ export const Modals = ({ open, onClose, width, title, content, actions, infoList
 
 
                 {content && (
-                    <div className="py-4">
+                    <div >
                         {content}
                     </div>
                 )}
