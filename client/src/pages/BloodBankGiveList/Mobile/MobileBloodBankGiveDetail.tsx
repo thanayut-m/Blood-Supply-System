@@ -5,6 +5,7 @@ import { Modals } from "../../../components/modal/Modals";
 import { FormInputScan } from "../../../components/inputs/FormInputScan";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { FormSelect } from "../../../components/Select/FormSelect";
 
 export const MobileBloodBankGiveDetail = () => {
     const { register, setValue, reset } = useForm({});
@@ -19,6 +20,14 @@ export const MobileBloodBankGiveDetail = () => {
             bloodHN: ""
         });
     };
+
+    const datas = [
+        { value: "1", name: "Ward 1" },
+        { value: "2", name: "Ward 2" },
+        { value: "3", name: "Ward 3" },
+        { value: "4", name: "Ward 4" },
+        { value: "5", name: "Ward 5" },
+    ];
 
     const handleClose = () => {
         Swal.fire({
@@ -50,6 +59,7 @@ export const MobileBloodBankGiveDetail = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+            setOpenModal(null);
         } catch (error) {
             console.log(error)
         }
@@ -180,6 +190,12 @@ export const MobileBloodBankGiveDetail = () => {
                 ]}
                 content={
                     <div className="flex flex-col gap-3">
+                        <FormSelect
+                            register={register}
+                            name="BloodDonor"
+                            label="ผู้ให้เลือด"
+                            data={datas}
+                        />
                         <FormInputScan
                             register={register}
                             name="bloodCode"
