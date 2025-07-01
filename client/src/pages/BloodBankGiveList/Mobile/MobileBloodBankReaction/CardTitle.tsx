@@ -66,8 +66,8 @@ export const CardTitle = () => {
                         Rh <span className="text-black">+</span>
                     </div>
                     <div className="col-span-9"></div>
-                    <div className="col-span-7"></div>
-                    <div className="col-span-5">
+                    <div className="col-span-8"></div>
+                    <div className="col-span-4">
                         <Inputs
                             label="วันที่จ่าย"
                             type="text"

@@ -40,6 +40,22 @@ export const Inputs = <T extends FieldValues>({
       // error={!!errors[name]}
       helperText={errors[name]?.message?.toString() || ""}
       size={size}
+      slotProps={{
+        inputLabel: {
+          shrink: true,
+        },
+      }}
+      sx={{
+        '& .MuiInputBase-input': {
+          fontSize: '0.7rem',
+        },
+        '& .MuiInputLabel-root': {
+          fontSize: '0.7rem',
+        },
+        '& .MuiFormHelperText-root': {
+          fontSize: '0.65rem',
+        },
+      }}
     />
   )
 }
