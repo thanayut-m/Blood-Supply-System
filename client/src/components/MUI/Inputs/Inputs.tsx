@@ -3,8 +3,8 @@ import type { FieldValues, Path, UseFormRegister, FieldErrors } from 'react-hook
 import type { TextFieldProps } from '@mui/material/TextField';
 
 interface InputsProps<T extends FieldValues> {
-  register: UseFormRegister<T>;
-  name: Path<T>;
+  register?: UseFormRegister<T>;
+  name?: Path<T>;
   label: string;
   type: string;
   id?: string;
@@ -15,9 +15,9 @@ interface InputsProps<T extends FieldValues> {
 }
 
 export const Inputs = <T extends FieldValues>({
-  register,
+  // register,
   name,
-  id,
+  // id,
   label,
   type,
   defaultValue = '',
@@ -25,18 +25,19 @@ export const Inputs = <T extends FieldValues>({
   errors = {},
   size = "small"
 }: InputsProps<T>) => {
+
   return (
     <TextField
       fullWidth
-      {...register(name)}
-      id={id || name}
+      // {...register(name)}
+      // id={id || name}
       label={label}
       type={type}
       defaultValue={defaultValue}
       variant="outlined"
       disabled={disabled}
       autoComplete="new-password"
-      error={!!errors[name]}
+      // error={!!errors[name]}
       helperText={errors[name]?.message?.toString() || ""}
       size={size}
     />

@@ -9,9 +9,15 @@ export const MobilePrivateLayout2 = ({
     children
 }: MobilePrivateLayout2Props) => {
     return (
-        <div className="">
-            <MobileNavbar2 />
-            <main>{children}</main>
+        <div className="relative h-[120px] bg-[#FF7726] px-2">
+            <div className="fixed top-0 left-0 w-full z-50">
+                <MobileNavbar2 />
+            </div>
+            <main className="pt-[80px]">
+                {children}
+            </main>
         </div>
+
+
     )
 }

@@ -13,8 +13,10 @@ export const MobileNavbar2 = () => {
     }
 
     return (
-        <div className="bg-[#FF7726] py-4 text-center text-white">
+        <div
+            className="py-4 text-center text-xl text-white font-prompt ">
             {getTitle()}
         </div>
+
     )
 }
