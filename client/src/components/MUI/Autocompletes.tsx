@@ -1,44 +1,54 @@
+import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-// import top100Films from './top100Films';
 
-interface AutocompletesProps {
+interface AutocompletesProps<T extends FieldValues> {
+    control: Control<T>;
+    name: Path<T>;
     label: string;
 }
 
-export const Autocompletes = ({
-    label
-}: AutocompletesProps) => {
+export const Autocompletes = <T extends FieldValues>({
+    name,
+    label,
+    control
+}: AutocompletesProps<T>) => {
     const options = [
         { label: 'The Godfather', id: 1 },
         { label: 'Pulp Fiction', id: 2 },
     ];
+
     return (
-        <Autocomplete
-            fullWidth
-            disablePortal
-            options={options}
-            size='small'
-            renderInput={(params) => <TextField
-                {...params}
-                label={label}
-                slotProps={{
-                    inputLabel: {
-                        shrink: true,
-                    },
-                }}
-                sx={{
-                    '& .MuiInputBase-input': {
-                        fontSize: '0.7rem',
-                    },
-                    '& .MuiInputLabel-root': {
-                        fontSize: '0.7rem',
-                    },
-                    '& .MuiFormHelperText-root': {
-                        fontSize: '0.65rem',
-                    },
-                }}
-            />}
+        <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+                <Autocomplete
+                    {...field}
+                    fullWidth
+                    size="small"
+                    options={options}
+                    getOptionLabel={(option) => option.label}
+                    onChange={(_, value) => field.onChange(value)} // สำคัญ!
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label={label}
+                            sx={{
+                                '& .MuiInputBase-input': {
+                                    fontSize: '0.7rem',
+                                },
+                                '& .MuiInputLabel-root': {
+                                    fontSize: '0.7rem',
+                                },
+                                '& .MuiFormHelperText-root': {
+                                    fontSize: '0.65rem',
+                                },
+                            }}
+                        />
+                    )}
+                />
+            )}
         />
-    )
-}
+    );
+};

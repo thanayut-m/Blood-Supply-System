@@ -1,158 +1,64 @@
 import { useState } from "react";
-import { RadioBox } from "../../../components/Checkbox/RadioBox"
-import { MobilePrivateLayout2 } from "../../../layouts/MobilePrivateLayout2"
-import { CardTitle } from "./MobileBloodBankReaction/CardTitle"
+import { useForm } from "react-hook-form";
+import { MobilePrivateLayout2 } from "../../../layouts/MobilePrivateLayout2";
+import { BloodBagDetails } from "./MobileBloodBankReaction/BloodBagDetails";
+import { ReactionStatusRadio } from "./MobileBloodBankReaction/ReactionStatusRadio";
 import { Autocompletes } from "../../../components/MUI/Autocompletes";
 import { Inputs } from "../../../components/MUI/Inputs/Inputs";
-import { Checkbox } from "../../../components/Checkbox/CheckBox";
+import { SymptomCheckboxGroup } from "./MobileBloodBankReaction/SymptomCheckboxGroup";
+import { RecorderInfoForm } from "./MobileBloodBankReaction/RecorderInfoForm";
+import { Buttons } from "../../../components/Buttons";
+
 
 export const MobileBloodBankReaction = () => {
-    // const { register } = useForm({});
+    const { register, control, handleSubmit } = useForm({});
     const [selectedValue, setSelectedValue] = useState('normal');
+
+    const handleSave = (data: object) => {
+        try {
+            console.log(data);
+            console.log(selectedValue);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <MobilePrivateLayout2>
             <div className="flex flex-col gap-2">
-                <CardTitle />
+                <BloodBagDetails />
                 <div>
-                    <label className="text-[#B5B5B5] text-base"> บันทึกปฏิกิริยาหลังรับเลือด</label>
-                    <div className="relative border border-gray-300 rounded-md p-4  focus-within:ring-2 focus-within:ring-blue-500">
-                        <label className="absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-2 text-sm text-[#B5B5B5]">
-                            สถานะ
-                        </label>
-
-                        <div className="grid grid-cols-3 gap-3">
-                            <RadioBox
-                                label="ปกติ"
-                                labelSub="(Normal)"
-                                value="normal"
-                                name="status"
-                                checkedValue={selectedValue}
-                                onChange={setSelectedValue}
-                                color="bg-[#2D63EA]"
-                            />
-                            <RadioBox
-                                label="ไม่ปกติ"
-                                labelSub="(Abnormal)"
-                                value="abnormal"
-                                name="status"
-                                checkedValue={selectedValue}
-                                onChange={setSelectedValue}
-                                color="bg-[#FF7726]"
-                            />
-                            <RadioBox
-                                label="ไม่ทราบผล"
-                                labelSub="(None)"
-                                value="none"
-                                name="status"
-                                checkedValue={selectedValue}
-                                onChange={setSelectedValue}
-                                color="bg-[#656565]"
-                            />
-                        </div>
-                    </div>
+                    <label className="text-[#B5B5B5] text-base">บันทึกปฏิกิริยาหลังรับเลือด</label>
+                    <ReactionStatusRadio selectedValue={selectedValue} setSelectedValue={setSelectedValue} />
                 </div>
                 <div className="flex">
-                    <Autocompletes
-                        label="ความรุนแรง"
-                    />
+                    <Autocompletes control={control} name="symptom_severity" label="ความรุนแรง" />
                 </div>
                 <div className="grid grid-cols-4 gap-1">
+                    <Inputs register={register} name="received_cc" label="ปริมาณรับ (cc)" type="number" defaultValue="" />
+                    <Inputs register={register} name="used_time" label="เวลาที่ใช้" type="time" defaultValue="" />
+                    <Inputs register={register} name="symptom_time" label="เวลามีอาการ" type="time" defaultValue="" />
+                    <Inputs register={register} name="body_temp" label="มีไข้ (อุณหภูมิ)" type="number" defaultValue="" />
+                </div>
+                <SymptomCheckboxGroup register={register} />
+                <div>
                     <Inputs
-                        label="ปริมาณรับ (cc)"
-                        type="number"
-                        defaultValue=""
-                    />
-                    <Inputs
-                        label="เวลาที่ใช้"
-                        type="time"
-                        defaultValue=""
-                    />
-                    <Inputs
-                        label="เวลามีอาการ"
-                        type="time"
-                        defaultValue=""
-                    />
-                    <Inputs
-                        label="มีไข้ (อุณหภูมิ)"
-                        type="number"
+                        register={register}
+                        multiline
+                        rows={2}
+                        name="note"
+                        label="หมายเหตุ"
+                        type="text"
                         defaultValue=""
                     />
                 </div>
-                <div className="grid grid-cols-5 gap-2">
-                    <Checkbox
-                        label="หนาวสั่น"
-                    />
-                    <Checkbox
-                        label="มีผื่นแดง"
-                    />
-                    <Checkbox
-                        label="ปวดศีรษะ"
-                    />
-                    <Checkbox
-                        label="คลื่นไส้"
-                    />
-                    <Checkbox
-                        label="อาเจียน"
-                    />
-                    <Checkbox
-                        label="หายใจขัด"
-                    />
-                    <Checkbox
-                        label="ตัวเขียว"
-                    />
-                    <Checkbox
-                        label="Shock"
-                    />
-                    <Checkbox
-                        label="ปวดหลัง"
-                    />
-                    <Checkbox
-                        label="BP ต่ำ"
-                    />
-                </div>
-                <div>หมายเหตุ ยังไม่ได้เริ่ม</div>
-                <div className="grid grid-cols-12 gap-2">
-                    <div className="col-span-5">
-                        <Inputs
-                            label="พยาบาลผู้บันทึกผล"
-                            type="text"
-                            defaultValue="พญ.ทดสอบระบบ ล็อกอินส์"
-                        />
-                    </div>
-                    <div className="col-span-4">
-                        <Inputs
-                            label="วันที่"
-                            type="date"
-                        />
-                    </div>
-                    <div className="col-span-3">
-                        <Inputs
-                            label="เวลา"
-                            type="time"
-                        />
-                    </div>
-                    <div className="col-span-5">
-                        <Inputs
-                            label="พยาบาลผู้บันทึกผล"
-                            type="text"
-                            defaultValue="พญ.ทดสอบระบบ ล็อกอินส์"
-                        />
-                    </div>
-                    <div className="col-span-4">
-                        <Inputs
-                            label="วันที่"
-                            type="date"
-                        />
-                    </div>
-                    <div className="col-span-3">
-                        <Inputs
-                            label="เวลา"
-                            type="time"
-                        />
-                    </div>
+                <RecorderInfoForm register={register} />
+                <hr className="text-[#B5B5B5]" />
+                <div className="grid grid-cols-2 gap-2 ">
+                    <Buttons className="bg-[#FF7726] text-white">ยกเลิก</Buttons>
+                    <Buttons onClick={handleSubmit(handleSave)} className="bg-[#2D63EA] text-white">บันทึก</Buttons>
                 </div>
             </div>
         </MobilePrivateLayout2>
-    )
-}
+    );
+};

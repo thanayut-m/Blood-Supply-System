@@ -1,5 +1,10 @@
 import TextField from '@mui/material/TextField';
-import type { FieldValues, Path, UseFormRegister, FieldErrors } from 'react-hook-form';
+import type {
+  FieldValues,
+  Path,
+  UseFormRegister,
+  FieldErrors,
+} from 'react-hook-form';
 import type { TextFieldProps } from '@mui/material/TextField';
 
 interface InputsProps<T extends FieldValues> {
@@ -12,34 +17,42 @@ interface InputsProps<T extends FieldValues> {
   disabled?: boolean;
   errors?: FieldErrors<T>;
   size?: TextFieldProps['size'];
+  multiline?: boolean;
+  rows?: number;
 }
 
 export const Inputs = <T extends FieldValues>({
-  // register,
+  register,
   name,
-  // id,
+  id,
   label,
   type,
   defaultValue = '',
   disabled = false,
-  errors = {},
-  size = "small"
+  errors,
+  size = 'small',
+  multiline = false,
+  rows,
 }: InputsProps<T>) => {
+  const errorMessage =
+    name && errors?.[name]?.message?.toString?.() || '';
 
   return (
     <TextField
       fullWidth
-      // {...register(name)}
-      // id={id || name}
+      {...(register && name ? register(name) : {})}
+      id={id || name}
       label={label}
       type={type}
       defaultValue={defaultValue}
       variant="outlined"
       disabled={disabled}
       autoComplete="new-password"
-      // error={!!errors[name]}
-      helperText={errors[name]?.message?.toString() || ""}
+      error={!!(name && errors?.[name])}
+      helperText={errorMessage}
       size={size}
+      multiline={multiline}
+      rows={rows}
       slotProps={{
         inputLabel: {
           shrink: true,
@@ -57,5 +70,5 @@ export const Inputs = <T extends FieldValues>({
         },
       }}
     />
-  )
-}
+  );
+};
