@@ -77,7 +77,10 @@ export const MobileBloodBankReaction = () => {
                 <BloodBagDetails />
                 <div>
                     <label className="text-[#B5B5B5] text-base">บันทึกปฏิกิริยาหลังรับเลือด</label>
-                    <ReactionStatusRadio selectedValue={selectedValue} setSelectedValue={setSelectedValue} />
+                    <ReactionStatusRadio
+                        selectedValue={selectedValue}
+                        setSelectedValue={setSelectedValue}
+                    />
                 </div>
                 <div className="flex">
                     <Autocompletes
