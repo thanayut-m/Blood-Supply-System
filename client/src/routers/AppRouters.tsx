@@ -7,12 +7,13 @@ import { MobileSignup } from "../auth/mobile/MobileSignup";
 import { MobileBloodBankGiveList } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveList";
 import { MobileSearch } from "../pages/search/Mobile/MobileSearch";
 import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
+import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
 
 //Desktop
 import { DesktopSignIn } from "../auth/desktop/DesktopSignIn";
 import { DesktopSignup } from "../auth/desktop/DesktopSignup";
 import { DesktopBloodBankGiveList } from "../pages/BloodBankGiveList/Desktop/DesktopBloodBankGiveList";
-import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
+
 
 
 

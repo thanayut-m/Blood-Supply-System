@@ -8,6 +8,7 @@ import { Inputs } from "../../../components/MUI/Inputs/Inputs";
 import { SymptomCheckboxGroup } from "./MobileBloodBankReaction/SymptomCheckboxGroup";
 import { RecorderInfoForm } from "./MobileBloodBankReaction/RecorderInfoForm";
 import { Buttons } from "../../../components/Buttons";
+import { useNavigate } from "react-router";
 
 interface FormData {
     symptom_severity: string;
@@ -35,7 +36,8 @@ interface FormData {
 }
 
 export const MobileBloodBankReaction = () => {
-    const { register, control, handleSubmit } = useForm<FormData>({});
+    const navigate = useNavigate();
+    const { register, reset, control, handleSubmit } = useForm<FormData>({});
     const [selectedValue, setSelectedValue] = useState('normal');
 
     const handleSave = (data: FormData) => {
@@ -70,10 +72,20 @@ export const MobileBloodBankReaction = () => {
                 }
             };
             console.log(data2);
+            reset();
         } catch (error) {
             console.log(error);
         }
     };
+
+    const handleOnClose = () => {
+        try {
+            navigate("/BloodBankGiveList")
+            reset();
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <MobilePrivateLayout2>
@@ -137,8 +149,9 @@ export const MobileBloodBankReaction = () => {
                 </div>
                 <RecorderInfoForm register={register} />
                 <hr className="text-[#B5B5B5]" />
-                <div className="grid grid-cols-2 gap-2 ">
+                <div className="grid grid-cols-2 gap-2 py-1 ">
                     <Buttons
+                        onClick={handleOnClose}
                         className="bg-[#FF7726] text-white">
                         ยกเลิก
                     </Buttons>
