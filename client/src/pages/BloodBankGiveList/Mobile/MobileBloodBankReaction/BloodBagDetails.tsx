@@ -2,7 +2,7 @@ import donorIcon1 from '../../../../assets/icon/donor_Icon1.png';
 import { Inputs } from '../../../../components/MUI/Inputs/Inputs';
 
 export const BloodBagDetails = () => (
-    <div className="flex flex-col bg-white rounded-2xl p-3 shadow-xl">
+    <div className="flex flex-col bg-white rounded-2xl p-3 shadow-xl/25">
         <div className="flex flex-col gap-2">
             <div className="flex flex-row gap-1">
                 <img src={donorIcon1} className="w-6 h-6 object-contain" alt="Icon" />

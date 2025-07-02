@@ -14,7 +14,7 @@ export const Autocompletes = <T extends FieldValues>({
     control
 }: AutocompletesProps<T>) => {
     const options = [
-        { label: 'The Godfather', id: 1 },
+        { label: '', id: null },
         { label: 'Pulp Fiction', id: 2 },
     ];
 
@@ -29,11 +29,16 @@ export const Autocompletes = <T extends FieldValues>({
                     size="small"
                     options={options}
                     getOptionLabel={(option) => option.label}
-                    onChange={(_, value) => field.onChange(value)} // สำคัญ!
+                    onChange={(_, value) => field.onChange(value)}
                     renderInput={(params) => (
                         <TextField
                             {...params}
                             label={label}
+                            slotProps={{
+                                inputLabel: {
+                                    shrink: true,
+                                },
+                            }}
                             sx={{
                                 '& .MuiInputBase-input': {
                                     fontSize: '0.7rem',
