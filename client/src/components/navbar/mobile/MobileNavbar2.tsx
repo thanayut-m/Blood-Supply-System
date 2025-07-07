@@ -7,6 +7,8 @@ export const MobileNavbar2 = () => {
         switch (location.pathname) {
             case "/MobileBloodBankReaction":
                 return "บันทึกข้อมูลปฏิกิริยาหลังรับเลือด";
+            case "/MobileBloodBankGiveDetail":
+                return "บันทึกการให้โลหิต";
             default:
                 return "Blood Bank";
         }

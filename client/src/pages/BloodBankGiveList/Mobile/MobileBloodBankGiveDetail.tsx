@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Buttons } from "../../../components/Buttons"
-import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout"
 import { Modals } from "../../../components/modal/Modals";
 import { FormInputScan } from "../../../components/inputs/FormInputScan";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { FormSelect } from "../../../components/Select/FormSelect";
+import { MobilePrivateLayout2 } from "../../../layouts/MobilePrivateLayout2";
+import { Autocompletes } from "../../../components/MUI/Autocompletes";
 
 export const MobileBloodBankGiveDetail = () => {
-    const { register, setValue, reset } = useForm({});
+    const { register, setValue, reset, control } = useForm({});
     const [openModal, setOpenModal] = useState<string | null>(null);
 
 
@@ -67,119 +68,253 @@ export const MobileBloodBankGiveDetail = () => {
 
     return (
         <div>
-            <MobilePrivateLayout>
-                <div className="p-2 bg-white rounded-lg shadow-md space-y-3 text-gray-800">
-                    <div>
-                        <div className="text-lg font-semibold mb-2">ข้อมูลผู้ขอเลือด</div>
-                        <div className="grid grid-cols-2 gap-y-2 text-sm">
-                            <div className="col-span-2">
-                                HN :&nbsp;
-                                <span className="font-medium">
-                                    123456789
+            <MobilePrivateLayout2>
+                <div className="flex flex-col gap-2">
+                    <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25">
+                        <label className="text-[#B5B5B5]">
+                            ข้อมูลผู้ขอโลหิต
+                        </label>
+                        <div className="grid grid-cols-12 px-3 gap-1 text-[0.600rem] mt-1">
+                            <div className="col-span-8 text-[#B5B5B5]">
+                                ชื่อผู้ป่วย <span className="text-black">
+                                    นายทดสอบระบบ ล็อกอินส์
                                 </span>
                             </div>
-                            <div className="col-span-2">
-                                ชื่อ-สกุล :&nbsp;
-                                <span className="font-medium">
-                                    นายทดสอบ ทดสอบ
+                            <div className="col-span-4 text-[#B5B5B5]">
+                                HN <span className="text-black">
+                                    650060141
                                 </span>
                             </div>
-                            <div>
-                                อายุ :&nbsp;
-                                <span className="font-medium">
-                                    18
+                            <div className="col-span-3 text-[#B5B5B5]">
+                                อายุ <span className="text-black">
+                                    47
                                 </span>
                             </div>
-                            <div>
-                                เพศ :&nbsp;
-                                <span className="font-medium">
+                            <div className="col-span-3 text-[#B5B5B5]">
+                                เพศ <span className="text-black">
                                     ชาย
                                 </span>
                             </div>
-                            <div>
-                                หมู่เลือด :&nbsp;
-                                <span className="font-medium">
+                            <div className="col-span-3 text-[#B5B5B5]">
+                                หมู่เลือด <span className="text-black">
                                     O
                                 </span>
                             </div>
-                            <div>
-                                Rh :&nbsp;
-                                <span className="font-medium">
+                            <div className="col-span-3 text-[#B5B5B5]">
+                                Rh <span className="text-black">
                                     +
                                 </span>
                             </div>
-                            <div>
-                                วันที่ให้โลหิต :&nbsp;
-                                <span className="font-medium">
-                                    30/06/2568
-                                </span>
-                            </div>
-                            <div>
-                                เวลาที่ให้โลหิต :&nbsp;
-                                <span className="font-medium">
-                                    10:51:50
-                                </span>
+                            <div className="col-span-12 mt-1">
+                                <div className="grid grid-flow-col gap-1">
+                                    <div className="row-span-3">
+                                        <div className="text-[#B5B5B5]">
+                                            วันที่ให้โลหิต <span className="text-black">
+                                                02/07/2568
+                                            </span>
+                                        </div>
+                                        <div className="text-[#B5B5B5] mt-1">
+                                            เวลาให้โลหิต <span className="text-black">
+                                                15:33:28
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="col-span-4 row-span-2">
+                                        <Autocompletes
+                                            control={control}
+                                            name="blood_donor_name"
+                                            label="ผูให้โลหิต"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <div className="grid grid-cols-1 gap-6 text-sm">
-                        <div className="bg-gray-50 p-2 rounded-lg border">
-                            <div className="text-base font-semibold text-gray-700 mb-1">
-                                Antibody Screening : <span className="text-green-600">Negative</span>
-                            </div>
-                            <div className="grid grid-cols-2 gap-y-1">
-                                <div></div>
-                                <div className="font-semibold">Result</div>
-
-                                <div className="text-right pr-2">O1 :</div>
-                                <div className="text-left pl-2">Negative</div>
-
-                                <div className="text-right pr-2">O2 :</div>
-                                <div className="text-left pl-2">Negative</div>
-
-                                <div className="text-right pr-2">O3 :</div>
-                                <div className="text-left pl-2">Negative</div>
-                            </div>
+                    <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">
+                        <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25 ">
+                            <p className="text-[#B5B5B5] text-[0.600rem]">
+                                Antibody Screening
+                            </p>
+                            <p>NEGATVE</p>
+                            <hr className="text-[#B5B5B5]" />
+                            <p className="text-[#B5B5B5]">
+                                O1 <span className="text-black">
+                                    NEGATVE
+                                </span>
+                            </p>
+                            <p className="text-[#B5B5B5]">
+                                O2 <span className="text-black">
+                                    NEGATVE
+                                </span>
+                            </p>
+                            <p className="text-[#B5B5B5]">
+                                O3 <span className="text-black">
+                                    NEGATVE
+                                </span>
+                            </p>
                         </div>
-
-                        <div className="bg-gray-50 p-2 rounded-lg border">
-                            <div className="text-base font-semibold text-gray-700 mb-1">
-                                Auto Control And DAT
-                            </div>
-                            <div className="grid grid-cols-2 gap-y-1">
-                                <div></div>
-                                <div className="font-semibold">Result</div>
-
-                                <div className="text-right pr-2">AC :</div>
-                                <div className="text-left pl-2">Negative</div>
-
-                                <div className="text-right pr-2">DAT :</div>
-                                <div className="text-left pl-2">Negative</div>
-
-                                <div className="text-right pr-2">IAT :</div>
-                                <div className="text-left pl-2">Negative</div>
-                            </div>
+                        <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25">
+                            <p className="text-[#B5B5B5] text-[0.600rem]">
+                                auto Control and DAT
+                            </p>
+                            <hr className="text-[#B5B5B5] mt-5" />
+                            <p className="text-[#B5B5B5]">
+                                AC <span className="text-black">
+                                    NEGATVE
+                                </span>
+                            </p>
+                            <p className="text-[#B5B5B5]">
+                                DAT <span className="text-black">
+                                    NEGATVE
+                                </span>
+                            </p>
+                            <p className="text-[#B5B5B5]">
+                                O3 <span className="text-black">
+                                    NEGATVE
+                                </span>
+                            </p>
                         </div>
-                        <div className="bg-gray-50 p-4 rounded-lg border">
-                            <div className="text-base font-semibold text-gray-700 mb-2">
-                                สถานะถุงเลือด
+                    </div>
+                    <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25 text-[0.600rem]">
+                        <div className="flex flex-col gap-3">
+                            <div className="grid grid-cols-12">
+                                <div className="col-span-4">รูปภาพ</div>
+                                <div className="col-span-8 flex flex-col gap-1">
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            เลชที่ถุง
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            21066101405
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            หมู่เลือด
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            O
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            Rh
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            +
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            ประเภทโลหิต
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            Pack Red Call (PRC)
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            วันที่หมดอายุ
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            01/03/2568
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            ปริมาณ (cc)</p>
+                                        <p className="col-span-7 text-start">
+                                            450
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            result
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            NEGATVE
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            ผู้ทำ
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            นายทดสอบระบบ ล็อกอินส์
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            วัน/เวลา ที่ทำ
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            01/03/2568 10:00
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            ผู้คล้อง
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            นายทดสอบระบบ ล็อกอินส์
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            วัน/เวลา คล้อง
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            01/03/2568 10:00
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-12 gap-3">
+                                        <p className="col-span-5 text-end text-[#B5B5B5]">
+                                            หมายเหตุ
+                                        </p>
+                                        <p className="col-span-7 text-start">
+                                            -
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="grid grid-cols-2 items-center gap-4 p-3 border rounded-md bg-gray-50 text-sm">
-                                <div className="font-medium text-gray-700">1201201223233</div>
-                                <div className="text-yellow-600 font-semibold">รอการตรวจสอบ</div>
+                            <div className="grid grid-cols-4 gap-2 text-center">
+                                <div className="bg-blue-200 rounded-lg px-4 py-2 shadow-xl/25">
+                                    <p className="text-black">คล้องโลหิต</p>
+                                    <p>🔵</p>
+                                </div>
+                                <div className="bg-[#ececec] rounded-lg px-4 py-2 shadow-xl/25">
+                                    <p className="text-[#B5B5B5]">ตรวจสอบ</p>
+                                    <p>⚪</p>
+                                </div>
+                                <div className="bg-[#ececec] rounded-lg px-4 py-2 shadow-xl/25">
+                                    <p className="text-[#B5B5B5]">จ่ายโลหิต</p>
+                                    <p>⚪</p>
+                                </div>
+                                <div className="bg-[#ececec] rounded-lg px-4 py-2 shadow-xl/25">
+                                    <p className="text-[#B5B5B5]">ปฏิกิริยา</p>
+                                    <p>⚪</p>
+                                </div>
                             </div>
-
                         </div>
                     </div>
                     <Buttons
-                        onClick={() => handleOpen("openMenuBloodBankDetail")}
-                        variant="secondary"
+                        className="bg-blue-700 text-white py-3 px-5 rounded-xl"
                     >
-                        ตรวจสอบเลือด
+                        <div className="flex flex-col">
+                            <p className="text-[0.800rem]">ตรวจสอบการจ่ายโลหิต</p>
+                            <p className="text-[0.600rem]">กรุณากดปุ่มเพื่อ Scan Barcode หน้าถุงโลหิต</p>
+                        </div>
+                    </Buttons>
+                    <div>
+                        สถานะตรวจสอบ
+                    </div>
+                    <Buttons
+                        className="bg-blue-700 text-white py-3 px-5 rounded-3xl"
+                    >
+                        จ่ายโลหิต
                     </Buttons>
                 </div>
-            </MobilePrivateLayout>
+            </MobilePrivateLayout2>
             <Modals
                 open={openModal === "openMenuBloodBankDetail"}
                 onClose={handleClose}

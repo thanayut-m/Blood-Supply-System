@@ -13,7 +13,7 @@ export const MobilePrivateLayout2 = ({
             <div className="fixed top-0 left-0 w-full z-50">
                 <MobileNavbar2 />
             </div>
-            <main className="pt-[80px]">
+            <main className="pt-[80px] p-4">
                 {children}
             </main>
         </div>

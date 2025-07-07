@@ -26,7 +26,7 @@ export const Buttons = ({
     else if (variant === "error") variantClass = "btn-error";
     else if (variant === "square") variantClass = "btn-square";
 
-    const btnClass = `btn btn-active w-full rounded-4xl ${variantClass} ${className}`;
+    const btnClass = `w-full ${variantClass} ${className}`;
 
     return (
         <button

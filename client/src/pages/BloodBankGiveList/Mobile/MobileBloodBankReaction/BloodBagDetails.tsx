@@ -8,7 +8,7 @@ export const BloodBagDetails = () => (
                 <img src={donorIcon1} className="w-6 h-6 object-contain" alt="Icon" />
                 <label className="text-[#B5B5B5] text-sm">รายละเอียดถุงเลือด</label>
             </div>
-            <div className="grid grid-cols-12 px- text-[0.600rem] gap-1">
+            <div className="grid grid-cols-12  text-[0.600rem] gap-1">
                 <div className="col-span-5 text-[#B5B5B5]">เลขที่ถุง <span className="text-black">21066101405</span></div>
                 <div className="col-span-2 text-[#B5B5B5]">หมู่เลือด <span className="text-black">O</span></div>
                 <div className="col-span-1 text-[#B5B5B5]">Rh <span className="text-black">+</span></div>
