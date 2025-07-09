@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { MobilePrivateLayout2 } from "../../../layouts/MobilePrivateLayout2";
+import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout";
 import { BloodBagDetails } from "./MobileBloodBankReaction/BloodBagDetails";
 import { ReactionStatusRadio } from "./MobileBloodBankReaction/ReactionStatusRadio";
 import { Autocompletes } from "../../../components/MUI/Autocompletes";
@@ -88,7 +88,7 @@ export const MobileBloodBankReaction = () => {
     }
 
     return (
-        <MobilePrivateLayout2>
+        <MobilePrivateLayout>
             <div className="flex flex-col gap-2">
                 <BloodBagDetails />
                 <div>
@@ -164,6 +164,6 @@ export const MobileBloodBankReaction = () => {
                     </Buttons>
                 </div>
             </div>
-        </MobilePrivateLayout2>
+        </MobilePrivateLayout>
     );
 };

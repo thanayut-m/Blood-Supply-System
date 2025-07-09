@@ -5,6 +5,7 @@ interface ButtonProps {
     type?: "button" | "submit" | "reset";
     onClick?: React.MouseEventHandler<HTMLButtonElement>;
     isSubmitting?: boolean;
+    disabled?: boolean;
 }
 
 export const Buttons = ({
@@ -14,6 +15,7 @@ export const Buttons = ({
     type = "button",
     onClick,
     isSubmitting = false,
+    disabled = false,
 }: ButtonProps) => {
     let variantClass = "";
 
@@ -26,13 +28,13 @@ export const Buttons = ({
     else if (variant === "error") variantClass = "btn-error";
     else if (variant === "square") variantClass = "btn-square";
 
-    const btnClass = `w-full ${variantClass} ${className}`;
+    const btnClass = `w-full ${variantClass} ${className} ${disabled ? 'bg-gray-300 cursor-not-allowed' : ''}`;
 
     return (
         <button
             type={type}
             onClick={onClick}
-            disabled={isSubmitting}
+            disabled={isSubmitting || disabled}
             className={btnClass}
         >
             {isSubmitting ? (

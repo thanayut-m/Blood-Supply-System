@@ -1,6 +1,6 @@
 import { Buttons } from "../../../components/Buttons"
 import { useForm } from "react-hook-form";
-import { MobilePrivateLayout2 } from "../../../layouts/MobilePrivateLayout2";
+import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout";
 import { PatientInfoCard } from "./MobileBloodBankGiveDetail/PatientInfoCard";
 import { AntibodyCard } from "./MobileBloodBankGiveDetail/AntibodyCard";
 import { AutoControlCard } from "./MobileBloodBankGiveDetail/AutoControlCard";
@@ -12,7 +12,7 @@ export const MobileBloodBankGiveDetail = () => {
     const { control } = useForm({});
     return (
         <div>
-            <MobilePrivateLayout2>
+            <MobilePrivateLayout>
                 <div className="flex flex-col gap-2">
 
                     <PatientInfoCard
@@ -43,12 +43,13 @@ export const MobileBloodBankGiveDetail = () => {
                     <BarcodeWarning />
 
                     <Buttons
-                        className="bg-gray-300 text-white py-3 px-5 rounded-3xl"
+                        className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
+                        disabled
                     >
                         จ่ายโลหิต
                     </Buttons>
                 </div>
-            </MobilePrivateLayout2>
+            </MobilePrivateLayout>
         </div>
     )
 }

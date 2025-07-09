@@ -1,27 +1,23 @@
-import type React from "react"
-import { MobileNavbar } from "../components/navbar/mobile/MobileNavbar"
-import { MobileFooter } from "../components/footer/mobile/MobileFooter"
+import { MobileNavbar2 } from "../components/navbar/mobile/MobileNavbar2"
 
-interface MobilePrivateLayoutProps {
+interface MobilePrivateLayout2Props {
     children: React.ReactNode
 }
 
+
 export const MobilePrivateLayout = ({
     children
-}: MobilePrivateLayoutProps) => {
+}: MobilePrivateLayout2Props) => {
     return (
-        <div className="relative min-h-screen bg-[#F5F5F5] pt-[50px] pb-[60px]">
-            <div className="fixed top-0 left-0 right-0 z-50">
-                <MobileNavbar />
+        <div className="relative h-[120px] bg-[#FF7726] px-2">
+            <div className="fixed top-0 left-0 w-full z-50">
+                <MobileNavbar2 />
             </div>
-
-            <main className="p-4">
+            <main className="pt-[80px]">
                 {children}
             </main>
-
-            <div className="fixed bottom-0 left-0 right-0 z-50">
-                <MobileFooter />
-            </div>
         </div>
+
+
     )
 }
