@@ -7,10 +7,22 @@ interface ModalsProps {
     content?: React.ReactNode;
     actions?: React.ReactNode;
     width?: string;
+    high?: string;
     infoList?: { label: string; value: string }[];
+    titleClassName?: string;
 }
 
-export const Modals = ({ open, onClose, width, title, content, actions, infoList }: ModalsProps) => {
+export const Modals = ({
+    open,
+    onClose,
+    width,
+    high,
+    title,
+    content,
+    actions,
+    infoList,
+    titleClassName
+}: ModalsProps) => {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -32,11 +44,11 @@ export const Modals = ({ open, onClose, width, title, content, actions, infoList
             ></div>
 
             <div
-                className={`relative bg-white rounded-lg p-6 shadow-lg  ${width} transform transition-all duration-300 ease-in-out ${show ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                className={`relative bg-white rounded-lg p-6 shadow-lg  ${width} ${high} transform transition-all duration-300 ease-in-out ${show ? "opacity-100 scale-100" : "opacity-0 scale-95"
                     }`}
             >
                 {title && (
-                    <h3 className="font-bold text-lg py-2">
+                    <h3 className={`font-bold text-lg py-2 ${titleClassName ?? ""}`}>
                         {title}
                     </h3>
                 )}
@@ -58,7 +70,7 @@ export const Modals = ({ open, onClose, width, title, content, actions, infoList
                         {content}
                     </div>
                 )}
-                <div className="modal-action flex justify-end gap-2">
+                <div>
                     {actions ? (
                         actions
                     ) : (

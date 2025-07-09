@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout"
 import { Modals } from "../../../components/modal/Modals";
 import { Buttons } from "../../../components/Buttons";
 import { useNavigate } from "react-router";
+import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout";
 
 export const MobileBloodBankGiveList = () => {
     const navigate = useNavigate();

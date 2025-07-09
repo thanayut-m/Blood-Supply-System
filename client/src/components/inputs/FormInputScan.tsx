@@ -60,6 +60,7 @@ export const FormInputScan = <T extends FieldValues>({
                 open={openModal === "createUser"}
                 onClose={handleClose}
                 width="w-[100%]"
+                high="h-full"
                 title="Scan"
                 content={
                     <Scanner
