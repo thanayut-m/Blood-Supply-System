@@ -129,14 +129,13 @@ export const MobileBloodBankGiveList = () => {
                             <div className="flex flex-col gap-3">
                                 <Buttons
                                     variant="info"
-                                    className="text-black"
+                                    className="text-black bg-[#3abff8] py-2 rounded-4xl"
                                     onClick={() => handleGiveBlood("give")}
                                 >
                                     ให้เลือดคนไข้
                                 </Buttons>
                                 <Buttons
-                                    variant="accent"
-                                    className="text-black"
+                                    className="text-black bg-[#37cdbe] py-2 rounded-4xl"
                                     onClick={() => handleGiveBlood("reaction")}
                                 >
                                     ปฏิกิริยารับเลือด
@@ -146,7 +145,7 @@ export const MobileBloodBankGiveList = () => {
                         actions={
                             <Buttons
                                 variant="error"
-                                className="text-black"
+                                className="text-white bg-red-500 py-2 rounded-4xl mt-4"
                                 onClick={handleClose}
                             >
                                 ยกเลิก
