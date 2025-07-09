@@ -135,7 +135,9 @@ export const MobileBloodBankReaction = () => {
                         defaultValue=""
                     />
                 </div>
-                <SymptomCheckboxGroup register={register} />
+                <SymptomCheckboxGroup
+                    register={register}
+                />
                 <div>
                     <Inputs
                         register={register}
@@ -152,12 +154,12 @@ export const MobileBloodBankReaction = () => {
                 <div className="grid grid-cols-2 gap-2 py-1 ">
                     <Buttons
                         onClick={handleOnClose}
-                        className="bg-[#FF7726] text-white">
+                        className="bg-[#FF7726] text-white p-2 rounded-4xl">
                         ยกเลิก
                     </Buttons>
                     <Buttons
                         onClick={handleSubmit(handleSave)}
-                        className="bg-[#2D63EA] text-white">
+                        className="bg-[#2D63EA] text-white  p-2 rounded-4xl">
                         บันทึก
                     </Buttons>
                 </div>
