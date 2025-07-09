@@ -38,7 +38,7 @@ export const Buttons = ({
             className={btnClass}
         >
             {isSubmitting ? (
-                <span className="flex items-center gap-2">
+                <span className="flex justify-center items-center gap-2">
                     <span className="loading loading-spinner loading-sm"></span>
                     กำลังเข้าสู่ระบบ...
                 </span>

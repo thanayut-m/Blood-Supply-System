@@ -26,9 +26,9 @@ export const MobileSignIn = () => {
                 icon: "success",
                 title: "เข้าสู่ระบบสำเร็จ",
                 showConfirmButton: false,
-                timer: 500
+                timer: 3000
             })
-            await new Promise((resolve) => setTimeout(resolve, 500));
+            await new Promise((resolve) => setTimeout(resolve, 3000));
             navigate("/BloodBankGiveList");
             console.log(data)
         } catch (error) {
@@ -60,15 +60,15 @@ export const MobileSignIn = () => {
                     />
                     <div className="mt-4">
                         <Buttons
-                            variant="primary"
                             isSubmitting={isSubmitting}
                             onClick={handleSubmit(onSaveSignUp)}
+                            className={`${isSubmitting ? "bg-gray-400" : "bg-blue-500"} rounded-2xl py-2 text-white`}
                         >
                             เข้าสู่ระบบ
                         </Buttons>
                     </div>
                 </div>
             </form>
-        </AuthLayout>
+        </AuthLayout >
     )
 }

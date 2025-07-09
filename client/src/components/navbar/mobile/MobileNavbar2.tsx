@@ -9,6 +9,8 @@ export const MobileNavbar2 = () => {
                 return "บันทึกข้อมูลปฏิกิริยาหลังรับเลือด";
             case "/MobileBloodBankGiveDetail":
                 return "บันทึกการให้โลหิต";
+            case "/BloodBankGiveList":
+                return "ให้เลือดผู้ป่วย";
             default:
                 return "Blood Bank";
         }

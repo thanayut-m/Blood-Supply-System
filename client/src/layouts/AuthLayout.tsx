@@ -4,7 +4,7 @@ interface AuthLayoutProps {
 
 export const AuthLayout = ({ children }: AuthLayoutProps) => {
     return (
-        <div className="bg-[#0D47A1] min-h-screen">
+        <div className="bg-[#FF7726] min-h-screen">
             <div className="grid grid-rows-3 min-h-screen">
                 <div className="flex flex-col justify-center items-center my-10">
                     <div className="w-48 h-48 rounded-full overflow-hidden">
