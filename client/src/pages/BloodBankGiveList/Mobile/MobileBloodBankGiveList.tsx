@@ -1,29 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modals } from "../../../components/modal/Modals";
 import { Buttons } from "../../../components/Buttons";
 import { useNavigate } from "react-router";
 import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout";
+import { getAllPatientTransfusions } from "../../../functions/AddPatientTransfusion";
+
+
+type TransfusionType = {
+    hn: string;
+    patient_name: string;
+    blood_code: string;
+    cm_result_name: string;
+    patient_pay_date: string;
+    patient_pay_staff_name: string;
+    hct: number;
+    hct_after: number;
+    blood_type_sub_name: string;
+    status: string | null;
+    patient_pay_status: string
+};
 
 export const MobileBloodBankGiveList = () => {
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState<string | null>(null);
-    const [selectRow, setSelectRow] = useState<typeof data[0] | null>(null)
+    const [transfusions, setTransfusions] = useState<TransfusionType[]>([]);
+    const [selectRow, setSelectRow] = useState<TransfusionType | null>(null);
 
-    const handleOpen = (modal: string, row: typeof data[0]) => {
+    const handleOpen = (modal: string, row: TransfusionType) => {
         setSelectRow(row);
         setOpenModal(modal);
     };
     const handleClose = () => {
         setOpenModal(null);
     };
-
-    const data = [
-        { id: 1, hn: "85652466", status: "Y", patient: "นาย ทดสอบ ทดสอบ1", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { id: 2, hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ2", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { id: 3, hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ3", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { id: 4, hn: "85652466", status: "จ่ายเลือดแล้ว", patient: "นาย ทดสอบ ทดสอบ", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" },
-        { id: 5, hn: "85652466", status: null, patient: "นาย ทดสอบ ทดสอบ5", bloodType: "PRC", bloodCode: "563235874563", resultCM: "Compatible", date: "27/06/2568 12:58", staffname: "นาย ทดสอบ ทดสอบ", hctb: "-", hcta: "-" }
-    ]
 
 
     const handleGiveBlood = async (actionType: "give" | "reaction") => {
@@ -43,12 +52,21 @@ export const MobileBloodBankGiveList = () => {
         }
     }
 
+    const allPatientTransfusionsInfo = async () => {
+        await getAllPatientTransfusions(setTransfusions)
+    }
+
+    useEffect(() => {
+        allPatientTransfusionsInfo();
+    }, [])
+
+    console.log(transfusions)
     return (
         <div>
             <MobilePrivateLayout>
                 <div className="flex flex-col gap-3">
                     <div className="flex flex-col gap-2">
-                        {data.map((item, index) => (
+                        {transfusions.map((item, index) => (
                             <div
                                 onClick={() => handleOpen("openMenuBloodBank", item)}
                                 key={index}
@@ -57,54 +75,54 @@ export const MobileBloodBankGiveList = () => {
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center space-x-1">
                                         <p className="font-semibold text-gray-700">HN:</p>
-                                        <p className="text-gray-900">{item.hn}</p>
+                                        <p className="text-gray-900">{item.hn ? item.hn : "-"}</p>
                                     </div>
                                     <span
-                                        className={`${item.status === null ? "text-orange-500" : "text-green-500"
+                                        className={`${item.patient_pay_status !== "Y" ? "text-orange-500" : "text-green-500"
                                             } font-semibold`}
                                     >
-                                        {item.status === "Y" ? "จ่ายเลือดแล้ว" : "รอจ่ายเลือด"}
+                                        {item.patient_pay_status !== "Y" ? "รอจ่ายเลือด" : "จ่ายเลือดแล้ว"}
                                     </span>
                                 </div>
 
                                 <div className="flex space-x-1">
                                     <p className="font-semibold text-gray-700">ชื่อ-สกุล:</p>
-                                    <p className="text-gray-900">{item.patient}</p>
+                                    <p className="text-gray-900">{item.patient_name ? item.patient_name : "-"}</p>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-x-4 text-gray-700">
                                     <div>
                                         <span className="font-semibold">ประเภทเลือด:</span>{" "}
-                                        <span className="text-gray-900">{item.bloodType}</span>
+                                        <span className="text-gray-900">{item.blood_type_sub_name ? item.blood_type_sub_name : "-"}</span>
                                     </div>
                                     <div>
                                         <span className="font-semibold">ถุงเลือด:</span>{" "}
-                                        <span className="text-gray-900">{item.bloodCode}</span>
+                                        <span className="text-gray-900">{item.blood_code ? item.blood_code : "-"}</span>
                                     </div>
                                     <div className="col-span-2">
                                         <div>
                                             <span className="font-semibold">ผล Cross Match:</span>{" "}
-                                            <span className="text-gray-900">{item.resultCM}</span>
+                                            <span className="text-gray-900">{item.cm_result_name ? item.cm_result_name : "-"}</span>
                                         </div>
                                         <div>
                                             <span className="font-semibold">วันที่ให้เลือด :</span>{" "}
-                                            <span className="text-gray-900">{item.date}</span>
+                                            <span className="text-gray-900">{item.patient_pay_date ? item.patient_pay_date : "-"}</span>
                                         </div>
                                     </div>
                                     <div className="col-span-2">
                                         <span className="font-semibold">ผู้ให้เลือด:</span>{" "}
-                                        <span className="text-gray-900">{item.staffname}</span>
+                                        <span className="text-gray-900">{item.patient_pay_staff_name ? item.patient_pay_staff_name : "-"}</span>
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-x-4 text-gray-700 mt-2">
                                     <div>
                                         <span className="font-semibold">HCT ก่อน:</span>{" "}
-                                        <span className="text-gray-900">{item.hctb}</span>
+                                        <span className="text-gray-900">{item.hct ? item.hct : "-"}</span>
                                     </div>
                                     <div>
                                         <span className="font-semibold">HCT หลัง:</span>{" "}
-                                        <span className="text-gray-900">{item.hcta}</span>
+                                        <span className="text-gray-900">{item.hct_after ? item.hct_after : "-"}</span>
                                     </div>
                                 </div>
                             </div>
@@ -119,11 +137,10 @@ export const MobileBloodBankGiveList = () => {
                         open={openModal === "openMenuBloodBank"}
                         onClose={handleClose}
                         width="w-[80%]"
-                        title="เมนู"
                         infoList={[
                             { label: "HN", value: selectRow.hn },
-                            { label: "ชื่อ", value: selectRow.patient },
-                            { label: "ถุงเลือด", value: selectRow.bloodCode },
+                            { label: "ชื่อ", value: selectRow.patient_name },
+                            { label: "ถุงเลือด", value: selectRow.blood_code },
                         ]}
                         content={
                             <div className="flex flex-col gap-3">

@@ -21,7 +21,7 @@ export const signIn = async (
         showConfirmButton: false,
       });
 
-      navigate("/");
+      navigate("/BloodBankGiveList");
     }
   } catch (error) {
     console.error("Sign in failed:", error);
