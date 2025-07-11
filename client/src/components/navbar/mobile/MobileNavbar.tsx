@@ -11,7 +11,7 @@ export const MobileNavbar = () => {
                 return "ค้นหา";
             case "/MobileBloodBankGiveDetail":
                 return "ธนาคารเลือด";
-            case "/MobileBloodBankReaction":
+            case "/BloodBankReaction":
                 return "บันทึกข้อมูลปฏิกิริยาหลังรับเลือด";
             default:
                 return "Blood Bank";

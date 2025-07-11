@@ -11,6 +11,8 @@ import { Modals } from "../../../components/modal/Modals";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { FormInputScanV2 } from "../../../components/inputs/FormInputScanV2";
+import { useLocation } from "react-router";
+import { useEffect } from "react";
 
 export const MobileBloodBankGiveDetail = () => {
     const { register, setValue, control } = useForm<{
@@ -25,11 +27,20 @@ export const MobileBloodBankGiveDetail = () => {
         }
     });
 
+    const location = useLocation();
+    const { bb_cross_macth_id } = location.state || {};
+
     const [openModal, setOpenModal] = useState<string | null>(null);;
 
     const handleOpen = (modal: string) => {
         setOpenModal(modal);
     };
+
+    useEffect(() => {
+
+    }, [])
+
+    console.log(bb_cross_macth_id);
 
     const handleClose = () => {
         Swal.fire({

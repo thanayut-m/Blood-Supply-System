@@ -89,14 +89,14 @@ export const AppRouters = () => {
                 />
 
                 <Route
-                    path="/MobileBloodBankGiveDetail"
+                    path="/BloodBankGiveDetail"
                     element={isMobile &&
                         <MobileBloodBankGiveDetail />
                     }
                 />
 
                 <Route
-                    path="/MobileBloodBankReaction"
+                    path="/BloodBankReaction"
                     element={isMobile &&
                         <MobileBloodBankReaction />
                     }

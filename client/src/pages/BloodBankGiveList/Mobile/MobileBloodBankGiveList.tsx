@@ -4,6 +4,7 @@ import { Buttons } from "../../../components/Buttons";
 import { useNavigate } from "react-router";
 import { MobilePrivateLayout } from "../../../layouts/MobilePrivateLayout";
 import { getAllPatientTransfusions } from "../../../functions/AddPatientTransfusion";
+import dayjs from "dayjs";
 
 
 type TransfusionType = {
@@ -18,6 +19,7 @@ type TransfusionType = {
     blood_type_sub_name: string;
     status: string | null;
     patient_pay_status: string
+    bb_cross_macth_id: number;
 };
 
 export const MobileBloodBankGiveList = () => {
@@ -39,13 +41,10 @@ export const MobileBloodBankGiveList = () => {
         try {
             if (!selectRow) return;
 
-            console.log(selectRow.hn)
-            console.log(selectRow.id)
-
             if (actionType === "give") {
-                navigate("/MobileBloodBankGiveDetail");
+                navigate("/BloodBankGiveDetail", { state: { bb_cross_macth_id: selectRow.bb_cross_macth_id } });
             } else {
-                navigate("/MobileBloodBankReaction");
+                navigate("/BloodBankReaction");
             }
         } catch (error) {
             console.log(error)
@@ -106,7 +105,7 @@ export const MobileBloodBankGiveList = () => {
                                         </div>
                                         <div>
                                             <span className="font-semibold">วันที่ให้เลือด :</span>{" "}
-                                            <span className="text-gray-900">{item.patient_pay_date ? item.patient_pay_date : "-"}</span>
+                                            <span className="text-gray-900">{item.patient_pay_date ? dayjs(item.patient_pay_date).format("DD/MM/YYYY") : "-"}</span>
                                         </div>
                                     </div>
                                     <div className="col-span-2">

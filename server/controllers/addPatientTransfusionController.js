@@ -5,6 +5,7 @@ export const getAllPatientTransfusions = async (req, res, next) => {
     const today = new Date().toISOString().slice(0, 10);
     const result = await query_db(
       `SELECT
+            b2.bb_cross_macth_id,
             b1.hn,
             b1.patient_name,
             b2.blood_code,
