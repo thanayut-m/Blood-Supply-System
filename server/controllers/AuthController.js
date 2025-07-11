@@ -92,7 +92,7 @@ export const resetPassword = async (req, res, next) => {
 export const currentUser = async (req, res, next) => {
   try {
     const result = await query_db(
-      "SELECT staff_name FROM staff WHERE staff_id = ?",
+      "SELECT staff_id,staff_name FROM staff WHERE staff_id = ?",
       [req.staff_id.id]
     );
 
@@ -106,6 +106,7 @@ export const currentUser = async (req, res, next) => {
     res.status(200).json({
       success: true,
       staff: result[0].staff_name,
+      staffId: result[0].staff_id,
     });
   } catch (error) {
     next(error);

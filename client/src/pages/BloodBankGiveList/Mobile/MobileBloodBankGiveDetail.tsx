@@ -36,10 +36,6 @@ export const MobileBloodBankGiveDetail = () => {
         setOpenModal(modal);
     };
 
-    useEffect(() => {
-
-    }, [])
-
     console.log(bb_cross_macth_id);
 
     const handleClose = () => {

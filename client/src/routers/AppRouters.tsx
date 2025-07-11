@@ -40,8 +40,8 @@ export const AppRouters = () => {
             return;
         }
         try {
-            await currentUser();
-            // console.log(result)
+            const result = await currentUser();
+            console.log(result)
 
         } catch (error) {
             console.log(error)

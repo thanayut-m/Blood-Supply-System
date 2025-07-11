@@ -8,7 +8,7 @@ export const getAllPatientTransfusions = async (
 ) => {
   try {
     const result = await axios.get(
-      VITE_API_PATH + "/addPatientTransfusion/getAllPatientTransfusions",
+      VITE_API_PATH + "/addPatientTransfusion/getAllPatientTransfusionsInfo",
       {
         headers: api.headers(),
       }
