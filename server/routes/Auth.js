@@ -3,4 +3,4 @@ import { resetPassword } from "../controllers/AuthController.js";
 
 export const router = express.Router();
 
-router.get("/resetPassword", resetPassword);
+router.put("/resetPassword", resetPassword);

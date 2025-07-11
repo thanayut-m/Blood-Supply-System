@@ -13,6 +13,7 @@ import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/Mobil
 import { DesktopSignIn } from "../auth/desktop/DesktopSignIn";
 import { DesktopSignup } from "../auth/desktop/DesktopSignup";
 import { DesktopBloodBankGiveList } from "../pages/BloodBankGiveList/Desktop/DesktopBloodBankGiveList";
+import { MobileResetPassword } from "../auth/mobile/MobileResetPassword";
 
 
 
@@ -79,6 +80,13 @@ export const AppRouters = () => {
                     path="/MobileBloodBankReaction"
                     element={isMobile &&
                         <MobileBloodBankReaction />
+                    }
+                />
+
+                <Route
+                    path="/ResetPassword"
+                    element={isMobile &&
+                        <MobileResetPassword />
                     }
                 />
 
