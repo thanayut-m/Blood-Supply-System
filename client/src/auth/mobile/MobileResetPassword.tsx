@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form"
 import { FormInput } from "../../components/inputs/FormInput"
 import { AuthLayout } from "../../layouts/AuthLayout"
 import { Buttons } from "../../components/Buttons"
-import { ResetPassword } from "../../functions/Auth"
 import { useNavigate } from "react-router"
+import { ResetPassword } from "../../functions/Auth"
 
 
 export const MobileResetPassword = () => {

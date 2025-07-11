@@ -1,5 +1,6 @@
 import { useMediaQuery } from "react-responsive";
 import { Routes, Route } from "react-router";
+import { useEffect } from "react";
 
 //mobile
 import { MobileSignIn } from "../auth/mobile/MobileSignIn";
@@ -8,17 +9,14 @@ import { MobileBloodBankGiveList } from "../pages/BloodBankGiveList/Mobile/Mobil
 import { MobileSearch } from "../pages/search/Mobile/MobileSearch";
 import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
 import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
+import { MobileResetPassword } from "../auth/mobile/MobileResetPassword";
+
 
 //Desktop
 import { DesktopSignIn } from "../auth/desktop/DesktopSignIn";
 import { DesktopSignup } from "../auth/desktop/DesktopSignup";
 import { DesktopBloodBankGiveList } from "../pages/BloodBankGiveList/Desktop/DesktopBloodBankGiveList";
-import { MobileResetPassword } from "../auth/mobile/MobileResetPassword";
-
-
-
-
-
+import { currentUser } from "../functions/Auth";
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
@@ -32,6 +30,27 @@ export const AppRouters = () => {
     //     }, 300);
     //     return () => clearTimeout(timeOut);
     // }, [location]);
+
+    const fetchUser = async () => {
+        const idToken = localStorage.getItem(import.meta.env.VITE_SET_TOKEN)
+        // console.log(isToken)
+
+        if (!idToken) {
+            console.warn("ไม่พบ token ใน localStorage");
+            return;
+        }
+        try {
+            const result = await currentUser();
+            console.log(result)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchUser();
+    }, []);
 
     return (
         <div>
@@ -89,8 +108,6 @@ export const AppRouters = () => {
                         <MobileResetPassword />
                     }
                 />
-
-
 
 
                 {/* <Route path="/private/*" element={<PrivateRouters />} /> */}

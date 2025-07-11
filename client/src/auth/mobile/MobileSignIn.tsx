@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { schemaSignIn } from "../../utils/Schema"
 import { useEffect } from "react"
-import Swal from "sweetalert2"
 import { useNavigate } from "react-router"
+import { signIn } from "../../functions/Auth.js"
 
 export const MobileSignIn = () => {
     const navigate = useNavigate();
@@ -20,20 +20,8 @@ export const MobileSignIn = () => {
         document.title = "เข้าสู่ระบบ || Logins Medical"
     }, [])
 
-    const onSaveSignUp = async (data: object) => {
-        try {
-            Swal.fire({
-                icon: "success",
-                title: "เข้าสู่ระบบสำเร็จ",
-                showConfirmButton: false,
-                timer: 1000
-            })
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            navigate("/BloodBankGiveList");
-            console.log(data)
-        } catch (error) {
-            console.log(error)
-        }
+    const onSaveSignIn = async (data: object) => {
+        signIn(data, navigate)
     }
 
     return (
@@ -61,7 +49,7 @@ export const MobileSignIn = () => {
                     <div className="mt-4">
                         <Buttons
                             isSubmitting={isSubmitting}
-                            onClick={handleSubmit(onSaveSignUp)}
+                            onClick={handleSubmit(onSaveSignIn)}
                             className={`${isSubmitting ? "bg-gray-400" : "bg-blue-500"} rounded-2xl py-2 text-white`}
                         >
                             เข้าสู่ระบบ
