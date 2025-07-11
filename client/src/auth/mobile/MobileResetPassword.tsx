@@ -3,16 +3,18 @@ import { FormInput } from "../../components/inputs/FormInput"
 import { AuthLayout } from "../../layouts/AuthLayout"
 import { Buttons } from "../../components/Buttons"
 import { ResetPassword } from "../../functions/Auth"
+import { useNavigate } from "react-router"
 
 
 export const MobileResetPassword = () => {
     const { register, formState, handleSubmit } = useForm({})
-
     const { errors, isSubmitting } = formState;
 
-    const onSaveReset = (data: object) => {
+    const navigate = useNavigate();
+
+    const onSaveResetPassword = (data: object) => {
         try {
-            ResetPassword(data);
+            ResetPassword(data, navigate);
         } catch (error) {
             console.log(error)
         }
@@ -51,7 +53,7 @@ export const MobileResetPassword = () => {
                     <div className="mt-4">
                         <Buttons
                             isSubmitting={isSubmitting}
-                            onClick={handleSubmit(onSaveReset)}
+                            onClick={handleSubmit(onSaveResetPassword)}
                             className={`${isSubmitting ? "bg-gray-400" : "bg-blue-500"} rounded-2xl py-2 text-white`}
                         >
                             บันทึก
