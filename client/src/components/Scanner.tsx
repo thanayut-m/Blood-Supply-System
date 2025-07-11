@@ -20,7 +20,7 @@ export const Scanner = forwardRef<ScannerRef, ScannerProps>(({ onResult }, ref) 
     const codeReader = new BrowserMultiFormatReader();
     readerRef.current = codeReader;
 
-    codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (result: Result | undefined, error, controls) => {
+    codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (result: Result | undefined, _, controls) => {
       if (result) {
         const text = result.getText();
         onResult?.(text);
