@@ -1,53 +1,66 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
-import { IoIosQrScanner } from "react-icons/io";
+import type { Result } from "@zxing/library";
+import OutlineScan from "../assets/OutlineScan.png";
+
+export interface ScannerRef {
+  stopCamera: () => void;
+}
 
 interface ScannerProps {
   onResult?: (value: string) => void;
 }
 
-export const Scanner = ({ onResult }: ScannerProps) => {
-  // const [result, setResult] = useState("");
+export const Scanner = forwardRef<ScannerRef, ScannerProps>(({ onResult }, ref) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
     const codeReader = new BrowserMultiFormatReader();
     readerRef.current = codeReader;
 
-    codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (res) => {
-      if (res) {
-        const text = res.getText();
-        // setResult(text);
+    codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (result: Result | undefined, error, controls) => {
+      if (result) {
+        const text = result.getText();
         onResult?.(text);
 
-        (codeReader as unknown as { reset: () => void }).reset();
+        stopStream();
+        controls.stop();
       }
+    }).then(() => {
+      const stream = videoRef.current?.srcObject as MediaStream | null;
+      streamRef.current = stream;
     });
 
     return () => {
-      (readerRef.current as unknown as { reset: () => void })?.reset?.();
+      stopStream();
     };
   }, [onResult]);
 
+  const stopStream = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    stopCamera() {
+      stopStream();
+    }
+  }));
+
   return (
-    <div className="relative w-full max-w-[400px] mx-auto">
+    <div className="relative w-full h-full max-w-[400px] mx-auto">
       <video
         ref={videoRef}
-        className="w-full h-auto object-cover rounded-md"
+        className="w-full h-[350px] object-cover rounded-md"
         style={{ maxWidth: 400 }}
       />
-
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <IoIosQrScanner size={200} className="text-white opacity-40" />
+        <img src={OutlineScan} className="p-4 w-full h-full object-contain" alt="Icon" />
       </div>
-      {/* <p>
-        <span>Last result:</span> <span>{result}</span>
-      </p> */}
     </div>
-
   );
-};
-
-
-
+});

@@ -37,34 +37,37 @@ export const Autocompletes = <T extends FieldValues>({
                             slotProps={{
                                 inputLabel: {
                                     shrink: true,
-                                    sx: {
-                                        color: '#B5B5B5',
-                                        '&.Mui-focused': {
-                                            color: '#B5B5B5',
-                                        },
-                                        '&.Mui-disabled': {
-                                            color: '#B5B5B5',
-                                        },
-                                        position: 'absolute',
-                                        left: 7,
-                                        transform: 'translateY(-50%)',
-                                        textAlign: 'center',
-                                        fontSize: '0.7rem',
-                                        backgroundColor: 'white',
-                                        px: 1,
-                                    },
+                                    // sx: {
+                                    //     color: '#B5B5B5',
+                                    //     '&.Mui-focused': {
+                                    //         color: '#B5B5B5',
+                                    //     },
+                                    //     '&.Mui-disabled': {
+                                    //         color: '#B5B5B5',
+                                    //     },
+                                    //     position: 'absolute',
+                                    //     left: 7,
+                                    //     transform: 'translateY(-50%)',
+                                    //     textAlign: 'center',
+                                    //     fontSize: '0.7rem',
+                                    //     backgroundColor: 'white',
+                                    //     px: 1,
+                                    // },
                                 },
                             }}
                             sx={{
                                 '& .MuiOutlinedInput-root': {
                                     '& fieldset': {
-                                        borderColor: '#000000',
+                                        // borderColor: '#000000',
+                                        borderColor: '#B5B5B5',
                                     },
                                     '&:hover fieldset': {
-                                        borderColor: '#000000',
+                                        // borderColor: '#000000',
+                                        borderColor: '#B5B5B5',
                                     },
                                     '&.Mui-focused fieldset': {
-                                        borderColor: '#000000',
+                                        // borderColor: '#000000',
+                                        borderColor: '#B5B5B5',
                                     },
                                 },
                                 '& .MuiInputBase-input': {

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useWatch, type FieldValues, type Path, type UseFormRegister, type UseFormSetValue, type Control } from "react-hook-form";
 import { AiOutlineScan } from "react-icons/ai";
 import { Modals } from "../modal/Modals";
-import { Scanner } from "../Scanner";
 import { Buttons } from "../Buttons";
+import { Scanner } from "../Scanner";
+import type { ScannerRef } from "../Scanner";
 
 interface FormInputScanV2Props<T extends FieldValues> {
     register: UseFormRegister<T>;
@@ -25,6 +26,7 @@ export const FormInputScanV2 = <T extends FieldValues>({
     control
 }: FormInputScanV2Props<T>) => {
     const [openModal, setOpenModal] = useState<string | null>(null);
+    const scannerRef = useRef<ScannerRef>(null);
 
     const value = useWatch({ name, control });
 
@@ -35,6 +37,12 @@ export const FormInputScanV2 = <T extends FieldValues>({
         setValue(name, value as T[typeof name]);
         handleClose();
     };
+
+    const handleCloseScan = () => {
+        console.log("ปิดกล้อง")
+        scannerRef.current?.stopCamera();
+        handleClose();
+    }
 
     console.log(value)
     return (
@@ -70,13 +78,16 @@ export const FormInputScanV2 = <T extends FieldValues>({
                 width="w-[100%]"
                 high="h-full"
                 content={
-                    <div className="bg-black">
-                        <Scanner onResult={handleScanResult} />
+                    <div >
+                        <Scanner
+                            ref={scannerRef}
+                            onResult={handleScanResult}
+                        />
                     </div>
                 }
                 actions={
                     <Buttons
-                        onClick={handleClose}
+                        onClick={handleCloseScan}
                         className="bg-red-500 py-2 text-[0.800rem] rounded-2xl mt-2"
                     >
                         ปิด

@@ -26,9 +26,9 @@ export const MobileSignIn = () => {
                 icon: "success",
                 title: "เข้าสู่ระบบสำเร็จ",
                 showConfirmButton: false,
-                timer: 3000
+                timer: 1000
             })
-            await new Promise((resolve) => setTimeout(resolve, 3000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             navigate("/BloodBankGiveList");
             console.log(data)
         } catch (error) {
