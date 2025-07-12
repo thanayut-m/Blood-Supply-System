@@ -8,7 +8,7 @@ import { BloodStatusSteps } from "./MobileBloodBankGiveDetail/BloodStatusSteps";
 import { BloodBagInfoCard } from "./MobileBloodBankGiveDetail/BloodBagInfoCard";
 import { BarcodeWarning } from "./MobileBloodBankGiveDetail/BarcodeWarning";
 import { Modals } from "../../../components/modal/Modals";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { FormInputScanV2 } from "../../../components/inputs/FormInputScanV2";
 import { useLocation } from "react-router";
@@ -39,11 +39,11 @@ export const MobileBloodBankGiveDetail = () => {
         setOpenModal(modal);
     };
 
-    const fetchStaff = async () => {
+    const fetchStaff = useCallback(async () => {
         staffInfo(setStaff);
-    }
+    }, []);
 
-    const fetchPatientTransfusion = async () => {
+    const fetchPatientTransfusion = useCallback(async () => {
         if (!bb_cross_macth_id) {
             console.warn("bb_cross_macth_id is missing!");
             return;
@@ -56,12 +56,12 @@ export const MobileBloodBankGiveDetail = () => {
             console.log(error)
         }
 
-    }
+    }, [bb_cross_macth_id]);
 
     useEffect(() => {
         fetchPatientTransfusion();
         fetchStaff();
-    }, []);
+    }, [fetchPatientTransfusion, fetchStaff]);
 
     const handleClose = () => {
         Swal.fire({
