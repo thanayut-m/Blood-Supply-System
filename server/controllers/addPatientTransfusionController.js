@@ -37,6 +37,7 @@ export const getAllPatientTransfusionsInfo = async (req, res, next) => {
 
 export const getAllPatientTransfusions = async (req, res, next) => {
   try {
+    const { bb_cross_macth_id } = req.body;
     const result = await query_db(
       `SELECT 
         s1.hn,
@@ -77,10 +78,47 @@ export const getAllPatientTransfusions = async (req, res, next) => {
       LEFT JOIN bb_test s3 ON s2.bb_test_id=s3.bb_test_id
       LEFT JOIN blood_type s4 ON s2.blood_type_id=s4.blood_type_id
       WHERE s2.bb_cross_macth_id = ?`,
-      ["17908"]
+      [bb_cross_macth_id]
     );
-
-    console.log(result);
+    // 17908
+    res.status(200).json({
+      success: true,
+      data: {
+        hn: result[0].hn,
+        patientName: result[0].patient_name,
+        age: result[0].patient_age,
+        sex: result[0].sex_name,
+        bloodGroup: result[0].blood_group_name,
+        rhType: result[0].rh,
+        transfusionDate: result[0].patient_pay_date,
+        transfusionTime: result[0].patient_pay_time,
+        staffId: result[0].patient_pay_staff_id,
+        staffName: result[0].patient_pay_staff_name,
+        o1Result: result[0].o1_result_name,
+        o2Result: result[0].o2_result_name,
+        o3Result: result[0].o3_result_name,
+        acResult: result[0].ac_result_name,
+        datResult: result[0].dat_result_name,
+        iatResult: result[0].iat_result_name,
+        bloodCode: result[0].blood_code,
+        crossBloodGroup: result[0].cross_blood_group_name,
+        crossRh: result[0].cross_rh,
+        bloodType: result[0].blood_type_name,
+        expireDate: result[0].blood_expire_date,
+        volumeCC: result[0].blood_cc,
+        cmResult: result[0].cm_result,
+        crossMatchBy: result[0].bb_cross_macth_staff,
+        crossMatchDate: result[0].bb_cross_macth_date,
+        crossMatchTime: result[0].bb_cross_macth_time,
+        confirmBy: result[0].bb_cross_confirm_staff,
+        confirmDate: result[0].confirm_date,
+        confirmTime: result[0].confirm_time,
+        isConfirmed: result[0].confirm,
+        reportStatus: result[0].report_status,
+        payStatus: result[0].pay_status,
+        hasReaction: result[0].reaction,
+      },
+    });
   } catch (error) {
     next(error);
   }
