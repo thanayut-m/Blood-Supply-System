@@ -107,7 +107,6 @@ export const staffInfo = async (req, res, next) => {
         staffName: staff.staff_name,
       })),
     });
-    console.log(result);
   } catch (error) {
     next(error);
   }

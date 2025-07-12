@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { FormInputScanV2 } from "../../../components/inputs/FormInputScanV2";
 import { useLocation } from "react-router";
 import { staffInfo, type OptionType } from "../../../functions/Auth";
+import { PatientTransfusionDetail } from "../../../functions/AddPatientTransfusion";
 
 export const MobileBloodBankGiveDetail = () => {
     const { register, setValue, control } = useForm<{
@@ -32,6 +33,7 @@ export const MobileBloodBankGiveDetail = () => {
 
     const [openModal, setOpenModal] = useState<string | null>(null);
     const [staff, setStaff] = useState<OptionType[]>([]);
+    const [patientTransfusion, setPatientTransfusion] = useState();
 
     const handleOpen = (modal: string) => {
         setOpenModal(modal);
@@ -41,11 +43,25 @@ export const MobileBloodBankGiveDetail = () => {
         staffInfo(setStaff);
     }
 
+    const fetchPatientTransfusion = async () => {
+        if (!bb_cross_macth_id) {
+            console.warn("bb_cross_macth_id is missing!");
+            return;
+        }
+        try {
+            const data = await PatientTransfusionDetail(bb_cross_macth_id);
+            console.log(data);
+            setPatientTransfusion(data);
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     useEffect(() => {
+        fetchPatientTransfusion();
         fetchStaff();
     }, []);
-
-    console.log(bb_cross_macth_id);
 
     const handleClose = () => {
         Swal.fire({
@@ -90,20 +106,30 @@ export const MobileBloodBankGiveDetail = () => {
             <MobilePrivateLayout>
                 <div className="flex flex-col gap-2">
 
-                    <PatientInfoCard
-                        control={control}
-                        options={staff || []}
-                    />
-
+                    {patientTransfusion && (
+                        <PatientInfoCard
+                            data={patientTransfusion}
+                            control={control}
+                            options={staff || []}
+                        />
+                    )}
                     <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">
-                        <AntibodyCard />
-                        <AutoControlCard />
+                        {patientTransfusion && (
+                            <AntibodyCard data={patientTransfusion} />
+                        )}
+                        {patientTransfusion && (
+                            <AutoControlCard data={patientTransfusion} />
+                        )}
                     </div>
 
                     <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25 text-[0.600rem]">
                         <div className="flex flex-col gap-3">
-                            <BloodBagInfoCard />
-                            <BloodStatusSteps />
+                            {patientTransfusion && (
+                                <BloodBagInfoCard data={patientTransfusion} />
+                            )}
+                            {patientTransfusion && (
+                                <BloodStatusSteps data={patientTransfusion} />
+                            )}
                         </div>
                     </div>
 
@@ -117,7 +143,9 @@ export const MobileBloodBankGiveDetail = () => {
                         </div>
                     </Buttons>
 
-                    <BarcodeWarning />
+                    {patientTransfusion && (
+                        <BarcodeWarning data={patientTransfusion} />
+                    )}
 
                     <Buttons
                         className="bg-blue-500 text-white py-3 px-5 rounded-3xl"

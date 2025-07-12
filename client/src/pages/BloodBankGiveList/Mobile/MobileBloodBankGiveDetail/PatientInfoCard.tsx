@@ -6,18 +6,28 @@ interface OptionType {
   value: string;
 }
 
+interface PatientData {
+  patientName: string;
+  hn: string;
+  age: string | number;
+  sex: string;
+  bloodGroup: string;
+  rh: string;
+  transfusionDate: string;
+  transfusionTime: string;
+}
+
 interface PatientInfoCardProps<T extends FieldValues> {
   control: Control<T>
   options: OptionType[];
+  data: PatientData;
 }
 
 export const PatientInfoCard = <T extends FieldValues>({
   control,
-  options
+  options,
+  data
 }: PatientInfoCardProps<T>) => {
-
-
-
   return (
     <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25">
       <label className="text-[#B5B5B5]">
@@ -26,32 +36,32 @@ export const PatientInfoCard = <T extends FieldValues>({
       <div className="grid grid-cols-12 px-3 gap-1 text-[0.600rem] mt-1">
         <div className="col-span-8 text-[#B5B5B5]">
           ชื่อผู้ป่วย <span className="text-black">
-            นายทดสอบระบบ ล็อกอินส์
+            {data.patientName ? data.patientName : "-"}
           </span>
         </div>
         <div className="col-span-4 text-[#B5B5B5]">
           HN <span className="text-black">
-            650060141
+            {data.hn ? data.hn : "-"}
           </span>
         </div>
         <div className="col-span-3 text-[#B5B5B5]">
           อายุ <span className="text-black">
-            47
+            {data.age ? data.age : "-"}
           </span>
         </div>
         <div className="col-span-3 text-[#B5B5B5]">
           เพศ <span className="text-black">
-            ชาย
+            {data.sex ? data.sex : "-"}
           </span>
         </div>
         <div className="col-span-3 text-[#B5B5B5]">
           หมู่เลือด <span className="text-black">
-            O
+            {data.bloodGroup ? data.bloodGroup : "-"}
           </span>
         </div>
         <div className="col-span-3 text-[#B5B5B5]">
           Rh <span className="text-black">
-            +
+            {data.rh ? data.rh : "-"}
           </span>
         </div>
         <div className="col-span-12 mt-1">
@@ -59,12 +69,12 @@ export const PatientInfoCard = <T extends FieldValues>({
             <div className="row-span-3">
               <div className="text-[#B5B5B5]">
                 วันที่ให้โลหิต <span className="text-black">
-                  02/07/2568
+                  {data.transfusionDate ? data.transfusionDate : "-"}
                 </span>
               </div>
               <div className="text-[#B5B5B5] mt-1">
                 เวลาให้โลหิต <span className="text-black">
-                  15:33:28
+                  {data.transfusionTime ? data.transfusionTime : "-"}
                 </span>
               </div>
             </div>

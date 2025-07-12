@@ -1,6 +1,33 @@
+import dayjs from 'dayjs';
 import donorIcon1 from '../../../../assets/icon/donor_Icon1.png';
 
-export const BloodBagInfoCard = () => {
+interface crossMatchData {
+    bloodCode: string;
+    bloodType: string;
+    cmResult: string;
+    confirmBy: string;
+    confirmDate: string;
+    confirmTime: string;
+    crossBloodGroup: string;
+    crossMatchBy: string;
+    crossMatchDate: string;
+    crossMatchTime: string;
+    crossRh: string;
+    expireDate: string;
+    volumeCC: string;
+}
+
+interface Props {
+    data: {
+        crossMatch: crossMatchData;
+    };
+}
+
+
+export const BloodBagInfoCard = ({
+    data
+}: Props) => {
+    const dataCrossMatch = data.crossMatch;
     return (
         <div className="grid grid-cols-12">
             <div className="col-span-4">
@@ -14,7 +41,7 @@ export const BloodBagInfoCard = () => {
                         เลชที่ถุง
                     </p>
                     <p className="col-span-7 text-start">
-                        21066101405
+                        {dataCrossMatch.bloodCode ? dataCrossMatch.bloodCode : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -22,7 +49,7 @@ export const BloodBagInfoCard = () => {
                         หมู่เลือด
                     </p>
                     <p className="col-span-7 text-start">
-                        O
+                        {dataCrossMatch.crossBloodGroup ? dataCrossMatch.crossBloodGroup : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -30,7 +57,7 @@ export const BloodBagInfoCard = () => {
                         Rh
                     </p>
                     <p className="col-span-7 text-start">
-                        +
+                        {dataCrossMatch.crossRh ? dataCrossMatch.crossRh : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -38,7 +65,7 @@ export const BloodBagInfoCard = () => {
                         ประเภทโลหิต
                     </p>
                     <p className="col-span-7 text-start">
-                        Pack Red Call (PRC)
+                        {dataCrossMatch.bloodType ? dataCrossMatch.bloodType : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -46,14 +73,15 @@ export const BloodBagInfoCard = () => {
                         วันที่หมดอายุ
                     </p>
                     <p className="col-span-7 text-start">
-                        01/03/2568
+                        {dataCrossMatch.expireDate ?
+                            dayjs(dataCrossMatch.expireDate).format("DD/MM/YYYY") : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
                     <p className="col-span-5 text-end text-[#B5B5B5]">
                         ปริมาณ (cc)</p>
                     <p className="col-span-7 text-start">
-                        450
+                        {dataCrossMatch.volumeCC ? dataCrossMatch.volumeCC : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -61,7 +89,7 @@ export const BloodBagInfoCard = () => {
                         result
                     </p>
                     <p className="col-span-7 text-start">
-                        NEGATVE
+                        {dataCrossMatch.cmResult ? dataCrossMatch.cmResult : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -69,7 +97,7 @@ export const BloodBagInfoCard = () => {
                         ผู้ทำ
                     </p>
                     <p className="col-span-7 text-start">
-                        นายทดสอบระบบ ล็อกอินส์
+                        {dataCrossMatch.crossMatchBy ? dataCrossMatch.crossMatchBy : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -77,7 +105,8 @@ export const BloodBagInfoCard = () => {
                         วัน/เวลา ที่ทำ
                     </p>
                     <p className="col-span-7 text-start">
-                        01/03/2568 10:00
+                        {dataCrossMatch.crossMatchDate ? dayjs(dataCrossMatch.crossMatchDate).format("DD/MM/YYYY") : "-"}&nbsp;
+                        {dataCrossMatch.crossMatchTime ? dataCrossMatch.crossMatchTime : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -85,7 +114,7 @@ export const BloodBagInfoCard = () => {
                         ผู้คล้อง
                     </p>
                     <p className="col-span-7 text-start">
-                        นายทดสอบระบบ ล็อกอินส์
+                        {dataCrossMatch.confirmBy ? dataCrossMatch.confirmBy : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -93,7 +122,8 @@ export const BloodBagInfoCard = () => {
                         วัน/เวลา คล้อง
                     </p>
                     <p className="col-span-7 text-start">
-                        01/03/2568 10:00
+                        {dataCrossMatch.confirmDate ? dayjs(dataCrossMatch.confirmDate).format("DD/MM/YYYY") : "-"}&nbsp;
+                        {dataCrossMatch.confirmTime ? dataCrossMatch.confirmTime : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
