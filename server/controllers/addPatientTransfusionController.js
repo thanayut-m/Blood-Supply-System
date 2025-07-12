@@ -73,7 +73,9 @@ export const getAllPatientTransfusions = async (req, res, next) => {
         s2.confirm,
         s2.report_status,
         s2.pay_status,
-        s2.reaction
+        s2.reaction,
+        s2.patient_pay_status,
+        s2.re_check_blood_give
       FROM bb_stat s1
       LEFT JOIN bb_cross_macth s2 ON s1.bb_order_id=s2.bb_order_id 
       LEFT JOIN bb_test s3 ON s2.bb_test_id=s3.bb_test_id
@@ -125,6 +127,10 @@ export const getAllPatientTransfusions = async (req, res, next) => {
           reportStatus: result[0].report_status,
           payStatus: result[0].pay_status,
           hasReaction: result[0].reaction,
+        },
+        check: {
+          reCheckBloodGive: result[0].re_check_blood_give,
+          patientPayStatus: result[0].patient_pay_status,
         },
       },
     });

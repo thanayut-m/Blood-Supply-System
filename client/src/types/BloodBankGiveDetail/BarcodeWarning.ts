@@ -1,3 +1,7 @@
+export interface CheckData {
+  reCheckBloodGive: "Y" | "N" | string;
+}
+
 export interface CrossMatchData {
   bloodCode: string;
 }
@@ -5,5 +9,6 @@ export interface CrossMatchData {
 export interface BarcodeWarningProps {
   data: {
     crossMatch: CrossMatchData;
+    check: CheckData;
   };
 }

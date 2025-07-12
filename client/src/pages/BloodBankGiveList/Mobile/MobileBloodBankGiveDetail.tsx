@@ -14,6 +14,7 @@ import { FormInputScanV2 } from "../../../components/inputs/FormInputScanV2";
 import { useLocation } from "react-router";
 import { staffInfo, type OptionType } from "../../../functions/Auth";
 import { PatientTransfusionDetail } from "../../../functions/AddPatientTransfusion";
+import type { PatientTransfusionProps } from "../../../types/BloodBankGiveDetail/BloodBankGiveDetail";
 
 export const MobileBloodBankGiveDetail = () => {
     const { register, setValue, control } = useForm<{
@@ -33,7 +34,7 @@ export const MobileBloodBankGiveDetail = () => {
 
     const [openModal, setOpenModal] = useState<string | null>(null);
     const [staff, setStaff] = useState<OptionType[]>([]);
-    const [patientTransfusion, setPatientTransfusion] = useState();
+    const [patientTransfusion, setPatientTransfusion] = useState<PatientTransfusionProps>();
 
     const handleOpen = (modal: string) => {
         setOpenModal(modal);
@@ -50,7 +51,6 @@ export const MobileBloodBankGiveDetail = () => {
         }
         try {
             const data = await PatientTransfusionDetail(bb_cross_macth_id);
-            console.log(data);
             setPatientTransfusion(data);
         } catch (error) {
             console.log(error)
@@ -100,12 +100,10 @@ export const MobileBloodBankGiveDetail = () => {
             console.log(error)
         }
     }
-
     return (
         <div>
             <MobilePrivateLayout>
                 <div className="flex flex-col gap-2">
-
                     {patientTransfusion && (
                         <PatientInfoCard
                             data={patientTransfusion}
@@ -134,7 +132,9 @@ export const MobileBloodBankGiveDetail = () => {
                     </div>
 
                     <Buttons
-                        className="bg-[#FF7726] text-white py-5 px-5 rounded-xl"
+                        className={`${patientTransfusion?.check.reCheckBloodGive !== "Y"
+                            ? "bg-[#FF7726]" : "bg-blue-500"} 
+                            text-white py-5 px-5 rounded-xl`}
                         onClick={() => handleOpen("openScanBarcode")}
                     >
                         <div className="flex flex-col">
@@ -147,12 +147,14 @@ export const MobileBloodBankGiveDetail = () => {
                         <BarcodeWarning data={patientTransfusion} />
                     )}
 
-                    <Buttons
-                        className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                        disabled
-                    >
-                        จ่ายโลหิต
-                    </Buttons>
+                    {patientTransfusion && (
+                        <Buttons
+                            className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
+                            disabled={patientTransfusion?.check.reCheckBloodGive !== "Y"}
+                        >
+                            จ่ายโลหิต
+                        </Buttons>
+                    )}
                 </div>
             </MobilePrivateLayout>
 

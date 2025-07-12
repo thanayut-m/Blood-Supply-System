@@ -1,4 +1,4 @@
-export interface statushData {
+export interface StatusData {
   isConfirmed: string;
   reportStatus: string;
   payStatus: string;
@@ -7,6 +7,6 @@ export interface statushData {
 
 export interface BloodStatusStepsProps {
   data: {
-    status: statushData;
+    status: StatusData;
   };
 }

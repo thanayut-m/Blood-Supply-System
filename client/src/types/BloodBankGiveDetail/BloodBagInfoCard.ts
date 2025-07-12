@@ -1,4 +1,4 @@
-export interface crossMatchData {
+export interface CrossMatchData {
   bloodCode: string;
   bloodType: string;
   cmResult: string;
@@ -16,6 +16,6 @@ export interface crossMatchData {
 
 export interface BloodBagInfoCardProps {
   data: {
-    crossMatch: crossMatchData;
+    crossMatch: CrossMatchData;
   };
 }

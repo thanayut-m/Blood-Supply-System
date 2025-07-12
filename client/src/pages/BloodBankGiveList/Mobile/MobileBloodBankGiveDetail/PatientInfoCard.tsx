@@ -1,6 +1,7 @@
 import type { FieldValues, Path } from "react-hook-form"
 import { Autocompletes } from "../../../../components/MUI/Autocompletes"
 import type { PatientInfoCardProps } from "../../../../types/BloodBankGiveDetail/PatientInfoCard";
+import dayjs from 'dayjs';
 
 export const PatientInfoCard = <T extends FieldValues>({
   control,
@@ -48,7 +49,7 @@ export const PatientInfoCard = <T extends FieldValues>({
             <div className="row-span-3">
               <div className="text-[#B5B5B5]">
                 วันที่ให้โลหิต <span className="text-black">
-                  {data.transfusionDate ? data.transfusionDate : "-"}
+                  {data.transfusionDate ? dayjs(data.transfusionDate).format("DD/MM/YYYY") : "-"}
                 </span>
               </div>
               <div className="text-[#B5B5B5] mt-1">
