@@ -2,7 +2,7 @@ import { query_db } from "../services/connectDb .js";
 
 export const getAllPatientTransfusionsInfo = async (req, res, next) => {
   try {
-    const today = new Date().toISOString().slice(0, 10);
+    // const today = new Date().toISOString().slice(0, 10);
     const result = await query_db(
       `SELECT
             b2.bb_cross_macth_id,
@@ -23,7 +23,7 @@ export const getAllPatientTransfusionsInfo = async (req, res, next) => {
         LEFT OUTER JOIN blood_type bt ON bt.blood_type_id = b2.blood_type_id
         WHERE b2.pay_status = ?
         AND b3.bb_supply_date BETWEEN ? AND ?`,
-      ["y", today, today]
+      ["y", "2025-06-01", "2025-07-12"]
     );
 
     res.status(200).json({

@@ -1,13 +1,22 @@
 import type { Control, FieldValues, Path } from "react-hook-form"
 import { Autocompletes } from "../../../../components/MUI/Autocompletes"
 
+interface OptionType {
+  label: string;
+  value: string;
+}
+
 interface PatientInfoCardProps<T extends FieldValues> {
   control: Control<T>
+  options: OptionType[];
 }
 
 export const PatientInfoCard = <T extends FieldValues>({
-  control
+  control,
+  options
 }: PatientInfoCardProps<T>) => {
+
+
 
   return (
     <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25">
@@ -62,6 +71,7 @@ export const PatientInfoCard = <T extends FieldValues>({
             <div className="col-span-4 row-span-2">
               <Autocompletes
                 control={control}
+                options={options}
                 name={"blood_donor_name" as Path<T>}
                 label="ผูให้โลหิต"
               />

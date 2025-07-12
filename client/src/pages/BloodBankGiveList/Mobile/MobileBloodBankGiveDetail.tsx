@@ -8,11 +8,11 @@ import { BloodStatusSteps } from "./MobileBloodBankGiveDetail/BloodStatusSteps";
 import { BloodBagInfoCard } from "./MobileBloodBankGiveDetail/BloodBagInfoCard";
 import { BarcodeWarning } from "./MobileBloodBankGiveDetail/BarcodeWarning";
 import { Modals } from "../../../components/modal/Modals";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { FormInputScanV2 } from "../../../components/inputs/FormInputScanV2";
 import { useLocation } from "react-router";
-import { useEffect } from "react";
+import { staffInfo, type OptionType } from "../../../functions/Auth";
 
 export const MobileBloodBankGiveDetail = () => {
     const { register, setValue, control } = useForm<{
@@ -30,11 +30,20 @@ export const MobileBloodBankGiveDetail = () => {
     const location = useLocation();
     const { bb_cross_macth_id } = location.state || {};
 
-    const [openModal, setOpenModal] = useState<string | null>(null);;
+    const [openModal, setOpenModal] = useState<string | null>(null);
+    const [staff, setStaff] = useState<OptionType[]>([]);
 
     const handleOpen = (modal: string) => {
         setOpenModal(modal);
     };
+
+    const fetchStaff = async () => {
+        staffInfo(setStaff);
+    }
+
+    useEffect(() => {
+        fetchStaff();
+    }, []);
 
     console.log(bb_cross_macth_id);
 
@@ -76,7 +85,6 @@ export const MobileBloodBankGiveDetail = () => {
         }
     }
 
-
     return (
         <div>
             <MobilePrivateLayout>
@@ -84,6 +92,7 @@ export const MobileBloodBankGiveDetail = () => {
 
                     <PatientInfoCard
                         control={control}
+                        options={staff || []}
                     />
 
                     <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">

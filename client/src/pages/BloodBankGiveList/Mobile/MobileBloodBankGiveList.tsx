@@ -59,7 +59,7 @@ export const MobileBloodBankGiveList = () => {
         allPatientTransfusionsInfo();
     }, [])
 
-    console.log(transfusions)
+    // console.log(transfusions)
     return (
         <div>
             <MobilePrivateLayout>

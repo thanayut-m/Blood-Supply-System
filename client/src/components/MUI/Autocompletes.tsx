@@ -2,22 +2,24 @@ import { Controller, type Control, type FieldValues, type Path } from 'react-hoo
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
+interface OptionType {
+    label: string;
+    value: string;
+}
+
 interface AutocompletesProps<T extends FieldValues> {
     control: Control<T>;
     name: Path<T>;
     label: string;
+    options: OptionType[];
 }
 
 export const Autocompletes = <T extends FieldValues>({
     name,
     label,
-    control
+    control,
+    options
 }: AutocompletesProps<T>) => {
-    const options = [
-        { label: '', id: null },
-        { label: 'Pulp Fiction', id: 2 },
-    ];
-
     return (
         <Controller
             name={name}
@@ -28,7 +30,8 @@ export const Autocompletes = <T extends FieldValues>({
                     fullWidth
                     size="small"
                     options={options}
-                    getOptionLabel={(option) => option.label}
+                    getOptionLabel={(option) => option.label ?? ""}
+                    value={field.value ?? null}
                     onChange={(_, value) => field.onChange(value)}
                     renderInput={(params) => (
                         <TextField

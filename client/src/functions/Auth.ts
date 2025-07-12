@@ -60,3 +60,40 @@ export const currentUser = async () => {
     console.log(error);
   }
 };
+
+export interface OptionType {
+  label: string;
+  value: string;
+}
+
+interface StaffApiResponse {
+  staffId: string;
+  staffName: string;
+}
+
+export const staffInfo = async (setStaff: (value: OptionType[]) => void) => {
+  try {
+    const result = await axios.get(VITE_API_PATH + "/Auth/staffInfo", {
+      headers: api.headers(),
+    });
+
+    const data = result.data.data;
+
+    const staffOption: OptionType[] = Array.isArray(data)
+      ? data.map((item: StaffApiResponse) => ({
+          label: item.staffName,
+          value: item.staffId,
+        }))
+      : [
+          {
+            label: (data as StaffApiResponse).staffName,
+            value: (data as StaffApiResponse).staffId,
+          },
+        ];
+
+    setStaff(staffOption);
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
