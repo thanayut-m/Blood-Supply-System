@@ -1,32 +1,10 @@
 import dayjs from 'dayjs';
 import donorIcon1 from '../../../../assets/icon/donor_Icon1.png';
-
-interface crossMatchData {
-    bloodCode: string;
-    bloodType: string;
-    cmResult: string;
-    confirmBy: string;
-    confirmDate: string;
-    confirmTime: string;
-    crossBloodGroup: string;
-    crossMatchBy: string;
-    crossMatchDate: string;
-    crossMatchTime: string;
-    crossRh: string;
-    expireDate: string;
-    volumeCC: string;
-}
-
-interface Props {
-    data: {
-        crossMatch: crossMatchData;
-    };
-}
-
+import type { BloodBagInfoCardProps } from '../../../../types/BloodBankGiveDetail/BloodBagInfoCard';
 
 export const BloodBagInfoCard = ({
     data
-}: Props) => {
+}: BloodBagInfoCardProps) => {
     const dataCrossMatch = data.crossMatch;
     return (
         <div className="grid grid-cols-12">

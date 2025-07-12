@@ -1,19 +1,8 @@
-interface statushData {
-    isConfirmed: string;
-    reportStatus: string;
-    payStatus: string;
-    hasReaction: string;
-}
-
-interface Props {
-    data: {
-        status: statushData;
-    };
-}
+import type { BloodStatusStepsProps } from "../../../../types/BloodBankGiveDetail/BloodStatusSteps";
 
 export const BloodStatusSteps = ({
     data
-}: Props) => {
+}: BloodStatusStepsProps) => {
     const dataStatus = data.status;
     return (
         <div className="grid grid-cols-4 gap-2 text-center">

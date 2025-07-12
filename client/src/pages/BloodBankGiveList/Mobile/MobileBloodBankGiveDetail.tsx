@@ -75,7 +75,7 @@ export const MobileBloodBankGiveDetail = () => {
             cancelButtonText: "ปิด",
             reverseButtons: true
         }).then((result) => {
-            if (result.isDismissed) {
+            if (result.isConfirmed) {
                 Swal.fire({
                     title: "ยกเลิกสำเร็จ",
                     icon: "success",

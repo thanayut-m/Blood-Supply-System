@@ -1,16 +1,6 @@
-interface AntibodyData {
-    antiResult: string;
-    o1Result: string;
-    o2Result: string;
-    o3Result: string;
-}
+import type { AntibodyCardProps } from "../../../../types/BloodBankGiveDetail/AntibodyCard";
 
-interface Props {
-    data: {
-        antibody: AntibodyData;
-    };
-}
-export const AntibodyCard = ({ data }: Props) => {
+export const AntibodyCard = ({ data }: AntibodyCardProps) => {
     const dataAntibody = data.antibody;
     return (
         <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25 ">

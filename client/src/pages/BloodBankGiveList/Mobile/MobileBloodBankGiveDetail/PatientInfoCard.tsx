@@ -1,27 +1,6 @@
-import type { Control, FieldValues, Path } from "react-hook-form"
+import type { FieldValues, Path } from "react-hook-form"
 import { Autocompletes } from "../../../../components/MUI/Autocompletes"
-
-interface OptionType {
-  label: string;
-  value: string;
-}
-
-interface PatientData {
-  patientName: string;
-  hn: string;
-  age: string | number;
-  sex: string;
-  bloodGroup: string;
-  rh: string;
-  transfusionDate: string;
-  transfusionTime: string;
-}
-
-interface PatientInfoCardProps<T extends FieldValues> {
-  control: Control<T>
-  options: OptionType[];
-  data: PatientData;
-}
+import type { PatientInfoCardProps } from "../../../../types/BloodBankGiveDetail/PatientInfoCard";
 
 export const PatientInfoCard = <T extends FieldValues>({
   control,

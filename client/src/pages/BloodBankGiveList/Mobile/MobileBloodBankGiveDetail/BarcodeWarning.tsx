@@ -1,10 +1,4 @@
-interface BarcodeWarningProps {
-    data: {
-        crossMatch: {
-            bloodCode: string;
-        };
-    };
-}
+import type { BarcodeWarningProps } from "../../../../types/BloodBankGiveDetail/BarcodeWarning"
 
 export const BarcodeWarning = ({
     data

@@ -1,18 +1,8 @@
-interface AutoControlData {
-    acResult: string;
-    datResult: string;
-    iatResult: string;
-}
-
-interface Props {
-    data: {
-        autoControl: AutoControlData;
-    };
-}
+import type { AutoControlCardProps } from "../../../../types/BloodBankGiveDetail/AutoControlCard";
 
 export const AutoControlCard = ({
     data
-}: Props) => {
+}: AutoControlCardProps) => {
     const dataAutoControl = data.autoControl;
     return (
         <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25">
