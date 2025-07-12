@@ -80,7 +80,6 @@ export const getAllPatientTransfusions = async (req, res, next) => {
       WHERE s2.bb_cross_macth_id = ?`,
       [bb_cross_macth_id]
     );
-    // 17908
     res.status(200).json({
       success: true,
       data: {

@@ -89,6 +89,30 @@ export const resetPassword = async (req, res, next) => {
   }
 };
 
+export const staffInfo = async (req, res, next) => {
+  try {
+    const result = await query_db(
+      `SELECT staff_id,staff_name FROM staff WHERE bb_supply = ?`,
+      ["Y"]
+    );
+
+    if (!result || result.length === 0) {
+      throw createError(404, "ไม่พบข้อมูลเจ้าหน้าที่");
+    }
+
+    res.status(200).json({
+      success: true,
+      data: result.map((staff) => ({
+        staffId: staff.staff_id,
+        staffName: staff.staff_name,
+      })),
+    });
+    console.log(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const currentUser = async (req, res, next) => {
   try {
     const result = await query_db(
