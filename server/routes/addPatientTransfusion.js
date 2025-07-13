@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllPatientTransfusions,
   getAllPatientTransfusionsInfo,
+  updatePatientTransfusions,
 } from "../controllers/addPatientTransfusionController.js";
 import { isLogin } from "./../middlewares/AuthMiddleware.js";
 
@@ -13,4 +14,5 @@ router.get(
   getAllPatientTransfusionsInfo
 );
 
-router.get("/getAllPatientTransfusions", getAllPatientTransfusions);
+router.get("/getAllPatientTransfusions", isLogin, getAllPatientTransfusions);
+router.put("/updatePatientTransfusions", isLogin, updatePatientTransfusions);

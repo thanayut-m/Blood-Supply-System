@@ -12,6 +12,7 @@ export interface CrossMatchData {
   crossRh: string;
   expireDate: string;
   volumeCC: string;
+  crossHN: string;
 }
 
 export interface BloodBagInfoCardProps {

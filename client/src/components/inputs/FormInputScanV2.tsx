@@ -14,6 +14,7 @@ interface FormInputScanV2Props<T extends FieldValues> {
     placeholder?: string;
     type: string;
     control: Control<T>;
+    error: boolean
 }
 
 export const FormInputScanV2 = <T extends FieldValues>({
@@ -23,7 +24,8 @@ export const FormInputScanV2 = <T extends FieldValues>({
     label,
     placeholder,
     type,
-    control
+    control,
+    error
 }: FormInputScanV2Props<T>) => {
     const [openModal, setOpenModal] = useState<string | null>(null);
     const scannerRef = useRef<ScannerRef>(null);
@@ -44,7 +46,7 @@ export const FormInputScanV2 = <T extends FieldValues>({
         handleClose();
     }
 
-    console.log(value)
+
     return (
         <div>
             <fieldset className="fieldset">
@@ -58,8 +60,12 @@ export const FormInputScanV2 = <T extends FieldValues>({
                             type={type}
                             placeholder={placeholder}
                             className={
-                                `${value ? "text-2xl" : "text-[0.800rem] py-2"} 
-                                 text-gray-400 tracking-widest w-full bg-transparent border-none focus:outline-none text-center`}
+                                `${value?.length > 1
+                                    ? (error ? "text-green-500" : "text-red-500")
+                                    : ""} 
+                                    ${value ? "text-2xl" : "text-[0.800rem] py-2"} 
+                                    text-gray-400 tracking-widest w-full bg-transparent border-none focus:outline-none text-center`
+                            }
                         />
                     </div>
                     <button

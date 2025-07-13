@@ -1,4 +1,5 @@
 import { query_db } from "../services/connectDb .js";
+import { createError } from "./../utils/createError.js";
 
 export const getAllPatientTransfusionsInfo = async (req, res, next) => {
   try {
@@ -58,6 +59,7 @@ export const getAllPatientTransfusions = async (req, res, next) => {
         s3.dat_result_name,
         s3.iat_result_name,
         s2.blood_code,
+        s2.hn as cross_hn,
         s2.blood_group_name AS cross_blood_group_name,
         s2.rh AS cross_rh,
         s4.blood_type_name,
@@ -111,6 +113,7 @@ export const getAllPatientTransfusions = async (req, res, next) => {
         },
         crossMatch: {
           bloodCode: result[0].blood_code,
+          crossHN: result[0].cross_hn,
           crossBloodGroup: result[0].cross_blood_group_name,
           crossRh: result[0].cross_rh,
           bloodType: result[0].blood_type_name,
@@ -136,6 +139,39 @@ export const getAllPatientTransfusions = async (req, res, next) => {
         },
       },
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updatePatientTransfusions = async (req, res, next) => {
+  try {
+    const { bb_cross_macth_id, bagFromTag, bloodBagNo, hn } = req.body;
+
+    if (!bb_cross_macth_id || !bagFromTag || !bloodBagNo || !hn) {
+      throw createError(
+        401,
+        "กรุณาระบุข้อมูลให้ครบถ้วน (bb_cross_macth_id, bagFromTag, bloodBagNo, hn)"
+      );
+    }
+
+    const checkRow = await query_db(
+      `select * from bb_cross_macth where bb_cross_macth_id = ? `,
+      [bb_cross_macth_id]
+    );
+
+    if (checkRow.length === 0) {
+      throw createError(401, "ไม่พบข้อมูล");
+    }
+
+    const result = await query_db(
+      `update bb_cross_macth b 
+      set re_check_blood_give = ?
+      where b.bb_cross_macth_id = ?`,
+      ["Y", bb_cross_macth_id]
+    );
+
+    res.status(200).json({ success: true, result: result });
   } catch (error) {
     next(error);
   }

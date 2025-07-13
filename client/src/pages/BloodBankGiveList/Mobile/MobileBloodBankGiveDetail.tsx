@@ -13,11 +13,12 @@ import Swal from "sweetalert2";
 import { FormInputScanV2 } from "../../../components/inputs/FormInputScanV2";
 import { useLocation } from "react-router";
 import { staffInfo, type OptionType } from "../../../functions/Auth";
-import { PatientTransfusionDetail } from "../../../functions/AddPatientTransfusion";
+import { PatientTransfusionDetail, updatePatientTransfusion } from "../../../functions/AddPatientTransfusion";
 import type { PatientTransfusionProps } from "../../../types/BloodBankGiveDetail/BloodBankGiveDetail";
+import type { TransfusionData } from "../../../types/BloodBankGiveDetail/TransfusionData";
 
 export const MobileBloodBankGiveDetail = () => {
-    const { register, setValue, control } = useForm<{
+    const { register, handleSubmit, setValue, control, watch, reset } = useForm<{
         bloodBagNo: string;
         bagFromTag: string;
         hn: string;
@@ -38,6 +39,7 @@ export const MobileBloodBankGiveDetail = () => {
     const [patientTransfusion, setPatientTransfusion] = useState<PatientTransfusionProps>();
 
     const handleOpen = (modal: string) => {
+        reset();
         setOpenModal(modal);
     };
 
@@ -59,10 +61,26 @@ export const MobileBloodBankGiveDetail = () => {
 
     }, [bb_cross_macth_id]);
 
-    useEffect(() => {
-        fetchPatientTransfusion();
-        fetchStaff();
-    }, [fetchPatientTransfusion, fetchStaff]);
+    const handleSubmitScanBarcode = (data: TransfusionData) => {
+        try {
+            if (!isBloodBagMatched || !isBagFromTagMatched || !isHnMatched) {
+                Swal.fire({
+                    title: "ข้อมูลไม่ตรงกัน",
+                    text: "กรุณาตรวจสอบข้อมูล Barcode อีกครั้ง",
+                    icon: "error",
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                return;
+            }
+
+            updatePatientTransfusion(data, bb_cross_macth_id, fetchPatientTransfusion);
+            setOpenModal(null);
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const handleClose = () => {
         Swal.fire({
@@ -88,19 +106,26 @@ export const MobileBloodBankGiveDetail = () => {
         });
     };
 
-    const handleSubmitScanBarcode = () => {
-        try {
-            Swal.fire({
-                title: "ข้อมูลถูกต้อง",
-                icon: "success",
-                text: "การระบุข้อมูลเพื่อยืนยันถุงโลหิตตรงกัน",
-                confirmButtonText: "ปิด",
-                timer: 1000
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    const watchBloodBagNo = watch("bloodBagNo");
+    const watchBagFromTag = watch("bagFromTag");
+    const watchHN = watch("hn");
+
+    const isBloodBagMatched =
+        patientTransfusion?.crossMatch?.bloodCode &&
+        watchBloodBagNo === patientTransfusion.crossMatch.bloodCode;
+
+    const isBagFromTagMatched =
+        patientTransfusion?.crossMatch?.bloodCode &&
+        watchBagFromTag === patientTransfusion.crossMatch.bloodCode;
+
+    const isHnMatched =
+        patientTransfusion?.crossMatch?.crossHN &&
+        watchHN === patientTransfusion.crossMatch.crossHN;
+
+    useEffect(() => {
+        fetchPatientTransfusion();
+        fetchStaff();
+    }, [fetchPatientTransfusion, fetchStaff]);
 
     return (
         <div>
@@ -158,7 +183,7 @@ export const MobileBloodBankGiveDetail = () => {
                         </Buttons>
                     )}
                 </div>
-            </MobilePrivateLayout>
+            </MobilePrivateLayout >
 
             <Modals
                 open={openModal === "openScanBarcode"}
@@ -168,6 +193,17 @@ export const MobileBloodBankGiveDetail = () => {
                 title="กรุณา Scan Barcode ที่ถุงโลหิตเพื่อตรวจสอบ"
                 content={
                     <div className="flex flex-col gap-5">
+                        {/* {patientTransfusion && (
+                            <>
+                                <p className="text-sm text-gray-700">
+                                    เลขถุงเลือด: {patientTransfusion.crossMatch.bloodCode}
+                                </p>
+                                <p className="text-sm text-gray-700">
+                                    HN ผู้ป่วย: {patientTransfusion.crossMatch?.crossHN || "-"}
+                                </p>
+                            </>
+                        )} */}
+
                         <FormInputScanV2
                             register={register}
                             setValue={setValue}
@@ -176,6 +212,7 @@ export const MobileBloodBankGiveDetail = () => {
                             type="text"
                             label="เลขถุงโลหิต"
                             placeholder="ระบุเลขที่ถุงโลหิต จากถุงโลหิต"
+                            error={!!isBloodBagMatched}
                         />
 
                         <FormInputScanV2
@@ -186,6 +223,7 @@ export const MobileBloodBankGiveDetail = () => {
                             type="text"
                             label="เลขถุงจากใบคล้อง"
                             placeholder="ระบุเลขที่ถุงโลหิต จากถุงใบคล้อง"
+                            error={!!isBagFromTagMatched}
                         />
 
                         <FormInputScanV2
@@ -196,6 +234,7 @@ export const MobileBloodBankGiveDetail = () => {
                             type="text"
                             label="HN"
                             placeholder="ระบุเลข HN ผู้รับเลือด จากใบเบิกโลหิต"
+                            error={!!isHnMatched}
                         />
                     </div>
                 }
@@ -209,13 +248,13 @@ export const MobileBloodBankGiveDetail = () => {
                         </Buttons>
                         <Buttons
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                            onClick={handleSubmitScanBarcode}
+                            onClick={handleSubmit(handleSubmitScanBarcode)}
                         >
                             ยืนยัน
                         </Buttons>
                     </div>
                 }
             />
-        </div>
+        </div >
     )
 }
