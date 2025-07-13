@@ -192,7 +192,7 @@ export const MobileBloodBankGiveDetail = () => {
                 titleClassName="flex text-[#FF7726] text-[0.800rem] justify-center mb-4"
                 title="กรุณา Scan Barcode ที่ถุงโลหิตเพื่อตรวจสอบ"
                 content={
-                    <div className="flex flex-col gap-5">
+                    <form autoComplete="off" className="flex flex-col gap-5">
                         {/* {patientTransfusion && (
                             <>
                                 <p className="text-sm text-gray-700">
@@ -236,7 +236,7 @@ export const MobileBloodBankGiveDetail = () => {
                             placeholder="ระบุเลข HN ผู้รับเลือด จากใบเบิกโลหิต"
                             error={!!isHnMatched}
                         />
-                    </div>
+                    </form>
                 }
                 actions={
                     <div className="flex flex-row gap-3 mt-3">
