@@ -6,7 +6,5 @@ export interface StatusData {
 }
 
 export interface BloodStatusStepsProps {
-  data: {
-    status: StatusData;
-  };
+  data: StatusData;
 }

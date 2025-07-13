@@ -3,11 +3,11 @@ export interface CrossMatchData {
   bloodType: string;
   cmResult: string;
   confirmBy: string;
-  confirmDate: string;
+  confirmDate: string | Date;
   confirmTime: string;
   crossBloodGroup: string;
   crossMatchBy: string;
-  crossMatchDate: string;
+  crossMatchDate: string | Date;
   crossMatchTime: string;
   crossRh: string;
   expireDate: string;
@@ -15,7 +15,5 @@ export interface CrossMatchData {
 }
 
 export interface BloodBagInfoCardProps {
-  data: {
-    crossMatch: CrossMatchData;
-  };
+  data: CrossMatchData;
 }

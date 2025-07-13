@@ -1,6 +1,6 @@
 import type { Control, FieldValues } from "react-hook-form";
 
-interface OptionType {
+export interface OptionType {
   label: string;
   value: string;
 }
@@ -14,6 +14,8 @@ export interface PatientData {
   rh: string;
   transfusionDate: string;
   transfusionTime: string;
+  staffId: number;
+  staffName: string;
 }
 
 export interface PatientInfoCardProps<T extends FieldValues> {

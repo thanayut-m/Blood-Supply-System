@@ -5,7 +5,6 @@ import type { BloodBagInfoCardProps } from '../../../../types/BloodBankGiveDetai
 export const BloodBagInfoCard = ({
     data
 }: BloodBagInfoCardProps) => {
-    const dataCrossMatch = data.crossMatch;
     return (
         <div className="grid grid-cols-12">
             <div className="col-span-4">
@@ -19,7 +18,7 @@ export const BloodBagInfoCard = ({
                         เลชที่ถุง
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.bloodCode ? dataCrossMatch.bloodCode : "-"}
+                        {data.bloodCode ? data.bloodCode : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -27,7 +26,7 @@ export const BloodBagInfoCard = ({
                         หมู่เลือด
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.crossBloodGroup ? dataCrossMatch.crossBloodGroup : "-"}
+                        {data.crossBloodGroup ? data.crossBloodGroup : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -35,7 +34,7 @@ export const BloodBagInfoCard = ({
                         Rh
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.crossRh ? dataCrossMatch.crossRh : "-"}
+                        {data.crossRh ? data.crossRh : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -43,7 +42,7 @@ export const BloodBagInfoCard = ({
                         ประเภทโลหิต
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.bloodType ? dataCrossMatch.bloodType : "-"}
+                        {data.bloodType ? data.bloodType : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -51,15 +50,15 @@ export const BloodBagInfoCard = ({
                         วันที่หมดอายุ
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.expireDate ?
-                            dayjs(dataCrossMatch.expireDate).format("DD/MM/YYYY") : "-"}
+                        {data.expireDate ?
+                            dayjs(data.expireDate).format("DD/MM/YYYY") : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
                     <p className="col-span-5 text-end text-[#B5B5B5]">
                         ปริมาณ (cc)</p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.volumeCC ? dataCrossMatch.volumeCC : "-"}
+                        {data.volumeCC ? data.volumeCC : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -67,7 +66,7 @@ export const BloodBagInfoCard = ({
                         result
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.cmResult ? dataCrossMatch.cmResult : "-"}
+                        {data.cmResult ? data.cmResult : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -75,7 +74,7 @@ export const BloodBagInfoCard = ({
                         ผู้ทำ
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.crossMatchBy ? dataCrossMatch.crossMatchBy : "-"}
+                        {data.crossMatchBy ? data.crossMatchBy : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -83,8 +82,8 @@ export const BloodBagInfoCard = ({
                         วัน/เวลา ที่ทำ
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.crossMatchDate ? dayjs(dataCrossMatch.crossMatchDate).format("DD/MM/YYYY") : "-"}&nbsp;
-                        {dataCrossMatch.crossMatchTime ? dataCrossMatch.crossMatchTime : "-"}
+                        {data.crossMatchDate ? dayjs(data.crossMatchDate).format("DD/MM/YYYY") : "-"}&nbsp;
+                        {data.crossMatchTime ? data.crossMatchTime : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -92,7 +91,7 @@ export const BloodBagInfoCard = ({
                         ผู้คล้อง
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.confirmBy ? dataCrossMatch.confirmBy : "-"}
+                        {data.confirmBy ? data.confirmBy : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">
@@ -100,8 +99,8 @@ export const BloodBagInfoCard = ({
                         วัน/เวลา คล้อง
                     </p>
                     <p className="col-span-7 text-start">
-                        {dataCrossMatch.confirmDate ? dayjs(dataCrossMatch.confirmDate).format("DD/MM/YYYY") : "-"}&nbsp;
-                        {dataCrossMatch.confirmTime ? dataCrossMatch.confirmTime : "-"}
+                        {data.confirmDate ? dayjs(data.confirmDate).format("DD/MM/YYYY") : "-"}&nbsp;
+                        {data.confirmTime ? data.confirmTime : "-"}
                     </p>
                 </div>
                 <div className="grid grid-cols-12 gap-3">

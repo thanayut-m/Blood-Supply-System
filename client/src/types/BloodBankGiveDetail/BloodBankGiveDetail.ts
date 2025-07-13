@@ -1,6 +1,6 @@
 import type { AntibodyData } from "./AntibodyCard";
 import type { AutoControlData } from "./AutoControlCard";
-import type { CrossMatchData } from "./BarcodeWarning";
+import type { CrossMatchData } from "./BloodBagInfoCard";
 import type { StatusData } from "./BloodStatusSteps";
 import type { PatientData } from "./PatientInfoCard";
 
@@ -9,7 +9,7 @@ export interface CheckData {
 }
 
 export interface PatientTransfusionProps {
-  patientData: PatientData;
+  patient: PatientData;
   check: CheckData;
   antibody: AntibodyData;
   autoControl: AutoControlData;

@@ -21,6 +21,7 @@ export const MobileBloodBankGiveDetail = () => {
         bloodBagNo: string;
         bagFromTag: string;
         hn: string;
+        blood_donor_name?: string;
     }>({
         defaultValues: {
             bloodBagNo: "",
@@ -100,33 +101,34 @@ export const MobileBloodBankGiveDetail = () => {
             console.log(error)
         }
     }
+
     return (
         <div>
             <MobilePrivateLayout>
                 <div className="flex flex-col gap-2">
                     {patientTransfusion && (
                         <PatientInfoCard
-                            data={patientTransfusion}
+                            data={patientTransfusion.patient}
                             control={control}
                             options={staff || []}
                         />
                     )}
                     <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">
                         {patientTransfusion && (
-                            <AntibodyCard data={patientTransfusion} />
+                            <AntibodyCard data={patientTransfusion.antibody} />
                         )}
                         {patientTransfusion && (
-                            <AutoControlCard data={patientTransfusion} />
+                            <AutoControlCard data={patientTransfusion.autoControl} />
                         )}
                     </div>
 
                     <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25 text-[0.600rem]">
                         <div className="flex flex-col gap-3">
                             {patientTransfusion && (
-                                <BloodBagInfoCard data={patientTransfusion} />
+                                <BloodBagInfoCard data={patientTransfusion.crossMatch} />
                             )}
                             {patientTransfusion && (
-                                <BloodStatusSteps data={patientTransfusion} />
+                                <BloodStatusSteps data={patientTransfusion.status} />
                             )}
                         </div>
                     </div>

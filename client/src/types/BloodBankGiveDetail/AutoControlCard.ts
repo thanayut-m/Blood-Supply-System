@@ -5,7 +5,5 @@ export interface AutoControlData {
 }
 
 export interface AutoControlCardProps {
-  data: {
-    autoControl: AutoControlData;
-  };
+  data: AutoControlData;
 }

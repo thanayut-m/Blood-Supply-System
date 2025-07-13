@@ -1,7 +1,8 @@
 import type { FieldValues, Path } from "react-hook-form"
 import { Autocompletes } from "../../../../components/MUI/Autocompletes"
-import type { PatientInfoCardProps } from "../../../../types/BloodBankGiveDetail/PatientInfoCard";
 import dayjs from 'dayjs';
+import type { PatientInfoCardProps } from "../../../../types/BloodBankGiveDetail/PatientInfoCard";
+
 
 export const PatientInfoCard = <T extends FieldValues>({
   control,

@@ -86,16 +86,18 @@ export const getAllPatientTransfusions = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: {
-        hn: result[0].hn,
-        patientName: result[0].patient_name,
-        age: result[0].patient_age,
-        sex: result[0].sex_name,
-        bloodGroup: result[0].blood_group_name,
-        rhType: result[0].rh,
-        transfusionDate: result[0].patient_pay_date,
-        transfusionTime: result[0].patient_pay_time,
-        staffId: result[0].patient_pay_staff_id,
-        staffName: result[0].patient_pay_staff_name,
+        patient: {
+          hn: result[0].hn,
+          patientName: result[0].patient_name,
+          age: result[0].patient_age,
+          sex: result[0].sex_name,
+          bloodGroup: result[0].blood_group_name,
+          rhType: result[0].rh,
+          transfusionDate: result[0].patient_pay_date,
+          transfusionTime: result[0].patient_pay_time,
+          staffId: result[0].patient_pay_staff_id,
+          staffName: result[0].patient_pay_staff_name,
+        },
         antibody: {
           antiResult: result[0].anitbody_screen_result,
           o1Result: result[0].o1_result_name,

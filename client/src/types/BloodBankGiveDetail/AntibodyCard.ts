@@ -6,7 +6,5 @@ export interface AntibodyData {
 }
 
 export interface AntibodyCardProps {
-  data: {
-    antibody: AntibodyData;
-  };
+  data: AntibodyData;
 }

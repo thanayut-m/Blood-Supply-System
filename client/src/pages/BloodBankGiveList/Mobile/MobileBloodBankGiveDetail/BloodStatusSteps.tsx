@@ -3,10 +3,9 @@ import type { BloodStatusStepsProps } from "../../../../types/BloodBankGiveDetai
 export const BloodStatusSteps = ({
     data
 }: BloodStatusStepsProps) => {
-    const dataStatus = data.status;
     return (
         <div className="grid grid-cols-4 gap-2 text-center">
-            {dataStatus.isConfirmed === "Y" ?
+            {data.isConfirmed === "Y" ?
                 <div className="bg-blue-200 rounded-lg px-4 py-2 shadow-xl/25">
                     <p className="text-black">คล้องโลหิต</p>
                     <p>🔵</p>
@@ -16,7 +15,7 @@ export const BloodStatusSteps = ({
                     <p>⚪</p>
                 </div>
             }
-            {dataStatus.reportStatus === "Y" ?
+            {data.reportStatus === "Y" ?
                 <div className="bg-blue-200 rounded-lg px-4 py-2 shadow-xl/25">
                     <p className="text-black">ตรวจสอบ</p>
                     <p>🔵</p>
@@ -26,7 +25,7 @@ export const BloodStatusSteps = ({
                     <p>⚪</p>
                 </div>
             }
-            {dataStatus.payStatus === "Y" ?
+            {data.payStatus === "Y" ?
                 <div className="bg-blue-200 rounded-lg px-4 py-2 shadow-xl/25">
                     <p className="text-black">จ่ายโลหิต</p>
                     <p>🔵</p>
@@ -36,7 +35,7 @@ export const BloodStatusSteps = ({
                     <p>⚪</p>
                 </div>
             }
-            {dataStatus.hasReaction === "Y" ?
+            {data.hasReaction === "Y" ?
                 <div className="bg-blue-200 rounded-lg px-4 py-2 shadow-xl/25">
                     <p className="text-black">ปฏิกิริยา</p>
                     <p>🔵</p>
