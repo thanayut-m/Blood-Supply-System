@@ -18,7 +18,7 @@ export const MobileNavbar2 = () => {
 
     return (
         <div
-            className="pt-7 text-center text-xl text-white font-prompt ">
+            className="pt-7 pb-2 text-center text-xl text-white font-prompt ">
             {getTitle()}
         </div>
 

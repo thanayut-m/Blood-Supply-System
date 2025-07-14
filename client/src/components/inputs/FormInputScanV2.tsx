@@ -25,7 +25,7 @@ export const FormInputScanV2 = <T extends FieldValues>({
     placeholder,
     type,
     control,
-    error
+    error,
 }: FormInputScanV2Props<T>) => {
     const [openModal, setOpenModal] = useState<string | null>(null);
     const scannerRef = useRef<ScannerRef>(null);
@@ -59,6 +59,7 @@ export const FormInputScanV2 = <T extends FieldValues>({
                             {...register(name)}
                             type={type}
                             placeholder={placeholder}
+                            value={value}
                             className={
                                 `${value?.length > 1
                                     ? (error ? "text-green-500" : "text-red-500")

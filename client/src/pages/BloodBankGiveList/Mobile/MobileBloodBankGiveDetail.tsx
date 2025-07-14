@@ -90,7 +90,7 @@ export const MobileBloodBankGiveDetail = ({
     const handleSubmitUpdateGive = (data) => {
         try {
             const reCheckBloodGive = patientTransfusion?.check.reCheckBloodGive;
-            
+
             updateUpdateGive(data, bb_cross_macth_id, reCheckBloodGive)
 
             fetchPatientTransfusion();
