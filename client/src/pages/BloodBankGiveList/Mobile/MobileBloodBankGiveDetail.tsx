@@ -13,21 +13,24 @@ import Swal from "sweetalert2";
 import { FormInputScanV2 } from "../../../components/inputs/FormInputScanV2";
 import { useLocation } from "react-router";
 import { staffInfo, type OptionType } from "../../../functions/Auth";
-import { PatientTransfusionDetail, updatePatientTransfusion } from "../../../functions/AddPatientTransfusion";
+import { PatientTransfusionDetail, updatePatientTransfusion, updateUpdateGive } from "../../../functions/AddPatientTransfusion";
 import type { PatientTransfusionProps } from "../../../types/BloodBankGiveDetail/BloodBankGiveDetail";
 import type { TransfusionData } from "../../../types/BloodBankGiveDetail/TransfusionData";
 
-export const MobileBloodBankGiveDetail = () => {
-    const { register, handleSubmit, setValue, control, watch, reset } = useForm<{
+export const MobileBloodBankGiveDetail = ({
+    currentStaff
+}: PatientTransfusionProps) => {
+    const { register, handleSubmit, setValue, control, watch, resetField } = useForm<{
         bloodBagNo: string;
         bagFromTag: string;
         hn: string;
-        blood_donor_name?: string;
+        blood_donor_name?: OptionType;
     }>({
         defaultValues: {
             bloodBagNo: "",
             bagFromTag: "",
-            hn: ""
+            hn: "",
+            blood_donor_name: undefined,
         }
     });
 
@@ -39,7 +42,9 @@ export const MobileBloodBankGiveDetail = () => {
     const [patientTransfusion, setPatientTransfusion] = useState<PatientTransfusionProps>();
 
     const handleOpen = (modal: string) => {
-        reset();
+        resetField("bloodBagNo");
+        resetField("bagFromTag");
+        resetField("hn");
         setOpenModal(modal);
     };
 
@@ -76,6 +81,19 @@ export const MobileBloodBankGiveDetail = () => {
 
             updatePatientTransfusion(data, bb_cross_macth_id, fetchPatientTransfusion);
             setOpenModal(null);
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleSubmitUpdateGive = (data) => {
+        try {
+            const reCheckBloodGive = patientTransfusion?.check.reCheckBloodGive;
+            
+            updateUpdateGive(data, bb_cross_macth_id, reCheckBloodGive)
+
+            fetchPatientTransfusion();
 
         } catch (error) {
             console.log(error)
@@ -127,6 +145,22 @@ export const MobileBloodBankGiveDetail = () => {
         fetchStaff();
     }, [fetchPatientTransfusion, fetchStaff]);
 
+
+    useEffect(() => {
+        if (patientTransfusion?.patient) {
+            setValue("blood_donor_name", {
+                value:
+                    patientTransfusion.patient.staffId != null
+                        ? Number(patientTransfusion.patient.staffId)
+                        : Number(currentStaff.staffId),
+                label:
+                    patientTransfusion.patient.staffName != null
+                        ? patientTransfusion.patient.staffName
+                        : currentStaff.staff,
+            });
+        }
+    }, [patientTransfusion, setValue, currentStaff]);
+
     return (
         <div>
             <MobilePrivateLayout>
@@ -135,7 +169,7 @@ export const MobileBloodBankGiveDetail = () => {
                         <PatientInfoCard
                             data={patientTransfusion.patient}
                             control={control}
-                            options={staff || []}
+                            options={staff}
                         />
                     )}
                     <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">
@@ -176,6 +210,7 @@ export const MobileBloodBankGiveDetail = () => {
 
                     {patientTransfusion && (
                         <Buttons
+                            onClick={handleSubmit(handleSubmitUpdateGive)}
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
                             disabled={patientTransfusion?.check.reCheckBloodGive !== "Y"}
                         >

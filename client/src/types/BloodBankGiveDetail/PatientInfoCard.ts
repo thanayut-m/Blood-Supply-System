@@ -2,7 +2,7 @@ import type { Control, FieldValues } from "react-hook-form";
 
 export interface OptionType {
   label: string;
-  value: string;
+  value: number;
 }
 
 export interface PatientData {

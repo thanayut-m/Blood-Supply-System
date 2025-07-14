@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 interface OptionType {
     label: string;
-    value: string;
+    value: number;
 }
 
 interface AutocompletesProps<T extends FieldValues> {

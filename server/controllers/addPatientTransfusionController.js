@@ -1,9 +1,9 @@
 import { query_db } from "../services/connectDb .js";
 import { createError } from "./../utils/createError.js";
+import dayjs from "dayjs";
 
 export const getAllPatientTransfusionsInfo = async (req, res, next) => {
   try {
-    // const today = new Date().toISOString().slice(0, 10);
     const result = await query_db(
       `SELECT
             b2.bb_cross_macth_id,
@@ -24,7 +24,7 @@ export const getAllPatientTransfusionsInfo = async (req, res, next) => {
         LEFT OUTER JOIN blood_type bt ON bt.blood_type_id = b2.blood_type_id
         WHERE b2.pay_status = ?
         AND b3.bb_supply_date BETWEEN ? AND ?`,
-      ["y", "2025-06-01", "2025-07-12"]
+      ["y", "2025-06-01", "2025-07-14"]
     );
 
     res.status(200).json({
@@ -172,6 +172,55 @@ export const updatePatientTransfusions = async (req, res, next) => {
     );
 
     res.status(200).json({ success: true, result: result });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const UpdateGiveBlood = async (req, res, next) => {
+  try {
+    const {
+      patientPayId,
+      patientPayName,
+      bb_cross_macth_id,
+      reCheckBloodGive,
+    } = req.body;
+
+    if (
+      !patientPayId ||
+      !patientPayName ||
+      !bb_cross_macth_id ||
+      !reCheckBloodGive
+    ) {
+      throw createError(401, "ข้อมูลไม่ครบ");
+    }
+
+    const now = dayjs();
+    const patientPayDate = now.format("YYYY-MM-DD");
+    const patientPayTime = now.format("HH:mm:ss");
+
+    if (reCheckBloodGive !== "Y") {
+      throw createError(400, "ไม่อนุญาตให้บันทึกข้อมูล");
+    }
+    const result = await query_db(
+      `UPDATE bb_cross_macth
+        SET patient_pay_status = ? ,patient_pay_staff_id = ? , patient_pay_staff_name = ?, patient_pay_date = ? ,patient_pay_time = ? 
+        WHERE bb_cross_macth_id = ?`,
+      [
+        "Y",
+        patientPayId,
+        patientPayName,
+        patientPayDate,
+        patientPayTime,
+        bb_cross_macth_id,
+      ]
+    );
+
+    if (result.affectedRows === 0) {
+      throw createError(404, "ไม่พบข้อมูลเพื่ออัปเดต");
+    }
+
+    res.status(200).json({ success: true, message: "Patient Pay success." });
   } catch (error) {
     next(error);
   }

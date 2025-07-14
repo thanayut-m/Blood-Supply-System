@@ -15,4 +15,10 @@ export interface PatientTransfusionProps {
   autoControl: AutoControlData;
   crossMatch: CrossMatchData;
   status: StatusData;
+  currentStaff: CurrentStaff;
+}
+
+export interface CurrentStaff {
+  staffId: number;
+  staff: string;
 }

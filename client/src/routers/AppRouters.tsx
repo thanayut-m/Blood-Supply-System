@@ -1,6 +1,6 @@
 import { useMediaQuery } from "react-responsive";
 import { Routes, Route } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 //mobile
 import { MobileSignIn } from "../auth/mobile/MobileSignIn";
@@ -20,6 +20,8 @@ import { currentUser } from "../functions/Auth";
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
+    const [currentStaff, setCurrentStaff] = useState<{ staffId: number; staff: string } | null>(null);
+
     // const location = useLocation();
     // const [loading, setLoading] = useState(false);
 
@@ -32,6 +34,7 @@ export const AppRouters = () => {
     // }, [location]);
 
     const fetchUser = async () => {
+
         const idToken = localStorage.getItem(import.meta.env.VITE_SET_TOKEN)
         // console.log(isToken)
 
@@ -40,9 +43,12 @@ export const AppRouters = () => {
             return;
         }
         try {
-            await currentUser();
-            // console.log(result)
-
+            const staff = await currentUser();
+            // const staff = {
+            //     staffId: result.staffId,
+            //     staffName: result.staff
+            // }
+            setCurrentStaff(staff)
         } catch (error) {
             console.log(error)
         }
@@ -91,7 +97,10 @@ export const AppRouters = () => {
                 <Route
                     path="/BloodBankGiveDetail"
                     element={isMobile &&
-                        <MobileBloodBankGiveDetail />
+                        <MobileBloodBankGiveDetail
+                            currentStaff={currentStaff}
+
+                        />
                     }
                 />
 

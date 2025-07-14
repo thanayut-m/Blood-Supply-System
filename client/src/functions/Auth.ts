@@ -63,7 +63,7 @@ export const currentUser = async () => {
 
 export interface OptionType {
   label: string;
-  value: string;
+  value: number;
 }
 
 interface StaffApiResponse {
@@ -82,15 +82,14 @@ export const staffInfo = async (setStaff: (value: OptionType[]) => void) => {
     const staffOption: OptionType[] = Array.isArray(data)
       ? data.map((item: StaffApiResponse) => ({
           label: item.staffName,
-          value: item.staffId,
+          value: Number(item.staffId),
         }))
       : [
           {
             label: (data as StaffApiResponse).staffName,
-            value: (data as StaffApiResponse).staffId,
+            value: Number((data as StaffApiResponse).staffId),
           },
         ];
-
     setStaff(staffOption);
   } catch (error) {
     console.log(error);
