@@ -15,7 +15,7 @@ export const signIn = async (req, res, next) => {
     }
 
     const users = await query_db(
-      "SELECT staff_id, username, bb_supply, web_password FROM staff WHERE username = ?",
+      "SELECT staff_id, username, bb_give, web_password FROM staff WHERE username = ?",
       [username]
     );
 
@@ -25,7 +25,7 @@ export const signIn = async (req, res, next) => {
 
     const user = users[0];
 
-    if (user.bb_supply !== "Y") {
+    if (user.bb_give !== "Y") {
       throw createError(403, "ไม่มีสิทธิ์เข้าใช้งานระบบ");
     }
 
@@ -46,7 +46,7 @@ export const signIn = async (req, res, next) => {
       message: "เข้าสู่ระบบสำเร็จ",
       user: {
         username: user.username,
-        bb_supply: user.bb_supply,
+        bb_give: user.bb_give,
       },
       token: token,
     });
@@ -92,7 +92,7 @@ export const resetPassword = async (req, res, next) => {
 export const staffInfo = async (req, res, next) => {
   try {
     const result = await query_db(
-      `SELECT staff_id,staff_name FROM staff WHERE bb_supply = ?`,
+      `SELECT staff_id,staff_name FROM staff WHERE bb_give = ?`,
       ["Y"]
     );
 
