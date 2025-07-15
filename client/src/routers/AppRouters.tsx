@@ -1,7 +1,6 @@
 import { useMediaQuery } from "react-responsive";
 import { Routes, Route } from "react-router";
-import { useEffect, useState } from "react";
-import { currentUser } from './../features/Auth/services/authApi';
+import { useCurrentUser } from "../features/Auth/hook/useCurrentUser";
 
 //mobile
 import { MobileResetPasswordPage } from "../features/Auth/pages/Mobile/MobileResetPasswordPage";
@@ -9,36 +8,12 @@ import { MobileSignInPage } from "../features/Auth/pages/Mobile/MobileSignInPage
 import { MobileBloodBankGiveList } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveList";
 import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
 import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
-
-
-//Desktop
-import { DesktopBloodBankGiveList } from "../pages/BloodBankGiveList/Desktop/DesktopBloodBankGiveList";
-import type { StaffData } from "../features/Auth/types/auth.types";
 import { MobileGiveBloodListPage } from "../features/giveBlood/page/Mobile/MobileGiveBloodListPage";
-
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
-    const [currentStaff, setCurrentStaff] = useState<StaffData | null>(null);
-
-    const fetchUser = async () => {
-        try {
-            const idToken = localStorage.getItem(import.meta.env.VITE_SET_TOKEN)
-            if (!idToken) {
-                console.warn("ไม่พบ token ใน localStorage");
-                return;
-            }
-
-            const staff = await currentUser();
-            setCurrentStaff(staff)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    useEffect(() => {
-        fetchUser();
-    }, []);
+    const { user } = useCurrentUser();
+    console.log(user)
 
     return (
         <div>
@@ -48,7 +23,7 @@ export const AppRouters = () => {
                     element={isMobile ?
                         <MobileSignInPage />
                         :
-                        <DesktopSignIn />}
+                        "Not Desktop"}
                 />
 
                 <Route
@@ -56,7 +31,7 @@ export const AppRouters = () => {
                     element={isMobile ?
                         <MobileBloodBankGiveList />
                         :
-                        <DesktopBloodBankGiveList />
+                        "Not Desktop"
                     }
                 />
 
@@ -64,7 +39,6 @@ export const AppRouters = () => {
                     path="/BloodBankGiveDetail"
                     element={isMobile &&
                         <MobileBloodBankGiveDetail
-                            currentStaff={currentStaff}
                         />
                     }
                 />

@@ -24,6 +24,14 @@ export const forgetPassword = async (
   return response.data;
 };
 
+export const getCurrentUser = async (): Promise<StaffData | null> => {
+  const response = await axios.get(VITE_API_PATH + "/Auth/current-user", {
+    headers: authHeader.headers(),
+  });
+
+  return response.data;
+};
+
 export const currentUser = async (): Promise<StaffData | null> => {
   try {
     const result = await axios.get(VITE_API_PATH + "/Auth/current-user", {
