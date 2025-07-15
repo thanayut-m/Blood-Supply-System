@@ -12,10 +12,15 @@ export interface SignInResponse {
 }
 
 // กรอกข้อมูล ResetPassword
-export interface ResetPasswordPayload {
+export interface ForgetPasswordPayload {
   username: string;
   lis_password: string;
   new_password: string;
+}
+
+export interface ForgetPasswordResponse {
+  success: boolean;
+  message?: string;
 }
 
 // Res API currentUser

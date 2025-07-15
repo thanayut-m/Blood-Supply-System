@@ -83,7 +83,7 @@ export const resetPassword = async (req, res, next) => {
       [hashPassword, username]
     );
 
-    res.status(200).json({ success: true, result: result });
+    res.status(200).json({ success: true, message: "เปลี่ยนรหัสผ่านสำเร็จ" });
   } catch (error) {
     next(error);
   }

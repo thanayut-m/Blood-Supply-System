@@ -1,29 +1,25 @@
 import { useForm } from "react-hook-form"
-import { Buttons } from "../../../../components/Buttons"
-import { FormInput } from "../../../../components/inputs/FormInput"
-import type { ResetPasswordPayload } from "../../types/auth.types";
+import type { ForgetPasswordPayload } from "../../types/auth.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaResetPassword } from "../../schema/ResetPasswordSchema";
-import { resetPassword } from "../../services/authApi";
-import { useNavigate } from "react-router";
+import { FormInput } from "../../../../components/inputs/FormInput";
+import { Buttons } from "../../../../components/Buttons";
 
-export const MobileResetPasswordForm = () => {
+
+export const MobileResetPasswordForm = (
+  { onClick }: { onClick: (data: ForgetPasswordPayload) => void }
+) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useForm<ResetPasswordPayload>({
+  } = useForm<ForgetPasswordPayload>({
     resolver: zodResolver(schemaResetPassword)
   });
-  const navigate = useNavigate();
 
-  const handleResetPassword = async (data: ResetPasswordPayload) => {
-    await resetPassword(data, navigate)
-  }
 
   return (
     <form
-      onClick={handleSubmit(handleResetPassword)}
       className="flex flex-col items-center gap-6 w-full max-w-md">
       <div className="text-3xl font-bold">resetPassword</div>
       <div className="flex flex-col justify-center w-full">
@@ -53,6 +49,7 @@ export const MobileResetPasswordForm = () => {
         />
         <div className="mt-4">
           <Buttons
+            onClick={handleSubmit(onClick)}
             isSubmitting={isSubmitting}
             className={`${isSubmitting ? "bg-gray-400" : "bg-blue-500"} rounded-2xl py-2 text-white`}
           >

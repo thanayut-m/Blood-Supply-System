@@ -1,42 +1,27 @@
 import axios from "axios";
 import type {
+  ForgetPasswordPayload,
+  ForgetPasswordResponse,
   OptionType,
-  ResetPasswordPayload,
   SignInPayload,
   SignInResponse,
   StaffData,
   StaffOptionData,
 } from "../types/auth.types";
-import Swal from "sweetalert2";
 import { authHeader } from "../../../utils/authHeader";
 
 const { VITE_API_PATH } = import.meta.env;
 
 export const SignIn = async (data: SignInPayload): Promise<SignInResponse> => {
   const response = await axios.post(VITE_API_PATH + "/Auth/signIn", data);
-  // console.log(response.data);
   return response.data;
 };
 
-export const resetPassword = async (
-  data: ResetPasswordPayload,
-  navigate: (path: string) => void
-) => {
-  try {
-    const result = await axios.put(VITE_API_PATH + "/Auth/resetPassword", data);
-
-    if (result.data.success === true) {
-      Swal.fire({
-        icon: "success",
-        title: "เปลี่ยนรหัสผ่านสำเร็จ",
-        timer: 1000,
-        showConfirmButton: false,
-      });
-      navigate("/");
-    }
-  } catch (error) {
-    console.error("Reset password failed:", error);
-  }
+export const forgetPassword = async (
+  data: ForgetPasswordPayload
+): Promise<ForgetPasswordResponse> => {
+  const response = await axios.put(VITE_API_PATH + "/Auth/resetPassword", data);
+  return response.data;
 };
 
 export const currentUser = async (): Promise<StaffData | null> => {
