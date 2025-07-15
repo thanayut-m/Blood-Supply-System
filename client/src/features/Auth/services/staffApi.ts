@@ -1,6 +1,6 @@
 import axios from "axios";
 import { authHeader } from "../../../utils/authHeader";
-import type { OptionType, StaffOptionData } from "../types/auth.types";
+import type { OptionType, StaffOptionResponse } from "../types/auth.types";
 
 const { VITE_API_PATH } = import.meta.env;
 
@@ -12,14 +12,14 @@ export const fetchStaffOptions = async (): Promise<OptionType[]> => {
     const data = response.data.data;
 
     const staffOption: OptionType[] = Array.isArray(data)
-      ? data.map((item: StaffOptionData) => ({
+      ? data.map((item: StaffOptionResponse) => ({
           label: item.staffName,
           value: item.staffId,
         }))
       : [
           {
-            label: (data as StaffOptionData).staffName,
-            value: (data as StaffOptionData).staffId,
+            label: (data as StaffOptionResponse).staffName,
+            value: (data as StaffOptionResponse).staffId,
           },
         ];
 

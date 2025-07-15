@@ -4,7 +4,7 @@ import type {
   ForgetPasswordResponse,
   SignInPayload,
   SignInResponse,
-  StaffData,
+  StaffResponse,
 } from "../types/auth.types";
 import { authHeader } from "../../../utils/authHeader";
 
@@ -22,7 +22,7 @@ export const forgetPassword = async (
   return response.data;
 };
 
-export const getCurrentUser = async (): Promise<StaffData | null> => {
+export const getCurrentUser = async (): Promise<StaffResponse | null> => {
   const response = await axios.get(VITE_API_PATH + "/Auth/current-user", {
     headers: authHeader.headers(),
   });

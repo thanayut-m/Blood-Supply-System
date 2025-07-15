@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getCurrentUser } from "../services/authApi";
-import type { StaffData } from "../types/auth.types";
+import type { StaffResponse } from "../types/auth.types";
 
 export const useCurrentUser = () => {
-  const [user, setUser] = useState<StaffData | null>(null);
+  const [user, setUser] = useState<StaffResponse | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {

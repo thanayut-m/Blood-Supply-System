@@ -18,23 +18,25 @@ export interface ForgetPasswordPayload {
   new_password: string;
 }
 
+// Res API ResetPassword
 export interface ForgetPasswordResponse {
   success: boolean;
   message?: string;
 }
 
 // Res API currentUser
-export interface StaffData {
+export interface StaffResponse {
   staffId: number;
   staff: string;
+}
+
+// Res API Staff
+export interface StaffOptionResponse {
+  staffId: number;
+  staffName: string;
 }
 
 export interface OptionType {
   label: string;
   value: number;
-}
-
-export interface StaffOptionData {
-  staffId: number;
-  staffName: string;
 }
