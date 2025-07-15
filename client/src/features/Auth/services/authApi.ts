@@ -1,11 +1,18 @@
 import axios from "axios";
+import type {
+  OptionType,
+  ResetPasswordPayload,
+  SignInPayload,
+  StaffData,
+  StaffOptionData,
+} from "../types/auth.types";
 import Swal from "sweetalert2";
-import { api } from "./api";
+import { authHeader } from "../../../utils/authHeader";
 
 const { VITE_API_PATH, VITE_SET_TOKEN } = import.meta.env;
 
-export const signIn = async (
-  data: object,
+export const SignIn = async (
+  data: SignInPayload,
   navigate: (path: string) => void
 ) => {
   try {
@@ -28,8 +35,8 @@ export const signIn = async (
   }
 };
 
-export const ResetPassword = async (
-  data: object,
+export const resetPassword = async (
+  data: ResetPasswordPayload,
   navigate: (path: string) => void
 ) => {
   try {
@@ -49,45 +56,38 @@ export const ResetPassword = async (
   }
 };
 
-export const currentUser = async () => {
+export const currentUser = async (): Promise<StaffData | null> => {
   try {
     const result = await axios.get(VITE_API_PATH + "/Auth/current-user", {
-      headers: api.headers(),
+      headers: authHeader.headers(),
     });
 
-    return result.data;
+    return result.data as StaffData;
   } catch (error) {
     console.log(error);
+    return null;
   }
 };
 
-export interface OptionType {
-  label: string;
-  value: number;
-}
-
-interface StaffApiResponse {
-  staffId: string;
-  staffName: string;
-}
-
-export const staffInfo = async (setStaff: (value: OptionType[]) => void) => {
+export const fetchStaffOptions = async (
+  setStaff: (value: OptionType[]) => void
+) => {
   try {
     const result = await axios.get(VITE_API_PATH + "/Auth/staffInfo", {
-      headers: api.headers(),
+      headers: authHeader.headers(),
     });
 
     const data = result.data.data;
 
     const staffOption: OptionType[] = Array.isArray(data)
-      ? data.map((item: StaffApiResponse) => ({
+      ? data.map((item: StaffOptionData) => ({
           label: item.staffName,
-          value: Number(item.staffId),
+          value: item.staffId,
         }))
       : [
           {
-            label: (data as StaffApiResponse).staffName,
-            value: Number((data as StaffApiResponse).staffId),
+            label: (data as StaffOptionData).staffName,
+            value: (data as StaffOptionData).staffId,
           },
         ];
     setStaff(staffOption);

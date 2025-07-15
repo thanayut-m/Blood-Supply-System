@@ -15,7 +15,7 @@ export interface PatientTransfusionProps {
   autoControl: AutoControlData;
   crossMatch: CrossMatchData;
   status: StatusData;
-  currentStaff: CurrentStaff;
+  currentStaff: CurrentStaff | null;
 }
 
 export interface CurrentStaff {

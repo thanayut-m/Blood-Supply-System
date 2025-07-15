@@ -1,7 +1,7 @@
 import axios from "axios";
-import { api } from "./api";
 import type { TransfusionData } from "../types/BloodBankGiveDetail/TransfusionData";
 import Swal from "sweetalert2";
+import { authHeader } from "../utils/authHeader";
 
 const { VITE_API_PATH } = import.meta.env;
 
@@ -12,7 +12,7 @@ export const getAllPatientTransfusions = async (
     const result = await axios.get(
       VITE_API_PATH + "/addPatientTransfusion/getAllPatientTransfusionsInfo",
       {
-        headers: api.headers(),
+        headers: authHeader.headers(),
       }
     );
     setTransfusions(result.data.data);
@@ -26,7 +26,7 @@ export const PatientTransfusionDetail = async (bb_cross_macth_id: string) => {
     const result = await axios.get(
       VITE_API_PATH + "/addPatientTransfusion/getAllPatientTransfusions",
       {
-        headers: api.headers(),
+        headers: authHeader.headers(),
         params: { bb_cross_macth_id: bb_cross_macth_id },
       }
     );
@@ -55,7 +55,7 @@ export const updatePatientTransfusion = async (
         bb_cross_macth_id,
       },
       {
-        headers: api.headers(),
+        headers: authHeader.headers(),
       }
     );
 
@@ -101,7 +101,7 @@ export const updateUpdateGive = async (
         bb_cross_macth_id,
       },
       {
-        headers: api.headers(),
+        headers: authHeader.headers(),
       }
     );
 

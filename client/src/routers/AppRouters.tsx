@@ -1,53 +1,35 @@
 import { useMediaQuery } from "react-responsive";
 import { Routes, Route } from "react-router";
 import { useEffect, useState } from "react";
+import { currentUser } from './../features/Auth/services/authApi';
 
 //mobile
-import { MobileSignIn } from "../auth/mobile/MobileSignIn";
-import { MobileSignup } from "../auth/mobile/MobileSignup";
+import { MobileResetPasswordPage } from "../features/Auth/pages/Mobile/MobileResetPasswordPage";
+import { MobileSignInPage } from "../features/Auth/pages/Mobile/MobileSignInPage";
 import { MobileBloodBankGiveList } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveList";
-import { MobileSearch } from "../pages/search/Mobile/MobileSearch";
 import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
 import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
-import { MobileResetPassword } from "../auth/mobile/MobileResetPassword";
 
 
 //Desktop
 import { DesktopSignIn } from "../auth/desktop/DesktopSignIn";
-import { DesktopSignup } from "../auth/desktop/DesktopSignup";
 import { DesktopBloodBankGiveList } from "../pages/BloodBankGiveList/Desktop/DesktopBloodBankGiveList";
-import { currentUser } from "../functions/Auth";
+import type { StaffData } from "../features/Auth/types/auth.types";
+
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
-    const [currentStaff, setCurrentStaff] = useState<{ staffId: number; staff: string } | null>(null);
-
-    // const location = useLocation();
-    // const [loading, setLoading] = useState(false);
-
-    // useEffect(() => {
-    //     setLoading(true);
-    //     const timeOut = setTimeout(() => {
-    //         setLoading(false);
-    //     }, 300);
-    //     return () => clearTimeout(timeOut);
-    // }, [location]);
+    const [currentStaff, setCurrentStaff] = useState<StaffData | null>(null);
 
     const fetchUser = async () => {
-
-        const idToken = localStorage.getItem(import.meta.env.VITE_SET_TOKEN)
-        // console.log(isToken)
-
-        if (!idToken) {
-            console.warn("ไม่พบ token ใน localStorage");
-            return;
-        }
         try {
+            const idToken = localStorage.getItem(import.meta.env.VITE_SET_TOKEN)
+            if (!idToken) {
+                console.warn("ไม่พบ token ใน localStorage");
+                return;
+            }
+
             const staff = await currentUser();
-            // const staff = {
-            //     staffId: result.staffId,
-            //     staffName: result.staff
-            // }
             setCurrentStaff(staff)
         } catch (error) {
             console.log(error)
@@ -60,23 +42,13 @@ export const AppRouters = () => {
 
     return (
         <div>
-            {/* {loading &&
-                <Loading loading={loading} />
-            } */}
             <Routes>
                 <Route
                     path="/"
                     element={isMobile ?
-                        <MobileSignIn />
+                        <MobileSignInPage />
                         :
                         <DesktopSignIn />}
-                />
-                <Route
-                    path="/signup"
-                    element={isMobile ?
-                        <MobileSignup />
-                        :
-                        <DesktopSignup />}
                 />
 
                 <Route
@@ -87,19 +59,12 @@ export const AppRouters = () => {
                         <DesktopBloodBankGiveList />
                     }
                 />
-                <Route
-                    path="/search"
-                    element={isMobile &&
-                        <MobileSearch />
-                    }
-                />
 
                 <Route
                     path="/BloodBankGiveDetail"
                     element={isMobile &&
                         <MobileBloodBankGiveDetail
                             currentStaff={currentStaff}
-
                         />
                     }
                 />
@@ -114,10 +79,9 @@ export const AppRouters = () => {
                 <Route
                     path="/ResetPassword"
                     element={isMobile &&
-                        <MobileResetPassword />
+                        <MobileResetPasswordPage />
                     }
                 />
-
 
                 {/* <Route path="/private/*" element={<PrivateRouters />} /> */}
             </Routes>
