@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 interface ModalsProps {
     open: boolean;
-    onClose: () => void;
     title?: string;
     content?: React.ReactNode;
     actions?: React.ReactNode;
@@ -14,7 +13,6 @@ interface ModalsProps {
 
 export const Modals = ({
     open,
-    onClose,
     width,
     high,
     title,
@@ -71,13 +69,7 @@ export const Modals = ({
                     </div>
                 )}
                 <div>
-                    {actions ? (
-                        actions
-                    ) : (
-                        <button className="btn" onClick={onClose}>
-                            Close
-                        </button>
-                    )}
+                    {actions}
                 </div>
             </div>
         </div>

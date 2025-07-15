@@ -15,7 +15,6 @@ import { useLocation } from "react-router";
 import { PatientTransfusionDetail, updatePatientTransfusion, updateUpdateGive } from "../../../functions/AddPatientTransfusion";
 import type { PatientTransfusionProps } from "../../../types/BloodBankGiveDetail/BloodBankGiveDetail";
 import type { TransfusionData } from "../../../types/BloodBankGiveDetail/TransfusionData";
-import { fetchStaffOptions } from "../../../features/Auth/services/authApi";
 import type { OptionType } from "../../../features/Auth/types/auth.types";
 
 export const MobileBloodBankGiveDetail = ({
