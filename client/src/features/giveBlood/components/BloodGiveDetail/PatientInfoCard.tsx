@@ -1,10 +1,9 @@
-import { useForm, type Control, type FieldValues, type Path } from "react-hook-form"
+import { type Control, type FieldValues, type Path } from "react-hook-form"
 import { Autocompletes } from "../../../../components/MUI/Autocompletes"
 import dayjs from 'dayjs';
 import type { OptionType } from "../../../Auth/types/auth.types";
 import type { PatientResponse } from "../../types/transfusion.types";
-import { useEffect } from "react";
-import { useCurrentUser } from "../../../Auth/hook/useCurrentUser";
+
 
 interface Props<T extends FieldValues> {
   control: Control<T>
@@ -17,7 +16,7 @@ export const PatientInfoCard = <T extends FieldValues>({
   options,
   data
 }: Props<T>) => {
-  
+
   return (
     <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25">
       <label className="text-[#B5B5B5]">
