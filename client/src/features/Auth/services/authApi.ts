@@ -9,30 +9,12 @@ import type {
 import Swal from "sweetalert2";
 import { authHeader } from "../../../utils/authHeader";
 
-const { VITE_API_PATH, VITE_SET_TOKEN } = import.meta.env;
+const { VITE_API_PATH } = import.meta.env;
 
-export const SignIn = async (
-  data: SignInPayload,
-  navigate: (path: string) => void
-) => {
-  try {
-    const result = await axios.post(VITE_API_PATH + "/Auth/signIn", data);
-
-    if (result.data.success === true) {
-      localStorage.setItem(VITE_SET_TOKEN, result.data.token);
-
-      Swal.fire({
-        icon: "success",
-        title: "เข้าสู่ระบบสำเร็จ",
-        timer: 1000,
-        showConfirmButton: false,
-      });
-
-      navigate("/BloodBankGiveList");
-    }
-  } catch (error) {
-    console.error("Sign in failed:", error);
-  }
+export const SignIn = async (data: SignInPayload): Promise<string> => {
+  const response = await axios.post(VITE_API_PATH + "/Auth/signIn", data);
+  // console.log(response.data.token);
+  return response.data.token;
 };
 
 export const resetPassword = async (

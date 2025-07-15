@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form"
 import { Buttons } from "../../../../components/Buttons"
 import { FormInput } from "../../../../components/inputs/FormInput"
-import type { SignInPayload } from "../../types/auth.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaSignIn } from "../../schema/signInSchema";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-import { SignIn } from "../../services/authApi";
+import type { SignInPayload } from "../../types/auth.types";
 
-export const MobileSignInForm = () => {
+export const MobileSignInForm = (
+    { onClick }: {
+        onClick: (data: SignInPayload) => void
+    }
+) => {
     const {
         register,
         handleSubmit,
@@ -16,19 +17,10 @@ export const MobileSignInForm = () => {
     } = useForm<SignInPayload>({
         resolver: zodResolver(schemaSignIn)
     });
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        document.title = "เข้าสู่ระบบ || Logins Medical";
-    }, []);
-
-    const handleSignIn = async (data: SignInPayload) => {
-        await SignIn(data, navigate)
-    }
 
     return (
         <form
-            onClick={handleSubmit(handleSignIn)}
+            onClick={handleSubmit(onClick)}
             className="flex flex-col items-center gap-6 w-full max-w-md">
             <div className="text-3xl font-bold">เข้าสู่ระบบ</div>
             <div className="flex flex-col justify-center w-full">
