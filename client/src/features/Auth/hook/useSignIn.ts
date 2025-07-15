@@ -24,7 +24,7 @@ export const useSignIn = () => {
         });
       }
 
-      navigate("/BloodBankGiveList");
+      navigate("/giveBloodList");
     } catch (error) {
       console.log(error);
     }

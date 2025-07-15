@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { MobilePrivateLayout } from "../../../../layouts/MobilePrivateLayout"
+import { useNavigate } from "react-router";
+import { usePatientGiveList } from "../../hook/usePatientGiveList";
+import type { PatientGiveResponse } from "../../types/transfusion.types";
+import { MobilePrivateLayout } from "../../../../layouts/MobilePrivateLayout";
 import { PatientGiveItemCard } from "../../components/giveBloodList/Mobile/PatientGiveItemCard";
-import { usePatientGiveList } from "../../hook/usePatientGiveList"
 import { Modals } from "../../../../components/modal/Modals";
 import { GiveBloodMenu } from "../../components/giveBloodList/Mobile/GiveBloodMenu";
-import type { PatientGiveResponse } from "../../types/transfusion.types";
-import { useNavigate } from "react-router";
 
 export const MobileGiveBloodListPage = () => {
     const navigate = useNavigate();

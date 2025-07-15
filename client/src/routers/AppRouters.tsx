@@ -5,10 +5,9 @@ import { useCurrentUser } from "../features/Auth/hook/useCurrentUser";
 //mobile
 import { MobileResetPasswordPage } from "../features/Auth/pages/Mobile/MobileResetPasswordPage";
 import { MobileSignInPage } from "../features/Auth/pages/Mobile/MobileSignInPage";
-import { MobileBloodBankGiveList } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveList";
-import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
 import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
 import { MobileGiveBloodListPage } from "../features/giveBlood/page/Mobile/MobileGiveBloodListPage";
+import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
@@ -25,31 +24,6 @@ export const AppRouters = () => {
                         :
                         "Not Desktop"}
                 />
-
-                <Route
-                    path="/BloodBankGiveList"
-                    element={isMobile ?
-                        <MobileBloodBankGiveList />
-                        :
-                        "Not Desktop"
-                    }
-                />
-
-                <Route
-                    path="/BloodBankGiveDetail"
-                    element={isMobile &&
-                        <MobileBloodBankGiveDetail
-                        />
-                    }
-                />
-
-                <Route
-                    path="/BloodBankReaction"
-                    element={isMobile &&
-                        <MobileBloodBankReaction />
-                    }
-                />
-
                 <Route
                     path="/ResetPassword"
                     element={isMobile &&
@@ -58,11 +32,25 @@ export const AppRouters = () => {
                 />
                 <Route
                     path="/giveBloodList"
-                    element={isMobile &&
+                    element={isMobile ?
                         <MobileGiveBloodListPage />
+                        :
+                        "Not Desktop"
                     }
                 />
-
+                <Route
+                    path="/BloodBankGiveDetail"
+                    element={isMobile &&
+                        <MobileBloodBankGiveDetail
+                        />
+                    }
+                />
+                <Route
+                    path="/BloodBankReaction"
+                    element={isMobile &&
+                        <MobileBloodBankReaction />
+                    }
+                />
                 {/* <Route path="/private/*" element={<PrivateRouters />} /> */}
             </Routes>
         </div >
