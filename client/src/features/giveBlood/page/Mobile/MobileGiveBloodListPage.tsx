@@ -27,7 +27,7 @@ export const MobileGiveBloodListPage = () => {
             if (!selectRow) return;
 
             if (actionType === "give") {
-                navigate("/BloodBankGiveDetail", { state: { bb_cross_macth_id: selectRow.bb_cross_macth_id } });
+                navigate("/bloodGiveDetail", { state: { bb_cross_macth_id: selectRow.bb_cross_macth_id } });
             } else {
                 navigate("/BloodBankReaction");
             }

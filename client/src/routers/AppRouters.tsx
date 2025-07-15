@@ -12,8 +12,6 @@ import { MobileBloodGiveDetailPage } from "../features/giveBlood/page/Mobile/Mob
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
-    const { user } = useCurrentUser();
-    console.log(user)
 
     return (
         <div>

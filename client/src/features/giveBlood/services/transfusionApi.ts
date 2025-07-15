@@ -1,6 +1,7 @@
 import axios from "axios";
 import { authHeader } from "../../../utils/authHeader";
 import type {
+  BloodGiveDetailPage,
   PatientGiveListResponse,
   PatientGiveResponse,
 } from "../types/transfusion.types";
@@ -15,4 +16,17 @@ export const getGiveBloodList = async (): Promise<PatientGiveResponse[]> => {
     }
   );
   return response.data.data;
+};
+
+export const getBloodGiveById = async (
+  bb_cross_macth_id: number
+): Promise<BloodGiveDetailPage> => {
+  const response = await axios.get<BloodGiveDetailPage>(
+    VITE_API_PATH + "/addPatientTransfusion/getAllPatientTransfusions",
+    {
+      headers: authHeader.headers(),
+      params: { bb_cross_macth_id: bb_cross_macth_id },
+    }
+  );
+  return response.data;
 };

@@ -1,46 +1,51 @@
 import { useForm } from "react-hook-form";
 import { MobilePrivateLayout } from "../../../../layouts/MobilePrivateLayout"
-import { PatientInfoCard } from "../../components/BloodGiveDetail/PatientInfoCard";
-import { AntibodyCard } from "../../components/BloodGiveDetail/AntibodyCard";
-import { AutoControlCard } from "../../components/BloodGiveDetail/AutoControlCard";
-import { BloodBagInfoCard } from "../../components/BloodGiveDetail/BloodBagInfoCard";
-import { BloodStatusSteps } from "../../components/BloodGiveDetail/BloodStatusSteps";
-import { Buttons } from "../../../../components/Buttons";
-import { BarcodeWarning } from "../../components/BloodGiveDetail/BarcodeWarning";
-import { Modals } from "../../../../components/modal/Modals";
-import { BloodBagScanInput } from "../../components/BloodGiveDetail/BloodBagScanInput";
-import { useLocation } from "react-router";
 import { useStaffOptions } from "../../../Auth/hook/useStaffOptions";
+import { PatientInfoCard } from "../../components/BloodGiveDetail/PatientInfoCard";
+import { useTransfusionEntry } from "../../hook/useTransfusionEntry";
+import { useCurrentUser } from "../../../Auth/hook/useCurrentUser";
+import { useEffect } from "react";
+import type { BloodGiveDetailPayload } from "../../types/transfusion.types";
 
-export const MobileBloodGiveDetailPage = () => {
-    const { handleSubmit, control } = useForm();
-    const [openModal, setOpenModal] = useState<string | null>(null);
+export const MobileBloodGiveDetailPage = (
+) => {
+    const { control, setValue } = useForm<BloodGiveDetailPayload>({});
+    // const [openModal, setOpenModal] = useState<string | null>(null);
     const { staffOptions } = useStaffOptions();
-    const location = useLocation();
-    const { bb_cross_macth_id } = location.state || {};
+    const { data, loading } = useTransfusionEntry();
 
+    const { user } = useCurrentUser()
 
-    const handleOpen = (modal: string) => {
-        setOpenModal(modal);
-    };
+    useEffect(() => {
+        if (data && user) {
+            setValue("blood_donor_name", {
+                value: data.data.patient.staffId ?? user.staffId,
+                label: data.data.patient.staffName ?? user.staff,
+            });
+        }
+    }, [data, user, setValue]);
 
-    const handleClose = () => {
-        setOpenModal(null);
-    };
+    // const handleOpen = (modal: string) => {
+    //     setOpenModal(modal);
+    // };
 
-    console.log(bb_cross_macth_id)
+    // const handleClose = () => {
+    //     setOpenModal(null);
+    // };
+
+    if (loading) return <p>กำลังโหลด...</p>;
     return (
         <div>
             <MobilePrivateLayout>
                 <div className="flex flex-col gap-2">
-                    {patientTransfusion && (
+                    {data && (
                         <PatientInfoCard
-                            data={patientTransfusion.patient}
+                            data={data.data.patient}
                             control={control}
                             options={staffOptions}
                         />
                     )}
-                    <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">
+                    {/* <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">
                         {patientTransfusion && (
                             <AntibodyCard data={patientTransfusion.antibody} />
                         )}
@@ -84,11 +89,11 @@ export const MobileBloodGiveDetailPage = () => {
                         >
                             จ่ายโลหิต
                         </Buttons>
-                    )}
+                    )} */}
                 </div>
             </MobilePrivateLayout >
 
-            <Modals
+            {/* <Modals
                 open={openModal === "openScanBarcode"}
                 width="w-[90%]"
                 titleClassName="flex text-[#FF7726] text-[0.800rem] justify-center mb-4"
@@ -112,7 +117,7 @@ export const MobileBloodGiveDetailPage = () => {
                         </Buttons>
                     </div>
                 }
-            />
+            /> */}
         </div >
     )
 }

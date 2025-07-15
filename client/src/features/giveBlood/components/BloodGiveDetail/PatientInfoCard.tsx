@@ -1,14 +1,23 @@
-import type { FieldValues, Path } from "react-hook-form"
+import { useForm, type Control, type FieldValues, type Path } from "react-hook-form"
 import { Autocompletes } from "../../../../components/MUI/Autocompletes"
 import dayjs from 'dayjs';
-import type { PatientInfoCardProps } from "../../../../types/BloodBankGiveDetail/PatientInfoCard";
+import type { OptionType } from "../../../Auth/types/auth.types";
+import type { PatientResponse } from "../../types/transfusion.types";
+import { useEffect } from "react";
+import { useCurrentUser } from "../../../Auth/hook/useCurrentUser";
 
+interface Props<T extends FieldValues> {
+  control: Control<T>
+  options: OptionType[];
+  data: PatientResponse;
+}
 
 export const PatientInfoCard = <T extends FieldValues>({
   control,
   options,
   data
-}: PatientInfoCardProps<T>) => {
+}: Props<T>) => {
+  
   return (
     <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25">
       <label className="text-[#B5B5B5]">
@@ -42,7 +51,7 @@ export const PatientInfoCard = <T extends FieldValues>({
         </div>
         <div className="col-span-3 text-[#B5B5B5]">
           Rh <span className="text-black">
-            {data.rh ? data.rh : "-"}
+            {data.rhType ? data.rhType : "-"}
           </span>
         </div>
         <div className="col-span-12 mt-1">

@@ -26,6 +26,7 @@ export interface ForgetPasswordResponse {
 
 // Res API currentUser
 export interface StaffResponse {
+  success: boolean;
   staffId: number;
   staff: string;
 }
