@@ -5,7 +5,7 @@ export const MobileNavbar = () => {
 
     const getTitle = () => {
         switch (location.pathname) {
-            case "/BloodBankGiveList":
+            case "/giveBloodList":
                 return "ให้เลือดผู้ป่วย";
             case "/search":
                 return "ค้นหา";

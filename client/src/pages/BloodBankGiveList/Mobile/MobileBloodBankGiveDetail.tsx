@@ -228,17 +228,6 @@ export const MobileBloodBankGiveDetail = ({
                 title="กรุณา Scan Barcode ที่ถุงโลหิตเพื่อตรวจสอบ"
                 content={
                     <form autoComplete="off" className="flex flex-col gap-5">
-                        {/* {patientTransfusion && (
-                            <>
-                                <p className="text-sm text-gray-700">
-                                    เลขถุงเลือด: {patientTransfusion.crossMatch.bloodCode}
-                                </p>
-                                <p className="text-sm text-gray-700">
-                                    HN ผู้ป่วย: {patientTransfusion.crossMatch?.crossHN || "-"}
-                                </p>
-                            </>
-                        )} */}
-
                         <FormInputScanV2
                             register={register}
                             setValue={setValue}

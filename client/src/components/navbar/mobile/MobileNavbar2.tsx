@@ -5,9 +5,11 @@ export const MobileNavbar2 = () => {
 
     const getTitle = () => {
         switch (location.pathname) {
-            case "/BloodBankReaction":
+            case "/giveBloodList":
                 return "บันทึกข้อมูลปฏิกิริยาหลังรับเลือด";
             case "/BloodBankGiveDetail":
+                return "บันทึกการให้โลหิต";
+            case "/bloodGiveDetail":
                 return "บันทึกการให้โลหิต";
             case "/BloodBankGiveList":
                 return "ให้เลือดผู้ป่วย";
