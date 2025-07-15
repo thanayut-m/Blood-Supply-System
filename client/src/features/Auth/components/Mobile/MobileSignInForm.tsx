@@ -20,7 +20,7 @@ export const MobileSignInForm = (
 
     return (
         <form
-            onClick={handleSubmit(onClick)}
+
             className="flex flex-col items-center gap-6 w-full max-w-md">
             <div className="text-3xl font-bold">เข้าสู่ระบบ</div>
             <div className="flex flex-col justify-center w-full">
@@ -42,6 +42,7 @@ export const MobileSignInForm = (
                 />
                 <div className="mt-4">
                     <Buttons
+                        onClick={handleSubmit(onClick)}
                         isSubmitting={isSubmitting}
                         className={`${isSubmitting ? "bg-gray-400" : "bg-blue-500"} rounded-2xl py-2 text-white`}
                     >

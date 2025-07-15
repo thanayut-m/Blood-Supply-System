@@ -3,6 +3,7 @@ import type {
   OptionType,
   ResetPasswordPayload,
   SignInPayload,
+  SignInResponse,
   StaffData,
   StaffOptionData,
 } from "../types/auth.types";
@@ -11,10 +12,10 @@ import { authHeader } from "../../../utils/authHeader";
 
 const { VITE_API_PATH } = import.meta.env;
 
-export const SignIn = async (data: SignInPayload): Promise<string> => {
+export const SignIn = async (data: SignInPayload): Promise<SignInResponse> => {
   const response = await axios.post(VITE_API_PATH + "/Auth/signIn", data);
-  // console.log(response.data.token);
-  return response.data.token;
+  // console.log(response.data);
+  return response.data;
 };
 
 export const resetPassword = async (

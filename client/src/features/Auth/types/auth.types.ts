@@ -4,6 +4,13 @@ export interface SignInPayload {
   password: string;
 }
 
+// Res API SignIn
+export interface SignInResponse {
+  success: boolean;
+  token: string;
+  message?: string;
+}
+
 // กรอกข้อมูล ResetPassword
 export interface ResetPasswordPayload {
   username: string;

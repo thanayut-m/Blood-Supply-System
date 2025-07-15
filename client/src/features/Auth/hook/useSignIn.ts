@@ -9,15 +9,19 @@ export const useSignIn = () => {
   const navigate = useNavigate();
 
   const handleSignIn = async (data: SignInPayload) => {
-    const token = await SignIn(data);
-    localStorage.setItem(VITE_SET_TOKEN, token);
+    const res = await SignIn(data);
 
-    Swal.fire({
-      icon: "success",
-      title: "เข้าสู่ระบบสำเร็จ",
-      timer: 1000,
-      showConfirmButton: false,
-    });
+    if (res.success === true) {
+      const token = res.token;
+      localStorage.setItem(VITE_SET_TOKEN, token);
+
+      Swal.fire({
+        icon: "success",
+        title: "เข้าสู่ระบบสำเร็จ",
+        timer: 1000,
+        showConfirmButton: false,
+      });
+    }
 
     navigate("/BloodBankGiveList");
   };
