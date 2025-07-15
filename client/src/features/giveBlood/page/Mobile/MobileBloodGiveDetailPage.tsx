@@ -13,7 +13,6 @@ export const MobileBloodGiveDetailPage = (
     // const [openModal, setOpenModal] = useState<string | null>(null);
     const { staffOptions } = useStaffOptions();
     const { data, loading } = useTransfusionEntry();
-
     const { user } = useCurrentUser()
 
     useEffect(() => {
