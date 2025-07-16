@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 import { getBloodGiveById, putBloodGiveMap } from "../services/transfusionApi";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type {
   BloodGiveDetailPage,
   BloodGiveDetailPayload,
@@ -14,18 +14,23 @@ export const useTransfusionEntry = () => {
   const location = useLocation();
   const { bb_cross_macth_id } = location.state || {};
 
-  const fetchBloodGiveById = async () => {
+  const fetchBloodGiveById = useCallback(async () => {
     setLoading(true);
     try {
       const res = await getBloodGiveById(bb_cross_macth_id);
       setData(res);
-      setLoading(false);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [bb_cross_macth_id]);
+
+  useEffect(() => {
+    if (bb_cross_macth_id) {
+      fetchBloodGiveById();
+    }
+  }, [bb_cross_macth_id, fetchBloodGiveById]);
 
   const updateBloodGiveMap = async (
     formData: BloodGiveDetailPayload,
@@ -68,12 +73,6 @@ export const useTransfusionEntry = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    if (bb_cross_macth_id) {
-      fetchBloodGiveById();
-    }
-  }, [bb_cross_macth_id]);
 
   return {
     data,
