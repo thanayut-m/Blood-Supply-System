@@ -5,6 +5,7 @@ import type {
   BloodGiveDetailPayload,
   PatientGiveListResponse,
   PatientGiveResponse,
+  UpdateBloodGiveMapResponse,
 } from "../types/transfusion.types";
 
 const { VITE_API_PATH } = import.meta.env;
@@ -33,15 +34,15 @@ export const getBloodGiveById = async (
 };
 
 export const putBloodGiveMap = async (
-  data: BloodGiveDetailPayload,
+  formData: BloodGiveDetailPayload,
   bb_cross_macth_id: number
-) => {
+): Promise<UpdateBloodGiveMapResponse> => {
   const response = await axios.put(
     VITE_API_PATH + "/addPatientTransfusion/updatePatientTransfusions",
     {
-      bagFromTag: data.bagFromTag,
-      bloodBagNo: data.bloodBagNo,
-      hn: data.hn,
+      bagFromTag: formData.bagFromTag,
+      bloodBagNo: formData.bloodBagNo,
+      hn: formData.hn,
       bb_cross_macth_id: bb_cross_macth_id,
     },
     {

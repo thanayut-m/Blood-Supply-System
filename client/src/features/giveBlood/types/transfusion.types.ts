@@ -102,3 +102,9 @@ export interface BloodGiveDetailPayload {
   bagFromTag: string;
   hn: string;
 }
+
+// Res API putBloodGiveMap
+export interface UpdateBloodGiveMapResponse {
+  success: boolean;
+  message?: string;
+}

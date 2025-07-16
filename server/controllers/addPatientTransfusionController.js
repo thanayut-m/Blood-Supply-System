@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 
 export const getAllPatientTransfusionsInfo = async (req, res, next) => {
   try {
+    const now = dayjs();
+
     const result = await query_db(
       `SELECT
             b2.bb_cross_macth_id,
@@ -23,8 +25,9 @@ export const getAllPatientTransfusionsInfo = async (req, res, next) => {
         LEFT OUTER JOIN bb_test b4 ON b4.bb_order_id = b1.bb_order_id
         LEFT OUTER JOIN blood_type bt ON bt.blood_type_id = b2.blood_type_id
         WHERE b2.pay_status = ?
-        AND b3.bb_supply_date BETWEEN ? AND ?`,
-      ["y", "2025-06-01", "2025-07-14"]
+        AND b3.bb_supply_date BETWEEN ? AND ?
+        ORDER BY b1.bb_order_id DESC`,
+      ["y", "2025-06-01", now.format("YYYY-MM-DD")]
     );
 
     res.status(200).json({
@@ -171,7 +174,7 @@ export const updatePatientTransfusions = async (req, res, next) => {
       ["Y", bb_cross_macth_id]
     );
 
-    res.status(200).json({ success: true, result: result });
+    res.status(200).json({ success: true, message: "Update Success." });
   } catch (error) {
     next(error);
   }
