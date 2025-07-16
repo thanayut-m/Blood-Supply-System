@@ -1,13 +1,11 @@
 import { useMediaQuery } from "react-responsive";
 import { Routes, Route } from "react-router";
-import { useCurrentUser } from "../features/Auth/hook/useCurrentUser";
 
 //mobile
 import { MobileResetPasswordPage } from "../features/Auth/pages/Mobile/MobileResetPasswordPage";
 import { MobileSignInPage } from "../features/Auth/pages/Mobile/MobileSignInPage";
 import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
 import { MobileGiveBloodListPage } from "../features/giveBlood/page/Mobile/MobileGiveBloodListPage";
-import { MobileBloodBankGiveDetail } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankGiveDetail";
 import { MobileBloodGiveDetailPage } from "../features/giveBlood/page/Mobile/MobileBloodGiveDetailPage";
 
 export const AppRouters = () => {
@@ -43,13 +41,6 @@ export const AppRouters = () => {
                         <MobileBloodGiveDetailPage />
                         :
                         "Not Desktop"
-                    }
-                />
-                <Route
-                    path="/BloodBankGiveDetail"
-                    element={isMobile &&
-                        <MobileBloodBankGiveDetail
-                        />
                     }
                 />
                 <Route
