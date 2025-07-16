@@ -1,4 +1,4 @@
-import type { BloodGiveDetailResponse } from "../../types/transfusion.types";
+import type { BloodGiveDetailResponse } from "../../../types/transfusion.types";
 
 interface Props {
     data: BloodGiveDetailResponse

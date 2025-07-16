@@ -7,6 +7,7 @@ import { MobileSignInPage } from "../features/Auth/pages/Mobile/MobileSignInPage
 import { MobileBloodBankReaction } from "../pages/BloodBankGiveList/Mobile/MobileBloodBankReaction";
 import { MobileGiveBloodListPage } from "../features/giveBlood/page/Mobile/MobileGiveBloodListPage";
 import { MobileBloodGiveDetailPage } from "../features/giveBlood/page/Mobile/MobileBloodGiveDetailPage";
+import { MobileBloodReactionPage } from "../features/giveBlood/page/Mobile/MobileBloodReactionPage";
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
@@ -44,11 +45,22 @@ export const AppRouters = () => {
                     }
                 />
                 <Route
+                    path="/bloodReaction"
+                    element={isMobile ?
+                        <MobileBloodReactionPage />
+                        :
+                        "Not Desktop"
+                    }
+                />
+                <Route
                     path="/BloodBankReaction"
                     element={isMobile &&
                         <MobileBloodBankReaction />
                     }
                 />
+
+
+
                 {/* <Route path="/private/*" element={<PrivateRouters />} /> */}
             </Routes>
         </div >

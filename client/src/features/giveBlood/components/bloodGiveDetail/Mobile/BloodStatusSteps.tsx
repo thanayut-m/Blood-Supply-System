@@ -1,4 +1,4 @@
-import type { StatusResponse } from "../../types/transfusion.types";
+import type { StatusResponse } from "../../../types/transfusion.types";
 
 interface Props {
     data: StatusResponse

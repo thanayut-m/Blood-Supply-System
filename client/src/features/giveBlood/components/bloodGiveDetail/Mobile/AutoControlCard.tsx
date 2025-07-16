@@ -1,4 +1,4 @@
-import type { AutoControlResponse } from "../../types/transfusion.types";
+import type { AutoControlResponse } from "../../../types/transfusion.types";
 
 interface Props {
     data: AutoControlResponse

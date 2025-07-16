@@ -1,19 +1,19 @@
 import { useForm } from "react-hook-form";
 import { MobilePrivateLayout } from "../../../../layouts/MobilePrivateLayout"
 import { useStaffOptions } from "../../../Auth/hook/useStaffOptions";
-import { PatientInfoCard } from "../../components/BloodGiveDetail/PatientInfoCard";
+import { PatientInfoCard } from "../../components/bloodGiveDetail/Mobile/PatientInfoCard";
 import { useTransfusionEntry } from "../../hook/useTransfusionEntry";
 import { useCurrentUser } from "../../../Auth/hook/useCurrentUser";
 import { useEffect, useState } from "react";
 import type { BloodGiveDetailPayload } from "../../types/transfusion.types";
-import { AntibodyCard } from "../../components/BloodGiveDetail/AntibodyCard";
-import { AutoControlCard } from "../../components/BloodGiveDetail/AutoControlCard";
-import { BloodBagInfoCard } from "../../components/BloodGiveDetail/BloodBagInfoCard";
-import { BloodStatusSteps } from "../../components/BloodGiveDetail/BloodStatusSteps";
-import { BarcodeWarning } from "../../components/BloodGiveDetail/BarcodeWarning";
+import { AntibodyCard } from "../../components/bloodGiveDetail/Mobile/AntibodyCard";
+import { AutoControlCard } from "../../components/bloodGiveDetail/Mobile/AutoControlCard";
+import { BloodBagInfoCard } from "../../components/bloodGiveDetail/Mobile/BloodBagInfoCard";
+import { BloodStatusSteps } from "../../components/bloodGiveDetail/Mobile/BloodStatusSteps";
+import { BarcodeWarning } from "../../components/bloodGiveDetail/Mobile/BarcodeWarning";
 import { Buttons } from "../../../../components/Buttons";
 import { Modals } from "../../../../components/modal/Modals";
-import { BloodBagScanInput } from "../../components/BloodGiveDetail/BloodBagScanInput";
+import { BloodBagScanInput } from "../../components/bloodGiveDetail/Mobile/BloodBagScanInput";
 import Swal from "sweetalert2";
 
 export const MobileBloodGiveDetailPage = (

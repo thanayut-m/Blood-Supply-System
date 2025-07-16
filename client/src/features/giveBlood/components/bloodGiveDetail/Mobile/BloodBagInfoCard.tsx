@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import donorIcon1 from '../../../../assets/icon/donor_Icon1.png';
-import type { CrossMatchResponse } from '../../types/transfusion.types';
+import donorIcon1 from '../../../../../assets/icon/donor_Icon1.png';
+import type { CrossMatchResponse } from '../../../types/transfusion.types';
 
 interface Props {
     data: CrossMatchResponse

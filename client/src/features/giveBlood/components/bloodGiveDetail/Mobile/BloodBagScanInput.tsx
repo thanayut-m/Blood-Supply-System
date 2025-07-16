@@ -1,6 +1,6 @@
 import { type Control, type UseFormRegister, type UseFormSetValue, type UseFormWatch } from "react-hook-form"
-import { FormInputScanV2 } from "../../../../components/inputs/FormInputScanV2"
-import type { BloodGiveDetailPayload, BloodGiveDetailResponse } from "../../types/transfusion.types"
+import { FormInputScanV2 } from "../../../../../components/inputs/FormInputScanV2"
+import type { BloodGiveDetailPayload, BloodGiveDetailResponse } from "../../../types/transfusion.types"
 
 interface Props {
     data?: BloodGiveDetailResponse

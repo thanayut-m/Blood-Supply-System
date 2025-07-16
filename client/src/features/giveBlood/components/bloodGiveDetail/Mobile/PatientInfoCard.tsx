@@ -1,8 +1,8 @@
 import { type Control, type FieldValues, type Path } from "react-hook-form"
-import { Autocompletes } from "../../../../components/MUI/Autocompletes"
+import { Autocompletes } from "../../../../../components/MUI/Autocompletes"
 import dayjs from 'dayjs';
-import type { OptionType } from "../../../Auth/types/auth.types";
-import type { PatientResponse } from "../../types/transfusion.types";
+import type { OptionType } from "../../../../Auth/types/auth.types";
+import type { PatientResponse } from "../../../types/transfusion.types";
 
 
 interface Props<T extends FieldValues> {

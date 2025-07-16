@@ -1,4 +1,4 @@
-import type { AntibodyResponse } from "../../types/transfusion.types";
+import type { AntibodyResponse } from "../../../types/transfusion.types";
 
 interface Props {
     data: AntibodyResponse
