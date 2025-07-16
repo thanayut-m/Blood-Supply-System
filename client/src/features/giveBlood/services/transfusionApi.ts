@@ -3,9 +3,11 @@ import { authHeader } from "../../../utils/authHeader";
 import type {
   BloodGiveDetailPage,
   BloodGiveDetailPayload,
+  CheckResponse,
   PatientGiveListResponse,
   PatientGiveResponse,
   UpdateBloodGiveMapResponse,
+  UpdatePayBloodResponse,
 } from "../types/transfusion.types";
 
 const { VITE_API_PATH } = import.meta.env;
@@ -44,6 +46,26 @@ export const putBloodGiveMap = async (
       bloodBagNo: formData.bloodBagNo,
       hn: formData.hn,
       bb_cross_macth_id: bb_cross_macth_id,
+    },
+    {
+      headers: authHeader.headers(),
+    }
+  );
+  return response.data;
+};
+
+export const putPayBlood = async (
+  formData: BloodGiveDetailPayload,
+  bb_cross_macth_id: number,
+  checkStatus: CheckResponse
+): Promise<UpdatePayBloodResponse> => {
+  const response = await axios.put(
+    VITE_API_PATH + "/addPatientTransfusion/updatePayBlood",
+    {
+      patientPayId: formData.blood_donor_name.value,
+      patientPayName: formData.blood_donor_name.label,
+      reCheckBloodGive: checkStatus.reCheckBloodGive,
+      bb_cross_macth_id,
     },
     {
       headers: authHeader.headers(),

@@ -28,7 +28,7 @@ export const MobileBloodGiveDetailPage = (
     } = useForm<BloodGiveDetailPayload>({});
     const [openModal, setOpenModal] = useState<string | null>(null);
     const { staffOptions } = useStaffOptions();
-    const { data, loading, updateBloodGiveMap } = useTransfusionEntry();
+    const { data, loading, updateBloodGiveMap, updatePayBlood } = useTransfusionEntry();
     const { user } = useCurrentUser()
 
     useEffect(() => {
@@ -127,7 +127,7 @@ export const MobileBloodGiveDetailPage = (
 
                     {data && (
                         <Buttons
-                            // onClick={handleSubmit(handleSubmitUpdateGive)}
+                            onClick={handleSubmit(updatePayBlood)}
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
                             disabled={data.data?.check.reCheckBloodGive !== "Y"}
                         >

@@ -17,4 +17,4 @@ router.get(
 
 router.get("/getAllPatientTransfusions", isLogin, getAllPatientTransfusions);
 router.put("/updatePatientTransfusions", isLogin, updatePatientTransfusions);
-router.put("/updateGiveBlood", isLogin, UpdateGiveBlood);
+router.put("/updatePayBlood", isLogin, UpdateGiveBlood);

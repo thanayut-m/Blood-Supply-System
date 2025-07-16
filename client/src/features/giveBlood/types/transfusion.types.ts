@@ -103,8 +103,18 @@ export interface BloodGiveDetailPayload {
   hn: string;
 }
 
+export interface PayBloodPayload {
+  blood_donor_name: OptionType;
+}
+
 // Res API putBloodGiveMap
 export interface UpdateBloodGiveMapResponse {
+  success: boolean;
+  message?: string;
+}
+
+// Res API putBloodGiveMap
+export interface UpdatePayBloodResponse {
   success: boolean;
   message?: string;
 }
