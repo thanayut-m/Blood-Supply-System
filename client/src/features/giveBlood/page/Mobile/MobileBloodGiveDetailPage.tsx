@@ -24,7 +24,7 @@ export const MobileBloodGiveDetailPage = (
         setValue,
         handleSubmit,
         watch,
-        reset
+        resetField
     } = useForm<BloodGiveDetailPayload>({});
     const [openModal, setOpenModal] = useState<string | null>(null);
     const { staffOptions } = useStaffOptions();
@@ -42,7 +42,9 @@ export const MobileBloodGiveDetailPage = (
 
     const handleOpen = (modal: string) => {
         setOpenModal(modal);
-        reset();
+        resetField("bloodBagNo");
+        resetField("bagFromTag");
+        resetField("hn");
     };
 
     const handleSubmitUpdateGive = (formData: BloodGiveDetailPayload) => {
