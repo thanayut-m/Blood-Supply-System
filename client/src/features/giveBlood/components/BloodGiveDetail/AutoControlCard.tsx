@@ -1,8 +1,12 @@
-import type { AutoControlCardProps } from "../../../../types/BloodBankGiveDetail/AutoControlCard";
+import type { AutoControlResponse } from "../../types/transfusion.types";
+
+interface Props {
+    data: AutoControlResponse
+}
 
 export const AutoControlCard = ({
     data
-}: AutoControlCardProps) => {
+}: Props) => {
     return (
         <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25">
             <p className="text-[#B5B5B5] text-[0.600rem]">

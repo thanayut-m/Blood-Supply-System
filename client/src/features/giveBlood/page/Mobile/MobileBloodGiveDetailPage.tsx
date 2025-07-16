@@ -4,13 +4,22 @@ import { useStaffOptions } from "../../../Auth/hook/useStaffOptions";
 import { PatientInfoCard } from "../../components/BloodGiveDetail/PatientInfoCard";
 import { useTransfusionEntry } from "../../hook/useTransfusionEntry";
 import { useCurrentUser } from "../../../Auth/hook/useCurrentUser";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { BloodGiveDetailPayload } from "../../types/transfusion.types";
+import { AntibodyCard } from "../../components/BloodGiveDetail/AntibodyCard";
+import { AutoControlCard } from "../../components/BloodGiveDetail/AutoControlCard";
+import { BloodBagInfoCard } from "../../components/BloodGiveDetail/BloodBagInfoCard";
+import { BloodStatusSteps } from "../../components/BloodGiveDetail/BloodStatusSteps";
+import { BarcodeWarning } from "../../components/BloodGiveDetail/BarcodeWarning";
+import { Buttons } from "../../../../components/Buttons";
+import { Modals } from "../../../../components/modal/Modals";
+import { BloodBagScanInput } from "../../components/BloodGiveDetail/BloodBagScanInput";
+import Swal from "sweetalert2";
 
 export const MobileBloodGiveDetailPage = (
 ) => {
     const { control, setValue } = useForm<BloodGiveDetailPayload>({});
-    // const [openModal, setOpenModal] = useState<string | null>(null);
+    const [openModal, setOpenModal] = useState<string | null>(null);
     const { staffOptions } = useStaffOptions();
     const { data, loading } = useTransfusionEntry();
     const { user } = useCurrentUser()
@@ -24,13 +33,37 @@ export const MobileBloodGiveDetailPage = (
         }
     }, [data, user, setValue]);
 
-    // const handleOpen = (modal: string) => {
-    //     setOpenModal(modal);
-    // };
+    const handleOpen = (modal: string) => {
+        setOpenModal(modal);
+    };
 
     // const handleClose = () => {
     //     setOpenModal(null);
     // };
+
+    const handleCloseScanBarcode = () => {
+        Swal.fire({
+            title: "ยืนยันยกเลิกรายการ",
+            icon: "warning",
+            text: "คุณต้องการยกเลิกรายการนี้หรือไม่?",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "ตกลง",
+            cancelButtonText: "ปิด",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "ยกเลิกสำเร็จ",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 600
+                });
+                setOpenModal(null);
+            }
+        });
+    };
 
     if (loading) return <p>กำลังโหลด...</p>;
     return (
@@ -44,28 +77,28 @@ export const MobileBloodGiveDetailPage = (
                             options={staffOptions}
                         />
                     )}
-                    {/* <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">
-                        {patientTransfusion && (
-                            <AntibodyCard data={patientTransfusion.antibody} />
+                    <div className="grid grid-cols-2 gap-2 text-center text-[0.800rem]">
+                        {data && (
+                            <AntibodyCard data={data.data.antibody} />
                         )}
-                        {patientTransfusion && (
-                            <AutoControlCard data={patientTransfusion.autoControl} />
+                        {data && (
+                            <AutoControlCard data={data.data.autoControl} />
                         )}
                     </div>
 
                     <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25 text-[0.600rem]">
                         <div className="flex flex-col gap-3">
-                            {patientTransfusion && (
-                                <BloodBagInfoCard data={patientTransfusion.crossMatch} />
+                            {data && (
+                                <BloodBagInfoCard data={data.data.crossMatch} />
                             )}
-                            {patientTransfusion && (
-                                <BloodStatusSteps data={patientTransfusion.status} />
+                            {data && (
+                                <BloodStatusSteps data={data.data.status} />
                             )}
                         </div>
                     </div>
 
                     <Buttons
-                        className={`${patientTransfusion?.check.reCheckBloodGive !== "Y"
+                        className={`${data?.data?.check.reCheckBloodGive !== "Y"
                             ? "bg-[#FF7726]" : "bg-blue-500"} 
                                     text-white py-5 px-5 rounded-xl`}
                         onClick={() => handleOpen("openScanBarcode")}
@@ -76,47 +109,47 @@ export const MobileBloodGiveDetailPage = (
                         </div>
                     </Buttons>
 
-                    {patientTransfusion && (
-                        <BarcodeWarning data={patientTransfusion} />
+                    {data && (
+                        <BarcodeWarning data={data.data} />
                     )}
 
-                    {patientTransfusion && (
+                    {data && (
                         <Buttons
-                            onClick={handleSubmit(handleSubmitUpdateGive)}
+                            // onClick={handleSubmit(handleSubmitUpdateGive)}
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                            disabled={patientTransfusion?.check.reCheckBloodGive !== "Y"}
+                            disabled={data.data?.check.reCheckBloodGive !== "Y"}
                         >
                             จ่ายโลหิต
                         </Buttons>
-                    )} */}
+                    )}
                 </div>
             </MobilePrivateLayout >
 
-            {/* <Modals
+            <Modals
                 open={openModal === "openScanBarcode"}
                 width="w-[90%]"
                 titleClassName="flex text-[#FF7726] text-[0.800rem] justify-center mb-4"
                 title="กรุณา Scan Barcode ที่ถุงโลหิตเพื่อตรวจสอบ"
                 content={
-                    <BloodBagScanInput />
+                    <BloodBagScanInput data={data?.data} />
                 }
                 actions={
                     <div className="flex flex-row gap-3 mt-3">
                         <Buttons
                             className="bg-[#FF7726] text-white py-3 px-5 rounded-3xl"
-                            onClick={handleClose}
+                            onClick={handleCloseScanBarcode}
                         >
                             ยกเลิก
                         </Buttons>
                         <Buttons
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                            onClick={handleSubmit(handleSubmitScanBarcode)}
+                        // onClick={handleSubmit(handleSubmitScanBarcode)}
                         >
                             ยืนยัน
                         </Buttons>
                     </div>
                 }
-            /> */}
+            />
         </div >
     )
 }

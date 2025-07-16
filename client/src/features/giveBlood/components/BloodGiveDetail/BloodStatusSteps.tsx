@@ -1,8 +1,12 @@
-import type { BloodStatusStepsProps } from "../../../../types/BloodBankGiveDetail/BloodStatusSteps";
+import type { StatusResponse } from "../../types/transfusion.types";
+
+interface Props {
+    data: StatusResponse
+}
 
 export const BloodStatusSteps = ({
     data
-}: BloodStatusStepsProps) => {
+}: Props) => {
     return (
         <div className="grid grid-cols-4 gap-2 text-center">
             {data.isConfirmed === "Y" ?

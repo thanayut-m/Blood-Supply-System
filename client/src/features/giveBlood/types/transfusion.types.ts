@@ -32,6 +32,15 @@ export interface BloodGiveDetailPage {
   };
 }
 
+export interface BloodGiveDetailResponse {
+  antibody: AntibodyResponse;
+  autoControl: AutoControlResponse;
+  check: CheckResponse;
+  crossMatch: CrossMatchResponse;
+  patient: PatientResponse;
+  status: StatusResponse;
+}
+
 export interface AntibodyResponse {
   antiResult: string;
   o1Result: string;

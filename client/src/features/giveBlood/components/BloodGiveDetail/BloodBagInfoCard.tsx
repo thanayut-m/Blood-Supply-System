@@ -1,10 +1,14 @@
 import dayjs from 'dayjs';
 import donorIcon1 from '../../../../assets/icon/donor_Icon1.png';
-import type { BloodBagInfoCardProps } from '../../../../types/BloodBankGiveDetail/BloodBagInfoCard';
+import type { CrossMatchResponse } from '../../types/transfusion.types';
+
+interface Props {
+    data: CrossMatchResponse
+}
 
 export const BloodBagInfoCard = ({
     data
-}: BloodBagInfoCardProps) => {
+}: Props) => {
     return (
         <div className="grid grid-cols-12">
             <div className="col-span-4">

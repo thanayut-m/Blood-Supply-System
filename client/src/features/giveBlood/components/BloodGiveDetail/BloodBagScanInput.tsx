@@ -1,7 +1,14 @@
 import { useForm } from "react-hook-form"
 import { FormInputScanV2 } from "../../../../components/inputs/FormInputScanV2"
+import type { BloodGiveDetailResponse } from "../../types/transfusion.types"
 
-export const BloodBagScanInput = () => {
+interface Props {
+    data?: BloodGiveDetailResponse
+}
+
+export const BloodBagScanInput = (
+    { data }: Props
+) => {
     const { register, setValue, control, watch } = useForm()
 
     const watchBloodBagNo = watch("bloodBagNo");
@@ -9,16 +16,16 @@ export const BloodBagScanInput = () => {
     const watchHN = watch("hn");
 
     const isBloodBagMatched =
-        patientTransfusion?.crossMatch?.bloodCode &&
-        watchBloodBagNo === patientTransfusion.crossMatch.bloodCode;
+        data?.crossMatch?.bloodCode &&
+        watchBloodBagNo === data.crossMatch.bloodCode;
 
     const isBagFromTagMatched =
-        patientTransfusion?.crossMatch?.bloodCode &&
-        watchBagFromTag === patientTransfusion.crossMatch.bloodCode;
+        data?.crossMatch?.bloodCode &&
+        watchBagFromTag === data.crossMatch.bloodCode;
 
     const isHnMatched =
-        patientTransfusion?.crossMatch?.crossHN &&
-        watchHN === patientTransfusion.crossMatch.crossHN;
+        data?.crossMatch?.crossHN &&
+        watchHN === data.crossMatch.crossHN;
 
     return (
         <form autoComplete="off" className="flex flex-col gap-5">

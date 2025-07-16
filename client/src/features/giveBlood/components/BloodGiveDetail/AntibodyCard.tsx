@@ -1,6 +1,10 @@
-import type { AntibodyCardProps } from "../../../../types/BloodBankGiveDetail/AntibodyCard";
+import type { AntibodyResponse } from "../../types/transfusion.types";
 
-export const AntibodyCard = ({ data }: AntibodyCardProps) => {
+interface Props {
+    data: AntibodyResponse
+}
+
+export const AntibodyCard = ({ data }: Props) => {
     return (
         <div className="bg-white rounded-lg py-4 px-3 shadow-xl/25 ">
             <p className="text-[#B5B5B5] text-[0.600rem]">
