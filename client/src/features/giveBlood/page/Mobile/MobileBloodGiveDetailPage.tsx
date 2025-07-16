@@ -23,7 +23,8 @@ export const MobileBloodGiveDetailPage = (
         control,
         setValue,
         handleSubmit,
-        watch
+        watch,
+        reset
     } = useForm<BloodGiveDetailPayload>({});
     const [openModal, setOpenModal] = useState<string | null>(null);
     const { staffOptions } = useStaffOptions();
@@ -41,11 +42,14 @@ export const MobileBloodGiveDetailPage = (
 
     const handleOpen = (modal: string) => {
         setOpenModal(modal);
+        reset();
     };
 
-    // const handleClose = () => {
-    //     setOpenModal(null);
-    // };
+    const handleSubmitUpdateGive = (formData: BloodGiveDetailPayload) => {
+        updateBloodGiveMap(formData, () => {
+            setOpenModal(null);
+        })
+    }
 
     const handleCloseScanBarcode = () => {
         Swal.fire({
@@ -155,7 +159,7 @@ export const MobileBloodGiveDetailPage = (
                         </Buttons>
                         <Buttons
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                            onClick={handleSubmit(updateBloodGiveMap)}
+                            onClick={handleSubmit(handleSubmitUpdateGive)}
                         >
                             ยืนยัน
                         </Buttons>

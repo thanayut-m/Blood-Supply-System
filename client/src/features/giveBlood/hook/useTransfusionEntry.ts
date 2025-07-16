@@ -27,7 +27,10 @@ export const useTransfusionEntry = () => {
     }
   };
 
-  const updateBloodGiveMap = async (formData: BloodGiveDetailPayload) => {
+  const updateBloodGiveMap = async (
+    formData: BloodGiveDetailPayload,
+    onSuccessCloseModal?: () => void
+  ) => {
     try {
       const crossMatch = data?.data.crossMatch;
       if (!crossMatch) return;
@@ -54,10 +57,13 @@ export const useTransfusionEntry = () => {
           icon: "success",
           showConfirmButton: true,
           confirmButtonText: "ปิด",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            fetchBloodGiveById();
+            onSuccessCloseModal?.();
+          }
         });
-        fetchBloodGiveById();
       }
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
