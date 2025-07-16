@@ -98,4 +98,7 @@ export interface StatusResponse {
 
 export interface BloodGiveDetailPayload {
   blood_donor_name: OptionType;
+  bloodBagNo: string;
+  bagFromTag: string;
+  hn: string;
 }

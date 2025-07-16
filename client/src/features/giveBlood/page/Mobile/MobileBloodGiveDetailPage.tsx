@@ -18,10 +18,16 @@ import Swal from "sweetalert2";
 
 export const MobileBloodGiveDetailPage = (
 ) => {
-    const { control, setValue } = useForm<BloodGiveDetailPayload>({});
+    const {
+        register,
+        control,
+        setValue,
+        handleSubmit,
+        watch
+    } = useForm<BloodGiveDetailPayload>({});
     const [openModal, setOpenModal] = useState<string | null>(null);
     const { staffOptions } = useStaffOptions();
-    const { data, loading } = useTransfusionEntry();
+    const { data, loading, updateBloodGiveMap } = useTransfusionEntry();
     const { user } = useCurrentUser()
 
     useEffect(() => {
@@ -131,7 +137,13 @@ export const MobileBloodGiveDetailPage = (
                 titleClassName="flex text-[#FF7726] text-[0.800rem] justify-center mb-4"
                 title="กรุณา Scan Barcode ที่ถุงโลหิตเพื่อตรวจสอบ"
                 content={
-                    <BloodBagScanInput data={data?.data} />
+                    <BloodBagScanInput
+                        data={data?.data}
+                        register={register}
+                        control={control}
+                        setValue={setValue}
+                        watch={watch}
+                    />
                 }
                 actions={
                     <div className="flex flex-row gap-3 mt-3">
@@ -143,7 +155,7 @@ export const MobileBloodGiveDetailPage = (
                         </Buttons>
                         <Buttons
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                        // onClick={handleSubmit(handleSubmitScanBarcode)}
+                            onClick={handleSubmit(updateBloodGiveMap)}
                         >
                             ยืนยัน
                         </Buttons>

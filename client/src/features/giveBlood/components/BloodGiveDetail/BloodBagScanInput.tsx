@@ -1,15 +1,24 @@
-import { useForm } from "react-hook-form"
+import { type Control, type UseFormRegister, type UseFormSetValue, type UseFormWatch } from "react-hook-form"
 import { FormInputScanV2 } from "../../../../components/inputs/FormInputScanV2"
-import type { BloodGiveDetailResponse } from "../../types/transfusion.types"
+import type { BloodGiveDetailPayload, BloodGiveDetailResponse } from "../../types/transfusion.types"
 
 interface Props {
     data?: BloodGiveDetailResponse
+    register: UseFormRegister<BloodGiveDetailPayload>
+    watch: UseFormWatch<BloodGiveDetailPayload>,
+    setValue: UseFormSetValue<BloodGiveDetailPayload>
+    control: Control<BloodGiveDetailPayload>
 }
 
 export const BloodBagScanInput = (
-    { data }: Props
+    {
+        data,
+        register,
+        watch,
+        setValue,
+        control
+    }: Props
 ) => {
-    const { register, setValue, control, watch } = useForm()
 
     const watchBloodBagNo = watch("bloodBagNo");
     const watchBagFromTag = watch("bagFromTag");

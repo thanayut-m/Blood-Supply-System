@@ -6,7 +6,7 @@ import { Buttons } from "../Buttons";
 import { Scanner } from "../Scanner";
 import type { ScannerRef } from "../Scanner";
 
-interface FormInputScanV2Props<T extends FieldValues> {
+interface FormInputScanV2Props<T extends FieldValues = FieldValues> {
     register: UseFormRegister<T>;
     setValue: UseFormSetValue<T>;
     name: Path<T>;
@@ -81,7 +81,6 @@ export const FormInputScanV2 = <T extends FieldValues>({
 
             <Modals
                 open={openModal === "createUser"}
-                onClose={handleClose}
                 width="w-[100%]"
                 high="h-full"
                 content={
