@@ -18,7 +18,7 @@ export const RadioBox = ({
     labelSub = ""
 }: RadioCardProps) => {
     return (
-        <div
+        <label
             className={`flex flex-col items-center text-white p-3 rounded-lg w-28 h-23 justify-between shadow-md cursor-pointer ${color}`}
             onClick={() => onChange(value)}
         >
@@ -34,10 +34,6 @@ export const RadioBox = ({
                 onChange={() => onChange(value)}
                 className="w-4 h-4 rounded-full border-2 border-white appearance-none cursor-pointer transition checked:bg-black bg-white"
             />
-        </div>
+        </label>
     );
 };
-
-
-
-

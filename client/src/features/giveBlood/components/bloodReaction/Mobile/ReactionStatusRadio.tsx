@@ -1,0 +1,44 @@
+import { RadioBox } from "../../../../../components/Checkbox/RadioBox";
+
+interface Props {
+    selectedValue: string;
+    setSelectedValue: (value: string) => void;
+}
+
+export const ReactionStatusRadio = ({ selectedValue, setSelectedValue }: Props) => {
+    console.log(selectedValue)
+    return (
+        <div className="relative border border-gray-300 rounded-md py-4 px-2">
+            <label className="absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-2 text-sm text-[#B5B5B5]">สถานะ</label>
+            <div className="grid grid-cols-3 gap-3">
+                <RadioBox
+                    label="ปกติ"
+                    labelSub="(Normal)"
+                    value="1"
+                    name="status"
+                    checkedValue={selectedValue}
+                    onChange={setSelectedValue}
+                    color="bg-[#2D63EA]"
+                />
+                <RadioBox
+                    label="ไม่ปกติ"
+                    labelSub="(Abnormal)"
+                    value="2"
+                    name="status"
+                    checkedValue={selectedValue}
+                    onChange={setSelectedValue}
+                    color="bg-[#FF7726]"
+                />
+                <RadioBox
+                    label="ไม่ทราบผล"
+                    labelSub="(None)"
+                    value="3"
+                    name="status"
+                    checkedValue={selectedValue}
+                    onChange={setSelectedValue}
+                    color="bg-[#656565]"
+                />
+            </div>
+        </div>
+    )
+}
