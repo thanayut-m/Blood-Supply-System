@@ -29,7 +29,7 @@ interface FormData {
     note: string;
     recorded_by: string;
     recorded_date: string;
-    recorded_time: string;
+    recorded_time: string;  
     recorder_name: string;
     recorder_date: string;
     recorder_time: string;

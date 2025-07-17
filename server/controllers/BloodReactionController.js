@@ -81,7 +81,7 @@ export const getBloodReaction = async (req, res) => {
         crossMatch: {
           patientName: result[0].cross_patient_name,
           hn: result[0].cross_hn,
-          bloodGroup_name: result[0].cross_blood_group_name,
+          bloodGroupName: result[0].cross_blood_group_name,
           rh: result[0].cross_rh,
           patientPayDate: result[0].cross_patient_pay_date,
         },

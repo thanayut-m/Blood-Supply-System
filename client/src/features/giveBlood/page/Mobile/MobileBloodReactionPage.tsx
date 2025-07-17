@@ -1,10 +1,18 @@
 import { MobilePrivateLayout } from "../../../../layouts/MobilePrivateLayout"
-import { RecorderInfoForm } from "../../components/bloodReaction/Mobile/RecorderInfoForm"
+import { BloodBagDetails } from "../../components/bloodReaction/Mobile/BloodBagDetails"
+import { useBloodReaction } from "../../hook/useBloodReaction"
 
 export const MobileBloodReactionPage = () => {
+    const { data, loading } = useBloodReaction()
+
+    if (loading) return <p>กำลังโหลด...</p>;
     return (
         <MobilePrivateLayout>
-            <RecorderInfoForm />
+            <BloodBagDetails
+                data={{
+                    bloodBag: data?.data.bloodBag,
+                    crossMatch: data?.data.crossMatch
+                }} />
         </MobilePrivateLayout>
     )
 }
