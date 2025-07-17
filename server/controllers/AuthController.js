@@ -1,4 +1,4 @@
-import { query_db } from "../services/connectDb .js";
+import { query_db } from "../services/connectDb.js";
 import { createError } from "./../utils/createError.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
