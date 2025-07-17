@@ -7,5 +7,5 @@ import { isLogin } from "./../middlewares/AuthMiddleware.js";
 
 export const router = express.Router();
 
-router.get("/getBloodReaction", getBloodReaction);
+router.get("/getBloodReaction", isLogin, getBloodReaction);
 router.get("/getViolence", isLogin, getViolence);
