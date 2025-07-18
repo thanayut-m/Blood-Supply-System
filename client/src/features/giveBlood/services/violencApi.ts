@@ -1,7 +1,7 @@
 import axios from "axios";
 import { authHeader } from "../../../utils/authHeader";
-import type { OptionType } from "../../../types/BloodBankGiveDetail/PatientInfoCard";
 import type { ViolenceOptionResponse } from "../types/bloodReaction.types";
+import type { OptionType } from "../../Auth/types/auth.types";
 
 const { VITE_API_PATH } = import.meta.env;
 

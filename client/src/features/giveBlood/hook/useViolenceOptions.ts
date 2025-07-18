@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import type { OptionType } from "../../../types/BloodBankGiveDetail/PatientInfoCard";
 import { fetchViolenceOptions } from "../services/violencApi";
+import type { OptionType } from "../../Auth/types/auth.types";
 
 export const useViolenceOptions = () => {
   const [violenceOptions, setViolenceOptions] = useState<OptionType[]>([]);
