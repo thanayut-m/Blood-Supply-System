@@ -1,12 +1,23 @@
+import { useEffect, useState } from "react";
 import { RadioBox } from "../../../../../components/Checkbox/RadioBox";
+import type { ReactionResponse } from "../../../types/bloodReaction.types";
 
 interface Props {
-    selectedValue: string;
-    setSelectedValue: (value: string) => void;
+    data: ReactionResponse;
 }
 
-export const ReactionStatusRadio = ({ selectedValue, setSelectedValue }: Props) => {
-    console.log(selectedValue)
+export const ReactionStatusRadio = (
+    { data }: Props
+) => {
+    const [selectedValue, setSelectedValue] = useState<string>("1");
+
+    useEffect(() => {
+        if (data) {
+            console.log(data.reactionStatus)
+            setSelectedValue(data.reactionStatus)
+        }
+    }, [data])
+
     return (
         <div className="relative border border-gray-300 rounded-md py-4 px-2">
             <label className="absolute -top-2 left-1/2 -translate-x-1/2 bg-white px-2 text-sm text-[#B5B5B5]">สถานะ</label>
