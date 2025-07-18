@@ -40,4 +40,4 @@ app.use((err, req, res, next) => {
     .json({ message: err.message || "Something Wrong!!!" });
 });
 
-app.listen(port, () => console.log(`Server is run Port : ${port}`));
+app.listen(port, "0.0.0.0", () => console.log(`Server is run Port : ${port}`));

@@ -9,6 +9,9 @@ import { isLogin } from "../middlewares/AuthMiddleware.js";
 
 export const router = express.Router();
 
+router.get("/", (req, res) => {
+  res.json({ message: "User API OK" });
+});
 router.post("/signIn", signIn);
 router.put("/resetPassword", resetPassword);
 router.get("/current-user", isLogin, currentUser);
