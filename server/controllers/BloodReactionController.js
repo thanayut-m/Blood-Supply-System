@@ -92,7 +92,7 @@ export const getBloodReaction = async (req, res) => {
         reaction: {
           reactionStatus: result[0].cross_reaction_status,
           reactionBloodCC: result[0].cross_receive_blood_cc,
-          reactionBlood_Time: result[0].cross_receive_blood_time,
+          receiveBloodTime: result[0].cross_receive_blood_time,
           reactionBloodTime: result[0].cross_reaction_blood_time,
           reactionFluTemp: result[0].cross_reaction_flu_temp,
           reactionCold: result[0].cross_reaction_cold,
