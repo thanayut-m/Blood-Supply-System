@@ -8,8 +8,6 @@ export const MobileBloodReactionPage = () => {
     const { data, loading } = useBloodReaction()
     const [selectedValue, setSelectedValue] = useState<string>("1");
 
-    const bloodBag = data?.data.bloodBag;
-    const crossMatch = data?.data.crossMatch;
     const reactionStatus = data?.data.reaction?.reactionStatus
 
     useEffect(() => {
@@ -18,14 +16,17 @@ export const MobileBloodReactionPage = () => {
         }
     }, [reactionStatus])
 
-    if (loading || !bloodBag || !crossMatch) return <p>กำลังโหลด...</p>;
+    if (loading) return <p>กำลังโหลด...</p>;
     return (
         <MobilePrivateLayout>
-            <BloodBagDetails
-                data={{
-                    bloodBag,
-                    crossMatch
-                }} />
+            {data && (
+                <BloodBagDetails
+                    data={{
+                        bloodBag: data?.data.bloodBag,
+                        crossMatch: data?.data.crossMatch
+                    }}
+                />
+            )}
             <div>
                 <label className="text-[#B5B5B5] text-base">บันทึกปฏิกิริยาหลังรับเลือด</label>
                 <ReactionStatusRadio
