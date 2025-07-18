@@ -12,6 +12,7 @@ import { useStaffOptions } from "../../../Auth/hook/useStaffOptions"
 import { useEffect } from "react"
 import { useCurrentUser } from "../../../Auth/hook/useCurrentUser"
 import { Buttons } from "../../../../components/Buttons"
+import { useNavigate } from "react-router"
 
 export const MobileBloodReactionPage = () => {
     const { control, register, setValue } = useForm()
@@ -19,6 +20,7 @@ export const MobileBloodReactionPage = () => {
     const { violenceOptions } = useViolenceOptions()
     const { staffOptions } = useStaffOptions();
     const { user } = useCurrentUser()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (data && user) {
@@ -28,6 +30,15 @@ export const MobileBloodReactionPage = () => {
             });
         }
     }, [data, user, setValue]);
+
+    const handleOnClose = () => {
+        try {
+            navigate("/giveBloodList")
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
     if (loading) return <p>กำลังโหลด...</p>;
     return (
@@ -118,7 +129,7 @@ export const MobileBloodReactionPage = () => {
                 <hr className="text-[#B5B5B5]" />
                 <div className="grid grid-cols-2 gap-2 py-1 ">
                     <Buttons
-                        // onClick={handleOnClose}
+                        onClick={handleOnClose}
                         className="bg-[#FF7726] text-white p-2 rounded-4xl">
                         ยกเลิก
                     </Buttons>
