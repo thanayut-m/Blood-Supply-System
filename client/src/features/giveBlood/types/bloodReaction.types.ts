@@ -37,10 +37,10 @@ export interface ViolenceResponse {
 
 export interface ReactionResponse {
   reactionStatus: number;
-  reactionBloodCC: number;
+  reactionBloodCC: string;
   receiveBloodTime: string;
   reactionBloodTime: string;
-  reactionFluTemp: number;
+  reactionFluTemp: string;
   reactionCold: string;
   reactionRash: string;
   reactionHeadache: string;

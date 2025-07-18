@@ -10,7 +10,6 @@ interface SymptomCheckboxGroupProps<T extends FieldValues> {
 export const SymptomCheckboxGroup = <T extends FieldValues>(
     { register, data }: SymptomCheckboxGroupProps<T>
 ) => {
-    console.log(data)
     return (
         <div className="grid grid-cols-5 gap-2">
             <Checkbox

@@ -6,13 +6,28 @@ import { Autocompletes } from "../../../../components/MUI/Autocompletes"
 import { useForm } from "react-hook-form"
 import { useViolenceOptions } from "../../hook/useViolenceOptions"
 import { Inputs } from "../../../../components/MUI/Inputs/Inputs"
-import dayjs from "dayjs"
 import { SymptomCheckboxGroup } from "../../components/bloodReaction/Mobile/SymptomCheckboxGroup"
+import { RecorderInfoForm } from "../../components/bloodReaction/Mobile/RecorderInfoForm"
+import { useStaffOptions } from "../../../Auth/hook/useStaffOptions"
+import { useEffect } from "react"
+import { useCurrentUser } from "../../../Auth/hook/useCurrentUser"
+import { Buttons } from "../../../../components/Buttons"
 
 export const MobileBloodReactionPage = () => {
-    const { control, register } = useForm()
+    const { control, register, setValue } = useForm()
     const { data, loading } = useBloodReaction()
     const { violenceOptions } = useViolenceOptions()
+    const { staffOptions } = useStaffOptions();
+    const { user } = useCurrentUser()
+
+    useEffect(() => {
+        if (data && user) {
+            setValue("staff_name", {
+                value: data.data.staff.staffId ?? user.staffId,
+                label: data.data.staff.staffName ?? user.staff,
+            });
+        }
+    }, [data, user, setValue]);
 
     if (loading) return <p>กำลังโหลด...</p>;
     return (
@@ -54,15 +69,14 @@ export const MobileBloodReactionPage = () => {
                             name="used_time"
                             label="เวลาที่ใช้"
                             type="time"
-                            defaultValue={dayjs(data?.data.reaction.receiveBloodTime).format("HH:mm")}
+                            defaultValue={data?.data.reaction.receiveBloodTime}
                         />
                         <Inputs
                             register={register}
                             name="symptom_time"
                             label="เวลามีอาการ"
                             type="time"
-                            defaultValue=
-                            {dayjs(data?.data.reaction.reactionBloodTime).format("HH:mm")}
+                            defaultValue={data?.data.reaction.reactionBloodTime}
                         />
                         <Inputs
                             register={register}
@@ -79,6 +93,41 @@ export const MobileBloodReactionPage = () => {
                         data={data?.data.reaction}
                     />
                 )}
+                {data && (
+                    <Inputs
+                        register={register}
+                        multiline
+                        rows={2}
+                        name="note"
+                        label="หมายเหตุ"
+                        type="text"
+                        defaultValue={data?.data.reaction.reactionNote}
+                    />)}
+                {data && (
+                    <RecorderInfoForm
+                        option={staffOptions}
+                        control={control}
+                        register={register}
+                        data={{
+                            nurse: data?.data.nurse,
+                            staff: data?.data.staff
+                        }}
+
+                    />
+                )}
+                <hr className="text-[#B5B5B5]" />
+                <div className="grid grid-cols-2 gap-2 py-1 ">
+                    <Buttons
+                        // onClick={handleOnClose}
+                        className="bg-[#FF7726] text-white p-2 rounded-4xl">
+                        ยกเลิก
+                    </Buttons>
+                    <Buttons
+                        // onClick={handleSubmit(handleSave)}
+                        className="bg-[#2D63EA] text-white  p-2 rounded-4xl">
+                        บันทึก
+                    </Buttons>
+                </div>
             </div>
         </MobilePrivateLayout>
     )

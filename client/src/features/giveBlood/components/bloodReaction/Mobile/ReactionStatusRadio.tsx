@@ -13,7 +13,6 @@ export const ReactionStatusRadio = (
 
     useEffect(() => {
         if (data?.reactionStatus) {
-            console.log(data.reactionStatus)
             setSelectedValue(data.reactionStatus)
         }
     }, [data?.reactionStatus])
