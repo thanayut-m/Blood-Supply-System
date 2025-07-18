@@ -36,7 +36,7 @@ export interface ViolenceResponse {
 }
 
 export interface ReactionResponse {
-  reactionStatus: string;
+  reactionStatus: number;
   reactionBloodCC: number;
   reactionBlood_Time: string;
   reactionBloodTime: string;

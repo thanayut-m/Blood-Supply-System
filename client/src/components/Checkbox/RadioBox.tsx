@@ -1,9 +1,9 @@
 interface RadioCardProps {
     label: string;
-    value: string;
+    value: number;
     name: string;
-    checkedValue: string;
-    onChange: (value: string) => void;
+    checkedValue: number;
+    onChange: (value: number) => void;
     color?: string;
     labelSub?: string;
 }

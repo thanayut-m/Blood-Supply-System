@@ -9,14 +9,14 @@ interface Props {
 export const ReactionStatusRadio = (
     { data }: Props
 ) => {
-    const [selectedValue, setSelectedValue] = useState<string>("1");
+    const [selectedValue, setSelectedValue] = useState<number>(1);
 
     useEffect(() => {
-        if (data) {
+        if (data?.reactionStatus) {
             console.log(data.reactionStatus)
             setSelectedValue(data.reactionStatus)
         }
-    }, [data])
+    }, [data?.reactionStatus])
 
     return (
         <div className="relative border border-gray-300 rounded-md py-4 px-2">
@@ -25,7 +25,7 @@ export const ReactionStatusRadio = (
                 <RadioBox
                     label="ปกติ"
                     labelSub="(Normal)"
-                    value="1"
+                    value={1}
                     name="status"
                     checkedValue={selectedValue}
                     onChange={setSelectedValue}
@@ -34,7 +34,7 @@ export const ReactionStatusRadio = (
                 <RadioBox
                     label="ไม่ปกติ"
                     labelSub="(Abnormal)"
-                    value="2"
+                    value={2}
                     name="status"
                     checkedValue={selectedValue}
                     onChange={setSelectedValue}
@@ -43,7 +43,7 @@ export const ReactionStatusRadio = (
                 <RadioBox
                     label="ไม่ทราบผล"
                     labelSub="(None)"
-                    value="3"
+                    value={3}
                     name="status"
                     checkedValue={selectedValue}
                     onChange={setSelectedValue}
