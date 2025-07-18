@@ -1,27 +1,25 @@
-import { useLocation } from "react-router";
+import { useLocation } from "react-router"
 
 export const MobileNavbar = () => {
     const location = useLocation();
 
     const getTitle = () => {
         switch (location.pathname) {
+            case "/bloodReaction":
+                return "บันทึกข้อมูลปฏิกิริยาหลังรับเลือด";
+            case "/bloodGiveDetail":
+                return "บันทึกการให้โลหิต";
             case "/giveBloodList":
                 return "ให้เลือดผู้ป่วย";
-            case "/search":
-                return "ค้นหา";
-            case "/MobileBloodBankGiveDetail":
-                return "ธนาคารเลือด";
-            case "/BloodBankReaction":
-                return "บันทึกข้อมูลปฏิกิริยาหลังรับเลือด";
             default:
                 return "Blood Bank";
         }
-    };
+    }
+
     return (
-        <div className="bg-[#0D47A1] shadow-xl text-white">
-            <div className="flex justify-center items-center py-3">
-                <span className="text-xl font-semibold">{getTitle()}</span>
-            </div>
+        <div
+            className="pt-7 pb-2 text-center text-xl text-white font-prompt ">
+            {getTitle()}
         </div>
 
     )
