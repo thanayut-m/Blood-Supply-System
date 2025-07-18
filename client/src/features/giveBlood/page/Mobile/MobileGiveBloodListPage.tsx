@@ -13,6 +13,8 @@ export const MobileGiveBloodListPage = () => {
     const [openModal, setOpenModal] = useState<string | null>(null);
     const [selectRow, setSelectRow] = useState<PatientGiveResponse | null>(null);
 
+
+
     const handleOpen = (modal: string, row: PatientGiveResponse) => {
         setSelectRow(row)
         setOpenModal(modal);
