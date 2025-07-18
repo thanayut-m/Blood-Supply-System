@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import type { BloodReactionPage } from "../types/bloodReaction.types";
-import { getBloodReactionById } from "../services/BloodReactionApi";
+import { getBloodReactionById } from "../services/bloodReactionApi";
 
 export const useBloodReaction = () => {
   const [data, setData] = useState<BloodReactionPage>();

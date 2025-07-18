@@ -66,3 +66,8 @@ export interface StaffResponse {
   staffDate: string;
   staffTime: string;
 }
+
+export interface ViolenceOptionResponse {
+  violenceId: number;
+  violenceName: string;
+}
