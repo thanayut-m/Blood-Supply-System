@@ -16,22 +16,55 @@ export const Scanner = forwardRef<ScannerRef, ScannerProps>(({ onResult }, ref) 
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
+  // useEffect(() => {
+  //   const codeReader = new BrowserMultiFormatReader();
+  //   readerRef.current = codeReader;
+
+  //   codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (result: Result | undefined, _, controls) => {
+  //     if (result) {
+  //       const text = result.getText();
+  //       onResult?.(text);
+
+  //       stopStream();
+  //       controls.stop();
+  //     }
+  //   }).then(() => {
+  //     const stream = videoRef.current?.srcObject as MediaStream | null;
+  //     streamRef.current = stream;
+  //   });
+
+  //   return () => {
+  //     stopStream();
+  //   };
+  // }, [onResult]);
+
   useEffect(() => {
     const codeReader = new BrowserMultiFormatReader();
     readerRef.current = codeReader;
 
-    codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (result: Result | undefined, _, controls) => {
-      if (result) {
-        const text = result.getText();
-        onResult?.(text);
+    // 👇 ขอสิทธิ์กล้องล่วงหน้า (ทำให้ Safari เด้ง popup ถ้ายังไม่ได้ให้สิทธิ์)
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        stream.getTracks().forEach(track => track.stop()); // ปิด stream ทันทีหลังขอสิทธิ์
 
-        stopStream();
-        controls.stop();
-      }
-    }).then(() => {
-      const stream = videoRef.current?.srcObject as MediaStream | null;
-      streamRef.current = stream;
-    });
+        // เริ่ม decode หลังจากขอสิทธิ์แล้ว
+        codeReader.decodeFromVideoDevice(undefined, videoRef.current!, (result: Result | undefined, _, controls) => {
+          if (result) {
+            const text = result.getText();
+            onResult?.(text);
+
+            stopStream();
+            controls.stop();
+          }
+        }).then(() => {
+          const stream = videoRef.current?.srcObject as MediaStream | null;
+          streamRef.current = stream;
+        });
+      })
+      .catch((err) => {
+        console.error("ไม่สามารถเข้าถึงกล้อง:", err);
+        alert("ไม่สามารถเข้าถึงกล้องได้ กรุณาอนุญาตการใช้งานกล้องในเบราว์เซอร์ของคุณ");
+      });
 
     return () => {
       stopStream();
@@ -55,6 +88,9 @@ export const Scanner = forwardRef<ScannerRef, ScannerProps>(({ onResult }, ref) 
     <div className="relative w-full h-full max-w-[400px] mx-auto">
       <video
         ref={videoRef}
+        playsInline
+        autoPlay
+        muted
         className="w-full h-[350px] object-cover rounded-md"
         style={{ maxWidth: 400 }}
       />
