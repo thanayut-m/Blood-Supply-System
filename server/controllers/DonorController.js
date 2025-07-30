@@ -29,8 +29,8 @@ export const getDonorList = async (req, res, next) => {
 
     if (search_donorList) {
       result = await query_db(
-        `${baseQuery} WHERE s1.cid = ? ORDER BY s1.visit_date DESC`,
-        [search_donorList]
+        `${baseQuery} WHERE s1.cid LIKE ? ORDER BY s1.visit_date DESC`,
+        [`%${search_donorList}%`]
       );
     } else {
       result = await query_db(`${baseQuery} ORDER BY s1.visit_date DESC`);

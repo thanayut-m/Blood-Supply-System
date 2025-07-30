@@ -13,8 +13,8 @@ export function BasicTable({ columns, rows, renderRow }) {
         <TableContainer
             component={Paper}
             sx={{
-                overflowX: 'auto',  // เปิดให้เลื่อนแนวนอน
-                maxWidth: '100%',   // จำกัดไม่ให้เกินขนาด container
+                overflowX: 'auto',
+                maxWidth: '100%',
             }}
         >
             <Table size="small" aria-label="basic table" sx={{ tableLayout: 'auto', minWidth: 'max-content' }}>
@@ -24,7 +24,12 @@ export function BasicTable({ columns, rows, renderRow }) {
                             <TableCell
                                 key={String(col.value)}
                                 align={col.align || 'left'}
-                                sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', textAlign: 'center', width: 'fit-content' }}
+                                sx={{
+                                    fontWeight: 'bold',
+                                    whiteSpace: 'nowrap',
+                                    textAlign: 'center',
+                                    width: 'fit-content'
+                                }}
                             >
                                 {col.label}
                             </TableCell>

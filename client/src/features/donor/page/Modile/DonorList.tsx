@@ -5,31 +5,40 @@ import { FormInput } from "../../../../components/MUI/Inputs/FormInput";
 import { useForm } from "react-hook-form";
 import { useDonor } from "../../hook/useDonor";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+
+const columns = [
+    { id: 'id', label: 'ลำดับ', minWidth: 20 },
+    { id: 'donorNumber', label: 'เลขผู้บริจาค', minWidth: 30 },
+    { id: 'fullName', label: 'ชื่อ-นามสกุล', minWidth: 230 },
+    { id: 'age', label: 'อายุ', minWidth: 50 },
+    { id: 'bloodGroup', label: 'หมู่เลือด', minWidth: 100 },
+    { id: 'rh', label: 'Rh', minWidth: 30 },
+    { id: 'donationCount', label: 'ครั้งที่', minWidth: 70 },
+    { id: 'donationDate', label: 'วันที่', minWidth: 150 },
+    { id: 'bagNumber', label: 'เลขถุง', minWidth: 150 },
+    { id: 'idCard', label: 'เลขบัตรประชาชน', minWidth: 150 },
+    { id: 'phone', label: 'โทร', minWidth: 150 },
+    { id: 'reactive', label: 'Reactive', minWidth: 150 },
+    { id: 'donationPlace', label: 'สถานที่บริจาค', minWidth: 150 },
+    { id: 'address', label: 'ที่อยู่', minWidth: 300 },
+    { id: 'recorder', label: 'ผู้บันทึก', minWidth: 150 },
+    { id: 'aboDiscrepancy', label: 'ABO Discrepancy', minWidth: 150 },
+];
 
 export const DonorList = () => {
     const { register, watch } = useForm();
     const search = watch('search')
-    const { data } = useDonor(search);
+    const [debouncedSearch, setDebouncedSearch] = useState('');
 
-    const columns = [
-        { id: 'id', label: 'ลำดับ', minWidth: 20 },
-        { id: 'donorNumber', label: 'เลขผู้บริจาค', minWidth: 30 },
-        { id: 'fullName', label: 'ชื่อ-นามสกุล', minWidth: 230 },
-        { id: 'age', label: 'อายุ', minWidth: 50 },
-        { id: 'bloodGroup', label: 'หมู่เลือด', minWidth: 100 },
-        { id: 'rh', label: 'Rh', minWidth: 30 },
-        { id: 'donationCount', label: 'ครั้งที่', minWidth: 70 },
-        { id: 'donationDate', label: 'วันที่', minWidth: 150 },
-        { id: 'bagNumber', label: 'เลขถุง', minWidth: 150 },
-        { id: 'idCard', label: 'เลขบัตรประชาชน', minWidth: 150 },
-        { id: 'phone', label: 'โทร', minWidth: 150 },
-        { id: 'reactive', label: 'Reactive', minWidth: 150 },
-        { id: 'donationPlace', label: 'สถานที่บริจาค', minWidth: 150 },
-        { id: 'address', label: 'ที่อยู่', minWidth: 300 },
-        { id: 'recorder', label: 'ผู้บันทึก', minWidth: 150 },
-        { id: 'aboDiscrepancy', label: 'ABO Discrepancy', minWidth: 150 },
-    ];
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setDebouncedSearch(search);
+        }, 100);
+        return () => clearTimeout(timeout);
+    }, [search]);
 
+    const { data } = useDonor(debouncedSearch);
     return (
         <DesktopPrivateLayout>
             <div className="p-4 bg-white rounded-2xl ">

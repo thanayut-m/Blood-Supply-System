@@ -62,3 +62,88 @@ export const getTotalBlood = async () => {
     return [];
   }
 };
+
+export const getReadyBloodBags = async (selectedGroupLabel) => {
+  try {
+    const response = await axios.get(
+      VITE_API_PATH + "/BloodBankStock/getReadyBloodBags",
+      {
+        headers: authHeader.headers(),
+        params: { bloodGroup: selectedGroupLabel },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("getBloodTypeOption error:", error);
+    return [];
+  }
+};
+
+export const getPendingBloodBags = async (selectedGroupLabel) => {
+  try {
+    const response = await axios.get(
+      VITE_API_PATH + "/BloodBankStock/getPendingBloodBags",
+      {
+        headers: authHeader.headers(),
+        params: { bloodGroup: selectedGroupLabel },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("getBloodTypeOption error:", error);
+    return [];
+  }
+};
+
+export const getDeliveredBloodBags = async (selectedGroupLabel) => {
+  try {
+    const response = await axios.get(
+      VITE_API_PATH + "/BloodBankStock/getDeliveredBloodBags",
+      {
+        headers: authHeader.headers(),
+        params: { bloodGroup: selectedGroupLabel },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("getBloodTypeOption error:", error);
+    return [];
+  }
+};
+
+export const getContaminatedBloodBags = async (selectedGroupLabel) => {
+  try {
+    const response = await axios.get(
+      VITE_API_PATH + "/BloodBankStock/getContaminatedBloodBags",
+      {
+        headers: authHeader.headers(),
+        params: { bloodGroup: selectedGroupLabel },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("getBloodTypeOption error:", error);
+    return [];
+  }
+};
+
+export const getReservedBloodBags = async (selectedGroupLabel) => {
+  try {
+    const response = await axios.get(
+      VITE_API_PATH + "/BloodBankStock/getReservedBloodBags",
+      {
+        headers: authHeader.headers(),
+        params: { bloodGroup: selectedGroupLabel },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("getBloodTypeOption error:", error);
+    return [];
+  }
+};

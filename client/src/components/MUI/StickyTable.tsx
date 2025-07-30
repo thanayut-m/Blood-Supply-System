@@ -15,6 +15,7 @@ interface Column {
     label: string;
     align?: 'left' | 'right' | 'center';
     minWidth?: number;
+    fontSize: string
 }
 
 interface StickyTableProps {
@@ -50,7 +51,12 @@ export function StickyTable({
                                 <TableCell
                                     key={index}
                                     align={column.align || 'left'}
-                                    sx={{ fontWeight: 'bold', minWidth: column.minWidth || 100, textAlign: 'center' }}
+                                    sx={{
+                                        fontWeight: 'bold',
+                                        minWidth: column.minWidth,
+                                        textAlign: 'center',
+                                        fontSize: column.fontSize
+                                    }}
                                 >
                                     {column.label}
                                 </TableCell>
@@ -62,7 +68,10 @@ export function StickyTable({
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row, index) => (
-                                <TableRow hover key={row.id || index}>
+                                <TableRow
+                                    hover
+                                    key={row.id || index}
+                                >
                                     {renderRow(row, index + page * rowsPerPage)}
                                 </TableRow>
                             ))}
