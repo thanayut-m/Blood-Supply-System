@@ -7,6 +7,9 @@ import { MobileSignInPage } from "../features/Auth/pages/Mobile/MobileSignInPage
 import { MobileGiveBloodListPage } from "../features/giveBlood/page/Mobile/MobileGiveBloodListPage";
 import { MobileBloodGiveDetailPage } from "../features/giveBlood/page/Mobile/MobileBloodGiveDetailPage";
 import { MobileBloodReactionPage } from "../features/giveBlood/page/Mobile/MobileBloodReactionPage";
+import { DesktopSignInPage } from "../features/Auth/pages/Desktop/DesktopSignInPage";
+import { DonorList } from "../features/donor/page/Modile/DonorList";
+import { BloodBankStockList } from "../features/BloodBankStock/page/Mobile/BloodBankStockList";
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
@@ -19,7 +22,7 @@ export const AppRouters = () => {
                     element={isMobile ?
                         <MobileSignInPage />
                         :
-                        "Not Desktop"}
+                        <DesktopSignInPage />}
                 />
                 <Route
                     path="/ResetPassword"
@@ -49,6 +52,22 @@ export const AppRouters = () => {
                         <MobileBloodReactionPage />
                         :
                         "Not Desktop"
+                    }
+                />
+                <Route
+                    path="/DonorList"
+                    element={isMobile ?
+                        "Not Mobile"
+                        :
+                        <DonorList />
+                    }
+                />
+                <Route
+                    path="/BloodBankStock"
+                    element={isMobile ?
+                        "Not Mobile"
+                        :
+                        <BloodBankStockList />
                     }
                 />
 

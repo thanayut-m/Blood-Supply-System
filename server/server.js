@@ -36,8 +36,8 @@ await setupRouter();
 
 app.use((err, req, res, next) => {
   res
-    .status(err.code || 500)
-    .json({ message: err.message || "Something Wrong!!!" });
+    .status(err.status || 500)
+    .json({ success: false, message: err.message || "Something Wrong!!!" });
 });
 
 app.listen(port, "0.0.0.0", () => console.log(`Server is run Port : ${port}`));
