@@ -37,7 +37,7 @@ export const ControlledAutocomplete = <T extends FieldValues>({
                         getOptionLabel={(option) => option.label}
                         isOptionEqualToValue={(option, val) => option.value === val.value}
                         value={selectedOption}
-                        onChange={(event, newValue) => {
+                        onChange={(_, newValue) => {
                             onChange(newValue ? newValue.value : "");
                         }}
                         renderInput={(params) => (
