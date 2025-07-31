@@ -116,13 +116,13 @@ export const staffInfo = async (req, res, next) => {
 
 export const updateStaffInfo = async (req, res, next) => {
   try {
-    const { staffId, username, staffname } = req.body;
+    const { staffId, username, staffName } = req.body;
 
     const result = await query_db(
       `UPDATE staff
         SET staff_name = ?, username = ?
         WHERE staff_id = ?`,
-      [staffname, username, staffId]
+      [staffName, username, staffId]
     );
 
     if (result.affectedRows === 0) {

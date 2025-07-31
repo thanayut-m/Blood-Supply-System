@@ -2,11 +2,17 @@ import { useEffect, useState } from "react";
 import { getStaffInfo, postStaff, UpdateStaff } from "../services/staffApi";
 import { forgetPassword } from "../services/authApi";
 import { useNavigate } from "react-router";
+import type {
+  getStaffInfoResponse,
+  postStaffPayload,
+  ResetPassPayload,
+  UpdateStaffPayload,
+} from "../types/staff.types";
 
 const { VITE_SET_TOKEN } = import.meta.env;
 
-export const useAuth = (handleClose) => {
-  const [staffInfo, setStaffInfo] = useState(null);
+export const useAuth = (handleClose: () => void) => {
+  const [staffInfo, setStaffInfo] = useState<getStaffInfoResponse>();
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -23,8 +29,8 @@ export const useAuth = (handleClose) => {
     setIsLoading(true);
     try {
       const res = await getStaffInfo();
-      if (res.data?.success) {
-        setStaffInfo(res.data.data);
+      if (res?.success) {
+        setStaffInfo(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -33,14 +39,15 @@ export const useAuth = (handleClose) => {
     }
   };
 
-  const handleUpdateStaff = async (data) => {
+  const handleUpdateStaff = async (data: UpdateStaffPayload) => {
     try {
+      console.log(data);
       const res = await UpdateStaff({
-        staffId: data.staffId,
+        staffId: Number(data.staffId),
         username: data.username,
-        staffname: data.Staffname,
+        staffName: data.staffName,
       });
-      if (res.data.success) {
+      if (res.success) {
         fetchStaffInfo();
         handleClose();
       }
@@ -49,10 +56,10 @@ export const useAuth = (handleClose) => {
     }
   };
 
-  const handleResetPassword = async (data) => {
+  const handleResetPassword = async (data: ResetPassPayload) => {
     try {
       const res = await forgetPassword({
-        staffId: data.staffId,
+        staffId: Number(data.staffId),
         re_password: data.re_password,
       });
       if (res.success) {
@@ -64,14 +71,14 @@ export const useAuth = (handleClose) => {
     }
   };
 
-  const handleSignUp = async (data) => {
+  const handleSignUp = async (data: postStaffPayload) => {
     try {
       const res = await postStaff({
         staffName: data.staffName,
         username: data.username,
         webPassword: data.webPassword,
       });
-      if (res.data.success) {
+      if (res.success) {
         fetchStaffInfo();
         handleClose();
       }

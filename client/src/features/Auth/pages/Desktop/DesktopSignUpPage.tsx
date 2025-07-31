@@ -15,12 +15,12 @@ const columns = [
     { id: 'action', label: 'Action', minWidth: 20 },
 ]
 export const DesktopSignUpPage = () => {
-    const { register, setValue, reset, handleSubmit } = useForm({
+    const { register, reset, handleSubmit } = useForm({
         defaultValues: {
             staffId: "",
             username: "",
-            Staffname: "",
-            password: "",
+            staffName: "",
+            webPassword: "",
             re_password: "",
         },
     });
@@ -42,7 +42,7 @@ export const DesktopSignUpPage = () => {
             reset({
                 staffId: user.staffId,
                 username: user.username,
-                Staffname: user.staffName,
+                staffName: user.staffName,
             });
         }
 
@@ -170,7 +170,7 @@ export const DesktopSignUpPage = () => {
                         />
                         <FormInput
                             register={register}
-                            name="Staffname"
+                            name="staffName"
                             label="ชื่อ-นามสกุล"
                             variant="outlined"
                             size="small"

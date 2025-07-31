@@ -7,8 +7,24 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
+export interface Column<T> {
+    label: string;
+    value: keyof T;
+    align?: 'left' | 'right' | 'center';
+    format?: (value: T[keyof T], row?: T) => React.ReactNode;
+}
 
-export function BasicTable({ columns, rows, renderRow }) {
+interface BasicTableProps<T> {
+    columns: Column<T>[];
+    rows: T[];
+    renderRow?: (row: T, columns: Column<T>[]) => React.ReactNode;
+}
+
+export function BasicTable<T extends object>({
+    columns,
+    rows,
+    renderRow,
+}: BasicTableProps<T>) {
     return (
         <TableContainer
             component={Paper}
@@ -17,7 +33,11 @@ export function BasicTable({ columns, rows, renderRow }) {
                 maxWidth: '100%',
             }}
         >
-            <Table size="small" aria-label="basic table" sx={{ tableLayout: 'auto', minWidth: 'max-content' }}>
+            <Table
+                size="small"
+                aria-label="basic table"
+                sx={{ tableLayout: 'auto', minWidth: 'max-content' }}
+            >
                 <TableHead>
                     <TableRow>
                         {columns.map((col) => (
@@ -28,7 +48,7 @@ export function BasicTable({ columns, rows, renderRow }) {
                                     fontWeight: 'bold',
                                     whiteSpace: 'nowrap',
                                     textAlign: 'center',
-                                    width: 'fit-content'
+                                    width: 'fit-content',
                                 }}
                             >
                                 {col.label}
@@ -41,24 +61,26 @@ export function BasicTable({ columns, rows, renderRow }) {
                         renderRow ? (
                             <React.Fragment key={i}>{renderRow(row, columns)}</React.Fragment>
                         ) : (
-                            <TableRow key={i} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                            <TableRow
+                                key={i}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
                                 {columns.map((col) => (
                                     <TableCell
                                         key={String(col.value)}
                                         align={col.align || 'left'}
                                         sx={{ whiteSpace: 'nowrap', width: 'fit-content' }}
                                     >
-                                        {col.format ? col.format(row[col.value]) : row[col.value]}
+                                        {col.format
+                                            ? col.format(row[col.value], row)
+                                            : (row[col.value] as React.ReactNode)}
                                     </TableCell>
                                 ))}
                             </TableRow>
                         )
                     )}
                 </TableBody>
-
             </Table>
         </TableContainer>
     );
 }
-
-

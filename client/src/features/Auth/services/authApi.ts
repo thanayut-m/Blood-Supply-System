@@ -1,12 +1,12 @@
 import axios from "axios";
 import type {
-  ForgetPasswordPayload,
   ForgetPasswordResponse,
   SignInPayload,
   SignInResponse,
   StaffResponse,
 } from "../types/auth.types";
 import { authHeader } from "../../../utils/authHeader";
+import type { ResetPassPayload } from "../types/staff.types";
 
 const { VITE_API_PATH } = import.meta.env;
 
@@ -16,7 +16,7 @@ export const SignIn = async (data: SignInPayload): Promise<SignInResponse> => {
 };
 
 export const forgetPassword = async (
-  data: ForgetPasswordPayload
+  data: ResetPassPayload
 ): Promise<ForgetPasswordResponse> => {
   const response = await axios.put(VITE_API_PATH + "/Auth/resetPassword", data);
   return response.data;

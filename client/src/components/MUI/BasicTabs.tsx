@@ -1,6 +1,15 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
-export const BasicTabs = ({ tabs }) => {
+type Tab = {
+    label: string;
+    content: ReactNode;
+};
+
+interface BasicTabsProps {
+    tabs: Tab[];
+}
+
+export const BasicTabs = ({ tabs }: BasicTabsProps) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (

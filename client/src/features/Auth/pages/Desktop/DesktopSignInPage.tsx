@@ -13,7 +13,7 @@ export const DesktopSignInPage = () => {
     });
     const { handleSignIn } = useSignIn()
 
-    const { errors, isSubmitting } = formState;
+    const { isSubmitting } = formState;
 
     useEffect(() => {
         document.title = "เข้าสู่ระบบ";
@@ -41,7 +41,7 @@ export const DesktopSignInPage = () => {
                     name="password"
                     label="รหัสผ่าน"
                     variant="outlined"
-                    size="small"ก
+                    size="small"
                     type="password"
                 />
                 <Buttons
