@@ -18,7 +18,7 @@ export const getBloodBankStock = async (
   startDate: string,
   endDate: string,
   TypeName: string
-): Promise<getBloodBankStockPage> => {
+): Promise<getBloodBankStockPage | null> => {
   const response = await axios.get(
     VITE_API_PATH + "/BloodBankStock/getBloodBankStock",
     {

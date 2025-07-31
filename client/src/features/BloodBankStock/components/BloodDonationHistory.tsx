@@ -25,15 +25,14 @@ export const BloodDonationHistory = () => {
         defaultValues: {
             startDate: dayjs().format("YYYY-MM-DD"),
             endDate: dayjs().format("YYYY-MM-DD"),
-            TypeName: null,
+            TypeName: "",
         }
     })
     const startDate = watch("startDate");
     const endDate = watch("endDate");
     const TypeName = watch("TypeName");
-    const { data, loading } = useBloodBankStock(startDate, endDate, TypeName)
+    const { dataBloodBankStock, loading } = useBloodBankStock(startDate, endDate, TypeName, null)
     const { BloodTypeOption } = useBloodTypeOption()
-
     if (loading) return <p>กำลังโหลด...</p>;
     return (
         <div className="bg-white p-4 rounded-2xl">
@@ -66,10 +65,10 @@ export const BloodDonationHistory = () => {
                         defaultValue={dayjs().format("YYYY-MM-DD")}
                     />
                 </div>
-                {data?.success === true && data?.data?.length > 0 ? (
+                {dataBloodBankStock && dataBloodBankStock.length > 0 ? (
                     <StickyTable
                         columns={columns}
-                        rows={data.data}
+                        rows={dataBloodBankStock}
                         renderRow={(row, index) => (
                             <>
                                 <TableCell align="center">{index + 1}</TableCell>

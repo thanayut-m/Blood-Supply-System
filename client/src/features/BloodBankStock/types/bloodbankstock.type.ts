@@ -1,6 +1,6 @@
 export interface getBloodBankStockPage {
   success: boolean;
-  data: getBloodBankStockResponse;
+  data: getBloodBankStockResponse[];
 }
 
 export interface getBloodBankStockResponse {

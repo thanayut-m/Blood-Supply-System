@@ -24,7 +24,9 @@ export const useBloodBankStock = (
   TypeName: string | null,
   selectedGroupLabel: string | null
 ) => {
-  const [data, setData] = useState<getBloodBankStockResponse | []>([]);
+  const [dataBloodBankStock, setDataBloodBankStock] = useState<
+    getBloodBankStockResponse[] | null
+  >(null);
   const [dataTotalBlood, setDataTotalBlood] =
     useState<getTotalBloodResponse | null>(null);
 
@@ -56,21 +58,21 @@ export const useBloodBankStock = (
     useState(false);
 
   const fetchBloodBankStock = async () => {
-    if (!startDate || !endDate || !TypeName) {
+    if (!startDate || !endDate) {
+      setDataBloodBankStock(null);
       return;
     }
     setLoadingStock(true);
     try {
-      const res = await getBloodBankStock(startDate, endDate, TypeName);
-      console.log(res);
-      if (res.success === true) {
-        setData(res.data);
+      const res = await getBloodBankStock(startDate, endDate, TypeName ?? "");
+      if (res?.success) {
+        setDataBloodBankStock(res.data);
       } else {
-        setData([]);
+        setDataBloodBankStock(null);
       }
     } catch (error) {
       console.error("Error fetching blood bank stock:", error);
-      setData([]);
+      setDataBloodBankStock(null);
     } finally {
       setLoadingStock(false);
     }
@@ -188,7 +190,7 @@ export const useBloodBankStock = (
   }, [startDate, endDate, TypeName, selectedGroupLabel]);
 
   return {
-    data,
+    dataBloodBankStock,
     dataTotalBlood,
     dataReadyBloodBags,
     dataPendingBloodBags,
