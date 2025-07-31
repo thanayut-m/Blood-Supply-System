@@ -10,6 +10,10 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 
+interface RowWithId {
+    id: string | number;
+}
+
 interface Column {
     id: string;
     label: string;
@@ -18,17 +22,17 @@ interface Column {
     fontSize: string
 }
 
-interface StickyTableProps {
+interface StickyTableProps<T> {
     columns: Column[];
-    rows: any[];
-    renderRow: (row: any, index: number) => React.ReactNode;
+    rows: T[];
+    renderRow: (row: T, index: number) => React.ReactNode;
 }
 
-export function StickyTable({
+export function StickyTable<T>({
     columns = [],
     rows = [],
     renderRow,
-}: StickyTableProps) {
+}: StickyTableProps<T>) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 

@@ -1,5 +1,5 @@
 import { useMediaQuery } from "react-responsive";
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route } from "react-router";
 
 //mobile
 import { MobileResetPasswordPage } from "../features/Auth/pages/Mobile/MobileResetPasswordPage";
@@ -11,11 +11,9 @@ import { DesktopSignInPage } from "../features/Auth/pages/Desktop/DesktopSignInP
 import { DonorList } from "../features/donor/page/Modile/DonorList";
 import { BloodBankStockList } from "../features/BloodBankStock/page/Mobile/BloodBankStockList";
 import { DesktopSignUpPage } from "../features/Auth/pages/Desktop/DesktopSignUpPage";
-import { useCurrentUser } from "../features/Auth/hook/useCurrentUser";
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
-    const { user } = useCurrentUser()
 
     return (
         <div>
