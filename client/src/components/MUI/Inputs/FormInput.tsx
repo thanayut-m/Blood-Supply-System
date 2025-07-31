@@ -1,15 +1,26 @@
 import { TextField } from "@mui/material"
+import type { FieldValues, Path, UseFormRegister } from "react-hook-form"
 
-export const FormInput = (
+interface FormInputProps<T extends FieldValues> {
+    register: UseFormRegister<T>;
+    name: Path<T>;
+    label: string,
+    variant?: "outlined" | "filled" | "standard";
+    size?: "small" | "medium";
+    type?: string;
+    defaultValue?: string | number;
+}
+
+export const FormInput = <T extends FieldValues>(
     {
         register,
         name,
         label,
-        variant,
-        size,
-        type,
+        variant = "outlined",
+        size = "small",
+        type = "text",
         defaultValue
-    }
+    }: FormInputProps<T>
 ) => {
     return (
         <TextField

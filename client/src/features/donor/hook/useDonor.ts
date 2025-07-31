@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { getDonorListById } from "../service/DonorAPI";
+import type { getDonorListResponse } from "../types/donor.type";
 
-export const useDonor = (debouncedSearch) => {
-  const [data, setData] = useState();
+export const useDonor = (debouncedSearch: string) => {
+  const [data, setData] = useState<getDonorListResponse>();
   const [loading, setLoading] = useState(false);
 
-  const fetchDonorListById = async (debouncedSearch) => {
+  const fetchDonorListById = async (debouncedSearch: string) => {
     setLoading(true);
     try {
       const res = await getDonorListById(debouncedSearch);

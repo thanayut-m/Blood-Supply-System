@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDonor } from "../../hook/useDonor";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import type { getDonorListResponse } from "../../types/donor.type";
 
 const columns = [
     { id: 'id', label: 'ลำดับ', minWidth: 20 },
@@ -26,7 +27,8 @@ const columns = [
     { id: 'aboDiscrepancy', label: 'ABO Discrepancy', minWidth: 150 },
 ];
 
-export const DonorList = () => {
+
+export const DonorListPage = () => {
     const { register, watch } = useForm();
     const search = watch('search')
     const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -42,7 +44,7 @@ export const DonorList = () => {
         return () => clearTimeout(timeout);
     }, [search]);
 
-    const { data } = useDonor(debouncedSearch);
+    const { data }: { data?: getDonorListResponse } = useDonor(debouncedSearch);
     return (
         <DesktopPrivateLayout>
             <div className="p-4 bg-white rounded-2xl ">
@@ -56,9 +58,9 @@ export const DonorList = () => {
                         size="small"
                     />
                 </div>
-                <StickyTable
+                <StickyTable<getDonorListResponse>
                     columns={columns}
-                    rows={data}
+                    rows={Array.isArray(data) ? data : []}
                     renderRow={(row, index) => (
                         <>
                             <TableCell align="center">{index + 1}</TableCell>
