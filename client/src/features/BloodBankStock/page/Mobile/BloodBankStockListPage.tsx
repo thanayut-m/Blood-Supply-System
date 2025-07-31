@@ -12,10 +12,9 @@ import { useEffect } from "react";
 
 
 
-export const BloodBankStockList = () => {
+export const BloodBankStockListPage = () => {
     const { setValue, watch } = useForm()
     const selectedGroupLabel = watch("selectedGroupLabel");
-    console.log(selectedGroupLabel)
 
     useEffect(() => {
         document.title = "คลังเลือด || Logins Medical";

@@ -11,7 +11,11 @@ const columns = [
     { label: "ชื่อผู้ป่วย", id: 6, minWidth: 170, fontSize: "12px" },
 ];
 
-export const PendingBloodBags = ({ selectedGroupLabel }) => {
+interface PendingBloodBagsProps {
+    selectedGroupLabel: string;
+}
+
+export const PendingBloodBags = ({ selectedGroupLabel }: PendingBloodBagsProps) => {
     const { dataPendingBloodBags, loading } = useBloodBankStock(null, null, null, selectedGroupLabel);
     if (loading) return <p>กำลังโหลด...</p>;
     return (

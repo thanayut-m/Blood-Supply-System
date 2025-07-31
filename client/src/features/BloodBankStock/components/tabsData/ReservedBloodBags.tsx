@@ -11,7 +11,11 @@ const columns = [
     { label: "วันหมดอายุ", id: 5, minWidth: 100, fontSize: "12px" },
 ];
 
-export const ReservedBloodBags = (selectedGroupLabel) => {
+interface ReservedBloodBagsProps {
+    selectedGroupLabel: string;
+}
+
+export const ReservedBloodBags = ({ selectedGroupLabel }: ReservedBloodBagsProps) => {
     const { dataContaminatedBloodBags, loading } = useBloodBankStock(null, null, null, selectedGroupLabel);
 
     if (loading) return <p>กำลังโหลด...</p>;

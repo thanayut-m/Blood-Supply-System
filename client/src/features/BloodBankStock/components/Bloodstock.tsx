@@ -2,11 +2,16 @@ import { TableCell, TableRow } from "@mui/material";
 import { BasicTable } from "../../../components/MUI/BasicTable";
 import { useBloodBankStock } from "../hook/useBloodBankStock";
 
-export const Bloodstock = ({ selectedGroupLabel, onSelectGroup }) => {
-    const { dataTotalBlood } = useBloodBankStock();
+interface BloodstockProps {
+    selectedGroupLabel: string | null;
+    onSelectGroup: (label: string | null) => void;
+}
+
+export const Bloodstock = ({ selectedGroupLabel, onSelectGroup }: BloodstockProps) => {
+    const { dataTotalBlood, loading } = useBloodBankStock(null, null, null, null);
 
     const handleRowClick = (label: string) => {
-        onSelectGroup(label === selectedGroupLabel ? null : label); // toggle
+        onSelectGroup(label === selectedGroupLabel ? null : label);
     };
 
     const bloodGroups = [
@@ -19,29 +24,36 @@ export const Bloodstock = ({ selectedGroupLabel, onSelectGroup }) => {
 
     const columns = [
         { value: "bloodGroup", label: "หมู่เลือด" },
-        ...dataTotalBlood.map((item) => ({
-            value: item.bloodTypeName,
-            label: item.bloodTypeName,
-        })),
+        ...(Array.isArray(dataTotalBlood)
+            ? dataTotalBlood.map((item) => ({
+                value: item.bloodTypeName,
+                label: item.bloodTypeName,
+            }))
+            : []),
     ];
 
+
     const rows = bloodGroups.map(({ key, label }) => {
-        const row = {
+        const row: Record<string, string> = {
             bloodGroup: label,
         };
 
-        dataTotalBlood.forEach((item) => {
-            row[item.bloodTypeName] = item[key] || "0";
-        });
+        if (Array.isArray(dataTotalBlood)) {
+            dataTotalBlood.forEach((item) => {
+                row[item.bloodTypeName] = item[key] || "0";
+            });
+        }
 
         return row;
     });
 
+
+    if (loading) return <div>Loading...</div>;
     return (
         <BasicTable
             columns={columns}
             rows={rows}
-            renderRow={(row) => (
+            renderRow={(row: Record<string, string>) => (
                 <TableRow
                     key={row.bloodGroup}
                     onClick={() => handleRowClick(row.bloodGroup)}

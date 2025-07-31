@@ -1,9 +1,24 @@
 import axios from "axios";
 import { authHeader } from "../../../utils/authHeader";
+import type {
+  getBloodBankStockPage,
+  getBloodTypeOptionResponse,
+  getContaminatedBloodBagsPage,
+  getDeliveredBloodBagsPage,
+  getPendingBloodBagsPage,
+  getReadyBloodBagsPage,
+  getReservedBloodBagsPage,
+  getTotalBloodPage,
+} from "../types/bloodbankstock.type";
+import type { OptionType } from "../../Auth/types/auth.types";
 
 const { VITE_API_PATH } = import.meta.env;
 
-export const getBloodBankStock = async (startDate, endDate, TypeName) => {
+export const getBloodBankStock = async (
+  startDate: string,
+  endDate: string,
+  TypeName: string
+): Promise<getBloodBankStockPage> => {
   const response = await axios.get(
     VITE_API_PATH + "/BloodBankStock/getBloodBankStock",
     {
@@ -18,7 +33,7 @@ export const getBloodBankStock = async (startDate, endDate, TypeName) => {
   return response.data;
 };
 
-export const getBloodTypeOption = async () => {
+export const getBloodTypeOption = async (): Promise<OptionType[]> => {
   try {
     const response = await axios.get(
       VITE_API_PATH + "/BloodBankStock/getBloodTypeOption",
@@ -28,15 +43,15 @@ export const getBloodTypeOption = async () => {
     );
     const data = response.data.data;
 
-    const BloodTypeOption = Array.isArray(data)
-      ? data.map((item) => ({
+    const BloodTypeOption: OptionType[] = Array.isArray(data)
+      ? data.map((item: getBloodTypeOptionResponse) => ({
           label: item.typeName,
           value: item.typeId,
         }))
       : [
           {
-            label: data.typeName,
-            value: data.typeId,
+            label: (data as getBloodTypeOptionResponse).typeName,
+            value: (data as getBloodTypeOptionResponse).typeId,
           },
         ];
 
@@ -47,7 +62,7 @@ export const getBloodTypeOption = async () => {
   }
 };
 
-export const getTotalBlood = async () => {
+export const getTotalBlood = async (): Promise<getTotalBloodPage | []> => {
   try {
     const response = await axios.get(
       VITE_API_PATH + "/BloodBankStock/getTotalBlood",
@@ -63,7 +78,9 @@ export const getTotalBlood = async () => {
   }
 };
 
-export const getReadyBloodBags = async (selectedGroupLabel) => {
+export const getReadyBloodBags = async (
+  selectedGroupLabel: string
+): Promise<getReadyBloodBagsPage | null> => {
   try {
     const response = await axios.get(
       VITE_API_PATH + "/BloodBankStock/getReadyBloodBags",
@@ -76,11 +93,13 @@ export const getReadyBloodBags = async (selectedGroupLabel) => {
     return response.data;
   } catch (error) {
     console.error("getBloodTypeOption error:", error);
-    return [];
+    return null;
   }
 };
 
-export const getPendingBloodBags = async (selectedGroupLabel) => {
+export const getPendingBloodBags = async (
+  selectedGroupLabel: string
+): Promise<getPendingBloodBagsPage | null> => {
   try {
     const response = await axios.get(
       VITE_API_PATH + "/BloodBankStock/getPendingBloodBags",
@@ -93,11 +112,13 @@ export const getPendingBloodBags = async (selectedGroupLabel) => {
     return response.data;
   } catch (error) {
     console.error("getBloodTypeOption error:", error);
-    return [];
+    return null;
   }
 };
 
-export const getDeliveredBloodBags = async (selectedGroupLabel) => {
+export const getDeliveredBloodBags = async (
+  selectedGroupLabel: string
+): Promise<getDeliveredBloodBagsPage | null> => {
   try {
     const response = await axios.get(
       VITE_API_PATH + "/BloodBankStock/getDeliveredBloodBags",
@@ -110,11 +131,13 @@ export const getDeliveredBloodBags = async (selectedGroupLabel) => {
     return response.data;
   } catch (error) {
     console.error("getBloodTypeOption error:", error);
-    return [];
+    return null;
   }
 };
 
-export const getContaminatedBloodBags = async (selectedGroupLabel) => {
+export const getContaminatedBloodBags = async (
+  selectedGroupLabel: string
+): Promise<getContaminatedBloodBagsPage | null> => {
   try {
     const response = await axios.get(
       VITE_API_PATH + "/BloodBankStock/getContaminatedBloodBags",
@@ -127,11 +150,13 @@ export const getContaminatedBloodBags = async (selectedGroupLabel) => {
     return response.data;
   } catch (error) {
     console.error("getBloodTypeOption error:", error);
-    return [];
+    return null;
   }
 };
 
-export const getReservedBloodBags = async (selectedGroupLabel) => {
+export const getReservedBloodBags = async (
+  selectedGroupLabel: string
+): Promise<getReservedBloodBagsPage | null> => {
   try {
     const response = await axios.get(
       VITE_API_PATH + "/BloodBankStock/getReservedBloodBags",
@@ -144,6 +169,6 @@ export const getReservedBloodBags = async (selectedGroupLabel) => {
     return response.data;
   } catch (error) {
     console.error("getBloodTypeOption error:", error);
-    return [];
+    return null;
   }
 };

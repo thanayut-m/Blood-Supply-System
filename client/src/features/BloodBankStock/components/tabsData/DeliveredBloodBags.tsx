@@ -12,8 +12,11 @@ const columns = [
     { label: "HN", id: 6, minWidth: 78, fontSize: "12px" },
     { label: "ชื่อผู้ป่วย", id: 7, minWidth: 170, fontSize: "12px" },
 ];
+interface DeliveredBloodBagsProps {
+    selectedGroupLabel: string;
+}
 
-export const DeliveredBloodBags = (selectedGroupLabel) => {
+export const DeliveredBloodBags = ({ selectedGroupLabel }: DeliveredBloodBagsProps) => {
     const { dataDeliveredBloodBags, loading } = useBloodBankStock(null, null, null, selectedGroupLabel);
 
     if (loading) return <p>กำลังโหลด...</p>;

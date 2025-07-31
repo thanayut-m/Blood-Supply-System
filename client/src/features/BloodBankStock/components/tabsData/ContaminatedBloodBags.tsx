@@ -4,14 +4,18 @@ import { useBloodBankStock } from "../../hook/useBloodBankStock";
 import dayjs from "dayjs";
 
 const columns = [
-    { label: "ลำดับ", id: 1, minWidth: 10, fontSize: "12px" },
-    { label: "ประเภท", id: 2, minWidth: 10, fontSize: "12px" },
-    { label: "เลขถุง", id: 3, fontSize: "12px" },
-    { label: "ml", id: 4, fontSize: "12px" },
-    { label: "วันหมดอายุ", id: 5, minWidth: 100, fontSize: "12px" },
+    { label: "ลำดับ", id: "1", minWidth: 10, fontSize: "12px" },
+    { label: "ประเภท", id: "2", minWidth: 10, fontSize: "12px" },
+    { label: "เลขถุง", id: "3", fontSize: "12px" },
+    { label: "ml", id: "4", fontSize: "12px" },
+    { label: "วันหมดอายุ", id: "5", minWidth: 100, fontSize: "12px" },
 ];
 
-export const ContaminatedBloodBags = (selectedGroupLabel) => {
+interface ContaminatedBloodBagsProps {
+    selectedGroupLabel: string;
+}
+
+export const ContaminatedBloodBags = ({ selectedGroupLabel }: ContaminatedBloodBagsProps) => {
     const { dataContaminatedBloodBags, loading } = useBloodBankStock(null, null, null, selectedGroupLabel);
 
     if (loading) return <p>กำลังโหลด...</p>;

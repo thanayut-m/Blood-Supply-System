@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 
 interface Column {
-    id: string;
+    id: string | number;
     label: string;
     align?: "left" | "right" | "center";
     minWidth?: number;
@@ -20,7 +20,7 @@ interface Column {
 
 interface StickyTableProps<T> {
     columns: Column[];
-    rows: T[];
+    rows: T[] | null;
     renderRow: (row: T, index: number) => React.ReactNode;
     getRowId?: (row: T) => string | number;
 }
@@ -44,8 +44,7 @@ export function StickyTable<T>({
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-    const paginatedRows = rows.slice(
+    const paginatedRows = (rows ?? []).slice(
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
     );
@@ -91,7 +90,7 @@ export function StickyTable<T>({
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
-                count={rows.length}
+                count={Array.isArray(rows) ? rows.length : 0}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
