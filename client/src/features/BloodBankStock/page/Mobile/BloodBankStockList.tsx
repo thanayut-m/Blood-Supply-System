@@ -8,6 +8,7 @@ import { DeliveredBloodBags } from "../../components/tabsData/DeliveredBloodBags
 import { PendingBloodBags } from "../../components/tabsData/PendingBloodBags";
 import { ReadyBloodBags } from "../../components/tabsData/ReadyBloodBags";
 import { ReservedBloodBags } from "../../components/tabsData/ReservedBloodBags";
+import { useEffect } from "react";
 
 
 
@@ -15,6 +16,10 @@ export const BloodBankStockList = () => {
     const { setValue, watch } = useForm()
     const selectedGroupLabel = watch("selectedGroupLabel");
     console.log(selectedGroupLabel)
+
+    useEffect(() => {
+        document.title = "คลังเลือด || Logins Medical";
+    }, [])
 
     const tabsData = [
         {

@@ -30,6 +30,10 @@ export const DonorList = () => {
     const { register, watch } = useForm();
     const search = watch('search')
     const [debouncedSearch, setDebouncedSearch] = useState('');
+    useEffect(() => {
+        document.title = "ทะเบียนผู้บริจาคเลือด || Logins Medical";
+    }, [])
+
 
     useEffect(() => {
         const timeout = setTimeout(() => {

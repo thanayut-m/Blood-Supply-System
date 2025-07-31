@@ -29,3 +29,24 @@ export const fetchStaffOptions = async (): Promise<OptionType[]> => {
     return [];
   }
 };
+
+export const getStaffInfo = async () => {
+  const response = await axios.get(VITE_API_PATH + "/Auth/staffInfo", {
+    headers: authHeader.headers(),
+  });
+  return response;
+};
+
+export const UpdateStaff = async (data) => {
+  const response = await axios.put(VITE_API_PATH + "/Auth/updateStaff", data, {
+    headers: authHeader.headers(),
+  });
+  return response;
+};
+
+export const postStaff = async (data) => {
+  const response = await axios.post(VITE_API_PATH + "/Auth/createUser", data, {
+    headers: authHeader.headers(),
+  });
+  return response;
+};

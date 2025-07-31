@@ -1,7 +1,8 @@
-// import { useCurrentUser } from "../../../features/Auth/hook/useCurrentUser"
-
+import { useAuth } from "../../../features/Auth/hook/useAuth"
+import { useCurrentUser } from "../../../features/Auth/hook/useCurrentUser"
 export const DesktopNavBar = ({ setIsOpen }) => {
-    // const { user } = useCurrentUser()
+    const { user } = useCurrentUser()
+    const { handleSignOut } = useAuth(null);
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="flex-1">
@@ -16,12 +17,15 @@ export const DesktopNavBar = ({ setIsOpen }) => {
             <div className="flex gap-2">
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} className="px-4 hover:bg-base-400 cursor-pointer  ">
-                        นายทดสอบ ทดสอบ
+                        {user?.staff}
                     </div>
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li><a>ออกจากระบบ</a></li>
+                        <li
+                            onClick={handleSignOut}
+                        ><a>ออกจากระบบ</a>
+                        </li>
                     </ul>
                 </div>
             </div>

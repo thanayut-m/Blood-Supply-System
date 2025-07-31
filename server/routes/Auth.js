@@ -1,9 +1,11 @@
 import express from "express";
 import {
+  createUser,
   currentUser,
   resetPassword,
   signIn,
   staffInfo,
+  updateStaffInfo,
 } from "../controllers/AuthController.js";
 import { isLogin } from "../middlewares/AuthMiddleware.js";
 
@@ -16,3 +18,5 @@ router.post("/signIn", signIn);
 router.put("/resetPassword", resetPassword);
 router.get("/current-user", isLogin, currentUser);
 router.get("/staffInfo", isLogin, staffInfo);
+router.put("/updateStaff", isLogin, updateStaffInfo);
+router.post("/createUser", isLogin, createUser);

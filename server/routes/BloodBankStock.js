@@ -9,14 +9,15 @@ import {
   getReservedBloodBags,
   getTotalBlood,
 } from "../controllers/BloodBankStockController.js";
+import { isLogin } from "../middlewares/AuthMiddleware.js";
 
 export const router = express.Router();
 
-router.get("/getBloodBankStock", getBloodBankStock);
-router.get("/getBloodTypeOption", getBloodTypeOption);
-router.get("/getTotalBlood", getTotalBlood);
-router.get("/getReadyBloodBags", getReadyBloodBags);
-router.get("/getPendingBloodBags", getPendingBloodBags);
-router.get("/getDeliveredBloodBags", getDeliveredBloodBags);
-router.get("/getContaminatedBloodBags", getContaminatedBloodBags);
-router.get("/getReservedBloodBags", getReservedBloodBags);
+router.get("/getBloodBankStock", isLogin, getBloodBankStock);
+router.get("/getBloodTypeOption", isLogin, getBloodTypeOption);
+router.get("/getTotalBlood", isLogin, getTotalBlood);
+router.get("/getReadyBloodBags", isLogin, getReadyBloodBags);
+router.get("/getPendingBloodBags", isLogin, getPendingBloodBags);
+router.get("/getDeliveredBloodBags", isLogin, getDeliveredBloodBags);
+router.get("/getContaminatedBloodBags", isLogin, getContaminatedBloodBags);
+router.get("/getReservedBloodBags", isLogin, getReservedBloodBags);

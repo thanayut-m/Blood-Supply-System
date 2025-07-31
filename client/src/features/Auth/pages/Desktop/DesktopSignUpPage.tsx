@@ -2,10 +2,11 @@ import { TableCell } from "@mui/material"
 import { StickyTable } from "../../../../components/MUI/StickyTable"
 import { DesktopPrivateLayout } from "../../../../layouts/DesktopPrivateLayout"
 import { Modals } from "../../../../components/modal/Modals"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Buttons } from "../../../../components/Buttons"
 import { FormInput } from "../../../../components/MUI/Inputs/FormInput"
 import { useForm } from "react-hook-form"
+import { useAuth } from "../../hook/useAuth"
 
 const columns = [
     { id: 'id', label: 'ลำดับ', minWidth: 20 },
@@ -13,38 +14,59 @@ const columns = [
     { id: 'name', label: 'ชื่อ-นามสกุล', minWidth: 20 },
     { id: 'action', label: 'Action', minWidth: 20 },
 ]
-
-const rows = [
-    { id: 1, username: "admin1", name: "นายสมชาย ใจดี" },
-    { id: 2, username: "nurse2", name: "นางสาวพรทิพย์ รุ่งเรือง" },
-]
-
 export const DesktopSignUpPage = () => {
-    const { register, setValue, reset } = useForm()
+    const { register, setValue, reset, handleSubmit } = useForm({
+        defaultValues: {
+            staffId: "",
+            username: "",
+            Staffname: "",
+            password: "",
+            re_password: "",
+        },
+    });
     const [openModal, setOpenModal] = useState(null);
     const [selectedUser, setSelectedUser] = useState(null)
 
-    const handleOpen = (modal: string, user = null) => {
-        setOpenModal(modal)
-        setSelectedUser(user)
-
-        // ถ้า modal เป็น edit ให้ set ค่าใน form
-        if (modal === "openEditUser" && user) {
-            setValue("username", user.username)
-            setValue("name", user.name)
-        }
-
-        // ถ้า reset password แนะนำให้ล้างค่าเดิม
-        if (modal === "openReSetPassword") {
-            reset({ re_password: "" })
-        }
-    }
-
-    const handleClose = (modal: string) => {
+    const handleClose = () => {
         setOpenModal(null);
         setSelectedUser(null)
         reset()
     };
+
+    const { staffInfo, handleUpdateStaff, handleResetPassword, handleSignUp, isLoading } = useAuth(handleClose);
+    const handleOpen = (modal: string, user = null) => {
+        setOpenModal(modal);
+        setSelectedUser(user);
+
+        if (modal === "openEditUser" && user) {
+            reset({
+                staffId: user.staffId,
+                username: user.username,
+                Staffname: user.staffName,
+            });
+        }
+
+        if (modal === "openRegister") {
+            reset({
+                username: "",
+                staffName: "",
+                webPassword: ""
+            });
+        }
+        if (modal === "openReSetPassword") {
+            reset({
+                staffId: user.staffId,
+                re_password: ""
+            });
+        }
+    }
+
+    useEffect(() => {
+        document.title = "จัดการผู้ใช้ || Logins Medical";
+    }, [])
+
+
+    if (isLoading) return <p>กำลังโหลด...</p>;
     return (
         <DesktopPrivateLayout>
             <div className="p-4 bg-white rounded-2xl ">
@@ -58,12 +80,12 @@ export const DesktopSignUpPage = () => {
                 </div>
                 <StickyTable
                     columns={columns}
-                    rows={rows}
+                    rows={staffInfo}
                     renderRow={(row, index) => (
                         <>
                             <TableCell align="center">{index + 1}</TableCell>
                             <TableCell align="center">{row.username}</TableCell>
-                            <TableCell align="center">{row.name}</TableCell>
+                            <TableCell align="center">{row.staffName}</TableCell>
                             <TableCell align="center">
                                 <div className="flex gap-2 justify-center flex-wrap">
                                     <button
@@ -72,7 +94,7 @@ export const DesktopSignUpPage = () => {
                                         แก้ไข
                                     </button>
                                     <button
-                                        onClick={() => handleOpen("openReSetPassword")}
+                                        onClick={() => handleOpen("openReSetPassword", row)}
                                         className="btn btn-sm btn-outline btn-error">
                                         Reset Password
                                     </button>
@@ -93,7 +115,7 @@ export const DesktopSignUpPage = () => {
                     <div className="flex flex-col gap-3">
                         <FormInput
                             register={register}
-                            name="username"
+                            name="staffName"
                             label="ชื่อ-นามสกุล"
                             variant="outlined"
                             size="small"
@@ -107,7 +129,7 @@ export const DesktopSignUpPage = () => {
                         />
                         <FormInput
                             register={register}
-                            name="password"
+                            name="webPassword"
                             label="รหัสผ่าน"
                             variant="outlined"
                             size="small"
@@ -124,7 +146,7 @@ export const DesktopSignUpPage = () => {
                         </Buttons>
                         <Buttons
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                        // onClick={handleSubmit(handleSubmitUpdateGive)}
+                            onClick={handleSubmit(handleSignUp)}
                         >
                             ยืนยัน
                         </Buttons>
@@ -142,14 +164,14 @@ export const DesktopSignUpPage = () => {
                         <FormInput
                             register={register}
                             name="username"
-                            label="ชื่อ-นามสกุล"
+                            label="ชื่อบัญชีผู้ใช้ "
                             variant="outlined"
                             size="small"
                         />
                         <FormInput
                             register={register}
-                            name="name"
-                            label="ชื่อบัญชีผู้ใช้"
+                            name="Staffname"
+                            label="ชื่อ-นามสกุล"
                             variant="outlined"
                             size="small"
                         />
@@ -165,7 +187,7 @@ export const DesktopSignUpPage = () => {
                         </Buttons>
                         <Buttons
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                        // onClick={handleSubmit(handleSubmitUpdateGive)}
+                            onClick={handleSubmit(handleUpdateStaff)}
                         >
                             ยืนยัน
                         </Buttons>
@@ -199,7 +221,7 @@ export const DesktopSignUpPage = () => {
                         </Buttons>
                         <Buttons
                             className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                        // onClick={handleSubmit(handleSubmitUpdateGive)}
+                            onClick={handleSubmit(handleResetPassword)}
                         >
                             ยืนยัน
                         </Buttons>

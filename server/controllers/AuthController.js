@@ -15,7 +15,7 @@ export const signIn = async (req, res, next) => {
     }
 
     const users = await query_db(
-      "SELECT staff_id, username, bb_give, web_password FROM staff WHERE username = ?",
+      "SELECT staff_id, username, staff_status, web_password FROM staff WHERE username = ?",
       [username]
     );
 
@@ -25,7 +25,7 @@ export const signIn = async (req, res, next) => {
 
     const user = users[0];
 
-    if (user.bb_give !== "Y") {
+    if (user.staff_status !== "Y") {
       throw createError(403, "ไม่มีสิทธิ์เข้าใช้งานระบบ");
     }
 
@@ -57,31 +57,27 @@ export const signIn = async (req, res, next) => {
 
 export const resetPassword = async (req, res, next) => {
   try {
-    const { lis_password, new_password, username } = req.body;
+    const { re_password, staffId } = req.body;
 
-    if (!lis_password || !new_password || !username) {
+    if (!staffId || !re_password) {
       throw createError(400, "ข้อมูลไม่ครบ");
     }
 
     const CheckUsername = await query_db(
-      "select username,mobile_logins from staff where username = ?",
-      [username]
+      "select staff_name,mobile_logins from staff where staff_id = ?",
+      [staffId]
     );
 
     if (CheckUsername.length === 0) {
       throw createError(404, "ไม่พบชื่อผู้ใช้");
     }
 
-    if (CheckUsername[0].mobile_logins !== lis_password) {
-      throw createError(404, "รหัสผ่านไม่ตรงกัน LIS");
-    }
+    const hashPassword = await bcrypt.hash(re_password, 10);
 
-    const hashPassword = await bcrypt.hash(new_password, 10);
-
-    const result = await query_db(
-      "UPDATE staff SET web_password = ? WHERE username = ?",
-      [hashPassword, username]
-    );
+    await query_db("UPDATE staff SET web_password = ? WHERE staff_id = ?", [
+      hashPassword,
+      staffId,
+    ]);
 
     res.status(200).json({ success: true, message: "เปลี่ยนรหัสผ่านสำเร็จ" });
   } catch (error) {
@@ -92,7 +88,12 @@ export const resetPassword = async (req, res, next) => {
 export const staffInfo = async (req, res, next) => {
   try {
     const result = await query_db(
-      `SELECT staff_id,staff_name FROM staff WHERE bb_give = ?`,
+      `SELECT 
+        staff_id,
+        staff_name,
+        username
+      FROM staff
+      WHERE staff_status = ?`,
       ["Y"]
     );
 
@@ -105,7 +106,55 @@ export const staffInfo = async (req, res, next) => {
       data: result.map((staff) => ({
         staffId: staff.staff_id,
         staffName: staff.staff_name,
+        username: staff.username,
       })),
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateStaffInfo = async (req, res, next) => {
+  try {
+    const { staffId, username, staffname } = req.body;
+
+    const result = await query_db(
+      `UPDATE staff
+        SET staff_name = ?, username = ?
+        WHERE staff_id = ?`,
+      [staffname, username, staffId]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "ไม่พบ staff ที่ต้องการอัปเดต",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "อัปเดตข้อมูลสำเร็จ",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createUser = async (req, res, next) => {
+  try {
+    const { staffName, username, webPassword } = req.body;
+
+    const hashPassword = await bcrypt.hash(webPassword, 10);
+
+    const result = await query_db(
+      `INSERT INTO staff (staff_name, username, staff_status, web_password)
+       VALUES (?, ?, ?, ?)`,
+      [staffName, username, "Y", hashPassword]
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "เพิ่มข้อมูลสำเร็จ",
     });
   } catch (error) {
     next(error);
