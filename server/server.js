@@ -18,6 +18,10 @@ app.use(express.json());
 
 const port = process.env.PORT;
 
+app.get("/", async (req, res) => {
+  res.send("Api is running ...");
+});
+
 const routerFile = readdirSync(path.join(__dirname, "routes")).filter((file) =>
   file.endsWith(".js")
 );
