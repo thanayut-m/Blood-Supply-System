@@ -12,7 +12,9 @@ import type {
 const { VITE_SET_TOKEN } = import.meta.env;
 
 export const useAuth = (handleClose: () => void) => {
-  const [staffInfo, setStaffInfo] = useState<getStaffInfoResponse>();
+  const [staffInfo, setStaffInfo] = useState<getStaffInfoResponse[] | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 

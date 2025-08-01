@@ -7,6 +7,7 @@ import { Buttons } from "../../../../components/Buttons"
 import { FormInput } from "../../../../components/MUI/Inputs/FormInput"
 import { useForm } from "react-hook-form"
 import { useAuth } from "../../hook/useAuth"
+import type { getStaffInfoResponse } from "../../types/staff.types"
 
 const columns = [
     { id: 'id', label: 'ลำดับ', minWidth: 20 },
@@ -14,18 +15,20 @@ const columns = [
     { id: 'name', label: 'ชื่อ-นามสกุล', minWidth: 20 },
     { id: 'action', label: 'Action', minWidth: 20 },
 ]
+
+
 export const DesktopSignUpPage = () => {
     const { register, reset, handleSubmit } = useForm({
         defaultValues: {
-            staffId: "",
+            staffId: 0,
             username: "",
             staffName: "",
             webPassword: "",
             re_password: "",
         },
     });
-    const [openModal, setOpenModal] = useState(null);
-    const [selectedUser, setSelectedUser] = useState(null)
+    const [openModal, setOpenModal] = useState<string | null>(null);
+    const [selectedUser, setSelectedUser] = useState<getStaffInfoResponse | null>(null)
 
     const handleClose = () => {
         setOpenModal(null);
@@ -34,7 +37,8 @@ export const DesktopSignUpPage = () => {
     };
 
     const { staffInfo, handleUpdateStaff, handleResetPassword, handleSignUp, isLoading } = useAuth(handleClose);
-    const handleOpen = (modal: string, user = null) => {
+
+    const handleOpen = (modal: string, user: getStaffInfoResponse | null = null) => {
         setOpenModal(modal);
         setSelectedUser(user);
 
@@ -53,7 +57,7 @@ export const DesktopSignUpPage = () => {
                 webPassword: ""
             });
         }
-        if (modal === "openReSetPassword") {
+        if (modal === "openReSetPassword" && user) {
             reset({
                 staffId: user.staffId,
                 re_password: ""
@@ -154,46 +158,48 @@ export const DesktopSignUpPage = () => {
                 }
             />
 
-            <Modals
-                open={openModal === "openEditUser"}
-                width="w-[30%]"
-                titleClassName="flex text-xl justify-start mb-4"
-                title="สร้างผู้ใช้งาน"
-                content={
-                    <div className="flex flex-col gap-3">
-                        <FormInput
-                            register={register}
-                            name="username"
-                            label="ชื่อบัญชีผู้ใช้ "
-                            variant="outlined"
-                            size="small"
-                        />
-                        <FormInput
-                            register={register}
-                            name="staffName"
-                            label="ชื่อ-นามสกุล"
-                            variant="outlined"
-                            size="small"
-                        />
-                    </div>
-                }
-                actions={
-                    <div className="flex flex-row gap-3 mt-3">
-                        <Buttons
-                            className="bg-[#FF7726] text-white py-3 px-5 rounded-3xl"
-                            onClick={handleClose}
-                        >
-                            ยกเลิก
-                        </Buttons>
-                        <Buttons
-                            className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
-                            onClick={handleSubmit(handleUpdateStaff)}
-                        >
-                            ยืนยัน
-                        </Buttons>
-                    </div>
-                }
-            />
+            {openModal === "openEditUser" && selectedUser && (
+                <Modals
+                    open={openModal === "openEditUser"}
+                    width="w-[30%]"
+                    titleClassName="flex text-xl justify-start mb-4"
+                    title="สร้างผู้ใช้งาน"
+                    content={
+                        <div className="flex flex-col gap-3">
+                            <FormInput
+                                register={register}
+                                name="username"
+                                label="ชื่อบัญชีผู้ใช้ "
+                                variant="outlined"
+                                size="small"
+                            />
+                            <FormInput
+                                register={register}
+                                name="staffName"
+                                label="ชื่อ-นามสกุล"
+                                variant="outlined"
+                                size="small"
+                            />
+                        </div>
+                    }
+                    actions={
+                        <div className="flex flex-row gap-3 mt-3">
+                            <Buttons
+                                className="bg-[#FF7726] text-white py-3 px-5 rounded-3xl"
+                                onClick={handleClose}
+                            >
+                                ยกเลิก
+                            </Buttons>
+                            <Buttons
+                                className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
+                                onClick={handleSubmit(handleUpdateStaff)}
+                            >
+                                ยืนยัน
+                            </Buttons>
+                        </div>
+                    }
+                />
+            )}
 
             <Modals
                 open={openModal === "openReSetPassword"}
