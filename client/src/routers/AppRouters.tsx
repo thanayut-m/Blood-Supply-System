@@ -11,6 +11,7 @@ import { DesktopSignInPage } from "../features/Auth/pages/Desktop/DesktopSignInP
 import { DesktopSignUpPage } from "../features/Auth/pages/Desktop/DesktopSignUpPage";
 import { DonorListPage } from "../features/donor/page/Modile/DonorListPage";
 import { BloodBankStockListPage } from "../features/BloodBankStock/page/Mobile/BloodBankStockListPage";
+import BloodDonationHistoryPage from "../features/BloodBankStock/page/Desktop/BloodDonationHistoryPage";
 
 export const AppRouters = () => {
     const isMobile = useMediaQuery({ maxWidth: 430 })
@@ -78,6 +79,15 @@ export const AppRouters = () => {
                         "Not Mobile"
                         :
                         <DesktopSignUpPage />
+                    }
+                />
+
+                <Route
+                    path="/BloodDonationHistory"
+                    element={isMobile ?
+                        "Not Mobile"
+                        :
+                        <BloodDonationHistoryPage />
                     }
                 />
 

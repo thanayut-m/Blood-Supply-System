@@ -95,7 +95,7 @@ export const useBloodBankStock = (
     }
   };
 
-  const fetchReadyBloodBags = async (selectedGroupLabel: string) => {
+  const fetchReadyBloodBags = async (selectedGroupLabel: string | null) => {
     setLoadingReadyBloodBags(true);
     try {
       const res = await getReadyBloodBags(selectedGroupLabel);
@@ -112,7 +112,7 @@ export const useBloodBankStock = (
     }
   };
 
-  const fetchPendingBloodBags = async (selectedGroupLabel: string) => {
+  const fetchPendingBloodBags = async (selectedGroupLabel: string | null) => {
     setLoadingPendingBloodBags(true);
     try {
       const res = await getPendingBloodBags(selectedGroupLabel);
@@ -129,7 +129,7 @@ export const useBloodBankStock = (
     }
   };
 
-  const fetchDeliveredBloodBags = async (selectedGroupLabel: string) => {
+  const fetchDeliveredBloodBags = async (selectedGroupLabel: string | null) => {
     setLoadingDeliveredBloodBags(true);
     try {
       const res = await getDeliveredBloodBags(selectedGroupLabel);
@@ -144,7 +144,9 @@ export const useBloodBankStock = (
     }
   };
 
-  const fetchContaminatedBloodBags = async (selectedGroupLabel: string) => {
+  const fetchContaminatedBloodBags = async (
+    selectedGroupLabel: string | null
+  ) => {
     setLoadingContaminatedBloodBags(true);
     try {
       const res = await getContaminatedBloodBags(selectedGroupLabel);
@@ -159,7 +161,7 @@ export const useBloodBankStock = (
     }
   };
 
-  const fetchReservedBloodBags = async (selectedGroupLabel: string) => {
+  const fetchReservedBloodBags = async (selectedGroupLabel: string | null) => {
     setLoadingReservedBloodBags(true);
     try {
       const res = await getReservedBloodBags(selectedGroupLabel);
@@ -175,13 +177,11 @@ export const useBloodBankStock = (
   };
 
   useEffect(() => {
-    if (selectedGroupLabel) {
-      fetchReadyBloodBags(selectedGroupLabel);
-      fetchPendingBloodBags(selectedGroupLabel);
-      fetchDeliveredBloodBags(selectedGroupLabel);
-      fetchContaminatedBloodBags(selectedGroupLabel);
-      fetchReservedBloodBags(selectedGroupLabel);
-    }
+    fetchReadyBloodBags(selectedGroupLabel);
+    fetchPendingBloodBags(selectedGroupLabel);
+    fetchDeliveredBloodBags(selectedGroupLabel);
+    fetchContaminatedBloodBags(selectedGroupLabel);
+    fetchReservedBloodBags(selectedGroupLabel);
 
     fetchTotalBlood();
 

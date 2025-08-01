@@ -1,8 +1,13 @@
 import { useAuth } from "../../../features/Auth/hook/useAuth"
 import { useCurrentUser } from "../../../features/Auth/hook/useCurrentUser"
-export const DesktopNavBar = ({ setIsOpen }) => {
+
+type DesktopNavBarProps = {
+    setIsOpen: (isOpen: boolean) => void;
+};
+
+export const DesktopNavBar = ({ setIsOpen }: DesktopNavBarProps) => {
     const { user } = useCurrentUser()
-    const { handleSignOut } = useAuth(null);
+    const { handleSignOut } = useAuth(() => { });
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="flex-1">

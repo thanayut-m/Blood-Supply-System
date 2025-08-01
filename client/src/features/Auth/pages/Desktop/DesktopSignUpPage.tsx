@@ -3,16 +3,21 @@ import { StickyTable } from "../../../../components/MUI/StickyTable"
 import { DesktopPrivateLayout } from "../../../../layouts/DesktopPrivateLayout"
 import { Modals } from "../../../../components/modal/Modals"
 import { useEffect, useState } from "react"
-import { Buttons } from "../../../../components/Buttons"
 import { FormInput } from "../../../../components/MUI/Inputs/FormInput"
 import { useForm } from "react-hook-form"
 import { useAuth } from "../../hook/useAuth"
 import type { getStaffInfoResponse } from "../../types/staff.types"
+import dayjs from "dayjs"
+import { Buttons } from './../../../../components/Buttons';
+import { IoMdPersonAdd } from "react-icons/io";
 
 const columns = [
     { id: 'id', label: 'ลำดับ', minWidth: 20 },
     { id: 'username', label: 'username', minWidth: 20 },
     { id: 'name', label: 'ชื่อ-นามสกุล', minWidth: 20 },
+    { id: 'status_admin', label: 'สถานะ', minWidth: 20 },
+    { id: 'status', label: 'สถานะใช้งาน', minWidth: 20 },
+    { id: 'update_at', label: 'เข้าสู่ระบบล่าสุด', minWidth: 20 },
     { id: 'action', label: 'Action', minWidth: 20 },
 ]
 
@@ -69,18 +74,17 @@ export const DesktopSignUpPage = () => {
         document.title = "จัดการผู้ใช้ || Logins Medical";
     }, [])
 
-
     if (isLoading) return <p>กำลังโหลด...</p>;
     return (
         <DesktopPrivateLayout>
             <div className="p-4 bg-white rounded-2xl ">
                 <p className="text-2xl mb-4">จัดการผู้ใช้งาน</p>
-                <div className="flex justify-end ml-3">
-                    <button
+                <div className="flex justify-end mb-3">
+                    <Buttons
                         onClick={() => handleOpen("openRegister")}
-                        className="btn btn-sm btn-outline btn-primary ">
-                        เพิ่มผู้ใช้งาน
-                    </button>
+                        className="flex justify-center p-2 text-xl bg-blue-500 hover:bg-blue-300 items-center w-[250px] rounded-xl">
+                        <IoMdPersonAdd /><span className="ml-2">เพิ่มผู้ใช้งาน</span>
+                    </Buttons>
                 </div>
                 <StickyTable
                     columns={columns}
@@ -90,6 +94,16 @@ export const DesktopSignUpPage = () => {
                             <TableCell align="center">{index + 1}</TableCell>
                             <TableCell align="center">{row.username}</TableCell>
                             <TableCell align="center">{row.staffName}</TableCell>
+                            <TableCell align="center">
+                                {row.administrator === 'Y' ? "ผู้ดูแลระบบ" : "สมาชิก"}
+                            </TableCell>
+                            <TableCell align="center">
+                                {row.staffStatus === 'Y'
+                                    ? <p className="font-bold text-green-500">เปิดใช้งาน</p> : <p className="font-bold text-red-500">ปิดใช้งาน</p>}
+                            </TableCell>
+                            <TableCell align="center">
+                                {row.update_at ? dayjs(row.update_at).format("DD-MM-YYYY HH:MM:ss") : "-"}
+                            </TableCell>
                             <TableCell align="center">
                                 <div className="flex gap-2 justify-center flex-wrap">
                                     <button
@@ -141,15 +155,15 @@ export const DesktopSignUpPage = () => {
                     </div>
                 }
                 actions={
-                    <div className="flex flex-row gap-3 mt-3">
+                    <div className="flex flex-row justify-end gap-3 mt-3">
                         <Buttons
-                            className="bg-[#FF7726] text-white py-3 px-5 rounded-3xl"
+                            className="bg-[#FF7726] text-white py-3 px-5 rounded-xl"
                             onClick={handleClose}
                         >
                             ยกเลิก
                         </Buttons>
                         <Buttons
-                            className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
+                            className="bg-blue-500 text-white py-3 px-5 rounded-xl"
                             onClick={handleSubmit(handleSignUp)}
                         >
                             ยืนยัน
@@ -183,15 +197,15 @@ export const DesktopSignUpPage = () => {
                         </div>
                     }
                     actions={
-                        <div className="flex flex-row gap-3 mt-3">
+                        <div className="flex flex-row justify-end  gap-3 mt-3">
                             <Buttons
-                                className="bg-[#FF7726] text-white py-3 px-5 rounded-3xl"
+                                className="bg-[#FF7726] text-white py-3 px-5 rounded-xl"
                                 onClick={handleClose}
                             >
                                 ยกเลิก
                             </Buttons>
                             <Buttons
-                                className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
+                                className="bg-blue-500 text-white py-3 px-5 rounded-xl"
                                 onClick={handleSubmit(handleUpdateStaff)}
                             >
                                 ยืนยัน
@@ -218,15 +232,15 @@ export const DesktopSignUpPage = () => {
                     </div>
                 }
                 actions={
-                    <div className="flex flex-row gap-3 mt-3">
+                    <div className="flex flex-row justify-end  gap-3 mt-3">
                         <Buttons
-                            className="bg-[#FF7726] text-white py-3 px-5 rounded-3xl"
+                            className="bg-[#FF7726] text-white py-3 px-5 rounded-xl"
                             onClick={handleClose}
                         >
                             ยกเลิก
                         </Buttons>
                         <Buttons
-                            className="bg-blue-500 text-white py-3 px-5 rounded-3xl"
+                            className="bg-blue-500 text-white py-3 px-5 rounded-xl"
                             onClick={handleSubmit(handleResetPassword)}
                         >
                             ยืนยัน

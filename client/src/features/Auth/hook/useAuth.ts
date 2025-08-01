@@ -8,6 +8,7 @@ import type {
   ResetPassPayload,
   UpdateStaffPayload,
 } from "../types/staff.types";
+import Swal from "sweetalert2";
 
 const { VITE_SET_TOKEN } = import.meta.env;
 
@@ -81,12 +82,16 @@ export const useAuth = (handleClose: () => void) => {
         webPassword: data.webPassword,
       });
       if (res.success) {
-        fetchStaffInfo();
-        handleClose();
+        Swal.fire({
+          icon: "success",
+          title: "สร้างผู้ใช้งานสำเร็จ",
+          timer: 1000,
+          showConfirmButton: false,
+        }).then(() => {
+          fetchStaffInfo();
+          handleClose();
+        });
       }
-      console.log(data.staffName);
-      console.log(data.username);
-      console.log(data.webPassword);
     } catch (error) {
       console.log(error);
     }

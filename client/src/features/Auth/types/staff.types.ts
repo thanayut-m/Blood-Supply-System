@@ -1,12 +1,15 @@
 export interface getStaffInfoPage {
   success: boolean;
-  data: getStaffInfoResponse;
+  data: getStaffInfoResponse[];
 }
 
 export interface getStaffInfoResponse {
   staffId: number;
   staffName: string;
   username: string;
+  administrator: string;
+  staffStatus: string;
+  update_at: string;
 }
 
 export interface UpdateStaffResponse {

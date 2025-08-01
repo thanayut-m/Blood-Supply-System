@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { BasicTabs } from "../../../../components/MUI/BasicTabs";
 import { DesktopPrivateLayout } from "../../../../layouts/DesktopPrivateLayout"
-import { BloodDonationHistory } from "../../components/BloodDonationHistory";
 import { Bloodstock } from "../../components/Bloodstock";
 import { ContaminatedBloodBags } from "../../components/tabsData/ContaminatedBloodBags";
 import { DeliveredBloodBags } from "../../components/tabsData/DeliveredBloodBags";
@@ -14,7 +13,7 @@ import { useEffect } from "react";
 
 export const BloodBankStockListPage = () => {
     const { setValue, watch } = useForm()
-    const selectedGroupLabel = watch("selectedGroupLabel");
+    const selectedGroupLabel = watch("selectedGroupLabel") ?? null;
 
     useEffect(() => {
         document.title = "คลังเลือด || Logins Medical";
@@ -57,21 +56,18 @@ export const BloodBankStockListPage = () => {
 
     return (
         <DesktopPrivateLayout>
-            <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-3">
-                    <div className="bg-white rounded-2xl px-4 py-2">
-                        <Bloodstock
-                            selectedGroupLabel={selectedGroupLabel}
-                            onSelectGroup={(val) => setValue("selectedGroupLabel", val)}
-                        />
-                        <BasicTabs
-                            tabs={tabsData}
-                        />
-                    </div>
+            <div className="bg-white rounded-2xl px-4 py-2">
+                <div className="flex flex-col">
+                    <p className="my-3 text-2xl">คลังเลือด</p>
+                    <Bloodstock
+                        selectedGroupLabel={selectedGroupLabel}
+                        onSelectGroup={(val) => setValue("selectedGroupLabel", val)}
+                    />
+                    <BasicTabs
+                        tabs={tabsData}
+                    />
                 </div>
-                <div className="col-span-9">
-                    <BloodDonationHistory />
-                </div>
+
             </div>
         </DesktopPrivateLayout>
     )

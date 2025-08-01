@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { useCurrentUser } from "../../features/Auth/hook/useCurrentUser";
 
 interface DrawerProps {
     isOpen: boolean;
@@ -8,6 +9,7 @@ interface DrawerProps {
 
 export const Drawer = ({ isOpen, onClose }: DrawerProps) => {
     const [visible, setVisible] = useState(isOpen);
+    const { user } = useCurrentUser()
 
     useEffect(() => {
         if (isOpen) {
@@ -45,9 +47,17 @@ export const Drawer = ({ isOpen, onClose }: DrawerProps) => {
                     <Link to={"/BloodBankStock"} className="hover:bg-gray-300 py-2 px-4 rounded-2xl">
                         คลังเลือด
                     </Link>
-                    <Link to={"/Setting/manageUser"} className="hover:bg-gray-300 py-2 px-4 rounded-2xl">
-                        จัดการผู้ใช้
+                    <Link to={"/BloodDonationHistory"} className="hover:bg-gray-300 py-2 px-4 rounded-2xl">
+                        ประวัติการจ่ายเลือด
                     </Link>
+
+
+                    {user?.administrator === "Y" &&
+                        <Link to={"/Setting/manageUser"} className="hover:bg-gray-300 py-2 px-4 rounded-2xl">
+                            จัดการผู้ใช้
+                        </Link>
+                    }
+
                 </div>
             </div>
         </div>

@@ -12,8 +12,7 @@ export const useCurrentUser = () => {
     const fetchUser = async () => {
       try {
         const res = await getCurrentUser();
-        console.log(res.success);
-        if (res.success) {
+        if (res?.success) {
           setUser(res);
         } else {
           navigate("/");

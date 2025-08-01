@@ -79,7 +79,7 @@ export const getTotalBlood = async (): Promise<getTotalBloodPage | []> => {
 };
 
 export const getReadyBloodBags = async (
-  selectedGroupLabel: string
+  selectedGroupLabel: string | null
 ): Promise<getReadyBloodBagsPage | null> => {
   try {
     const response = await axios.get(
@@ -98,7 +98,7 @@ export const getReadyBloodBags = async (
 };
 
 export const getPendingBloodBags = async (
-  selectedGroupLabel: string
+  selectedGroupLabel: string | null
 ): Promise<getPendingBloodBagsPage | null> => {
   try {
     const response = await axios.get(
@@ -117,7 +117,7 @@ export const getPendingBloodBags = async (
 };
 
 export const getDeliveredBloodBags = async (
-  selectedGroupLabel: string
+  selectedGroupLabel: string | null
 ): Promise<getDeliveredBloodBagsPage | null> => {
   try {
     const response = await axios.get(
@@ -136,7 +136,7 @@ export const getDeliveredBloodBags = async (
 };
 
 export const getContaminatedBloodBags = async (
-  selectedGroupLabel: string
+  selectedGroupLabel: string | null
 ): Promise<getContaminatedBloodBagsPage | null> => {
   try {
     const response = await axios.get(
@@ -155,7 +155,7 @@ export const getContaminatedBloodBags = async (
 };
 
 export const getReservedBloodBags = async (
-  selectedGroupLabel: string
+  selectedGroupLabel: string | null
 ): Promise<getReservedBloodBagsPage | null> => {
   try {
     const response = await axios.get(

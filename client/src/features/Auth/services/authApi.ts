@@ -26,5 +26,6 @@ export const getCurrentUser = async (): Promise<StaffResponse | null> => {
   const response = await axios.get(VITE_API_PATH + "/Auth/current-user", {
     headers: authHeader.headers(),
   });
+
   return response.data;
 };

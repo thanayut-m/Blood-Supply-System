@@ -28,7 +28,7 @@ export const Buttons = ({
     else if (variant === "error") variantClass = "btn-error";
     else if (variant === "square") variantClass = "btn-square";
 
-    const btnClass = `w-full ${variantClass} ${className} ${disabled ? 'bg-gray-300 cursor-not-allowed' : ''}`;
+    const btnClass = ` ${variantClass} ${className} ${disabled ? 'bg-gray-300 cursor-not-allowed' : ''}`;
 
     return (
         <button

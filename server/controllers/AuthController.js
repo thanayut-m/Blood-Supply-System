@@ -33,6 +33,13 @@ export const signIn = async (req, res, next) => {
 
     if (!isMatch) {
       throw createError(401, "รหัสผ่านไม่ถูกต้อง");
+    } else {
+      await query_db(
+        `UPDATE staff s1 
+          SET s1.last_login_datetime = NOW()
+        WHERE s1.username =?`,
+        [username]
+      );
     }
 
     const token = await promisify(jwt.sign)(
@@ -46,7 +53,7 @@ export const signIn = async (req, res, next) => {
       message: "เข้าสู่ระบบสำเร็จ",
       user: {
         username: user.username,
-        bb_give: user.bb_give,
+        staff_status: user.staff_status,
       },
       token: token,
     });
@@ -89,12 +96,14 @@ export const staffInfo = async (req, res, next) => {
   try {
     const result = await query_db(
       `SELECT 
-        staff_id,
-        staff_name,
-        username
-      FROM staff
-      WHERE staff_status = ?`,
-      ["Y"]
+        s1.staff_id,
+        s1.username,
+        s1.staff_name,
+        s1.administrator,
+        s1.staff_status,
+        s1.last_login_datetime
+      FROM staff s1 
+      WHERE s1.web_password is not NULL`
     );
 
     if (!result || result.length === 0) {
@@ -105,8 +114,11 @@ export const staffInfo = async (req, res, next) => {
       success: true,
       data: result.map((staff) => ({
         staffId: staff.staff_id,
-        staffName: staff.staff_name,
         username: staff.username,
+        staffName: staff.staff_name,
+        administrator: staff.administrator,
+        staffStatus: staff.staff_status,
+        update_at: staff.last_login_datetime,
       })),
     });
   } catch (error) {
@@ -144,18 +156,43 @@ export const createUser = async (req, res, next) => {
   try {
     const { staffName, username, webPassword } = req.body;
 
+    if (!staffName || !username || !webPassword) {
+      throw createError(400, "กรุณากรอกข้อมูลให้ครบทุกช่อง");
+    }
+
+    const checkUser = await query_db(
+      `SELECT username FROM staff WHERE username = ?`,
+      [username]
+    );
+
+    if (checkUser.length > 0) {
+      throw createError(400, "มีชื่อผู้ใช้งานแล้ว");
+    }
+
+    const mixStaffIdResult = await query_db(
+      `SELECT MAX(staff_id) AS maxID FROM staff`
+    );
+    const maxID = mixStaffIdResult[0]?.maxID || 0;
+
     const hashPassword = await bcrypt.hash(webPassword, 10);
 
     const result = await query_db(
-      `INSERT INTO staff (staff_name, username, staff_status, web_password)
-       VALUES (?, ?, ?, ?)`,
-      [staffName, username, "Y", hashPassword]
+      `INSERT INTO staff (staff_id, staff_name, username, staff_status, web_password)
+        VALUES (?, ?, ?, ?, ?)`,
+      [maxID + 1, staffName, username, "Y", hashPassword]
     );
 
-    res.status(200).json({
-      success: true,
-      message: "เพิ่มข้อมูลสำเร็จ",
-    });
+    if (result.affectedRows > 0) {
+      return res.status(200).json({
+        success: true,
+        message: "เพิ่มข้อมูลสำเร็จ",
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "ไม่สามารถเพิ่มข้อมูลได้",
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -164,7 +201,11 @@ export const createUser = async (req, res, next) => {
 export const currentUser = async (req, res, next) => {
   try {
     const result = await query_db(
-      "SELECT staff_id,staff_name FROM staff WHERE staff_id = ?",
+      `SELECT 
+        s1.staff_id,
+        s1.staff_name,
+        s1.administrator
+      FROM staff s1 WHERE s1.staff_id = ?`,
       [req.staff_id.id]
     );
 
@@ -179,6 +220,7 @@ export const currentUser = async (req, res, next) => {
       success: true,
       staff: result[0].staff_name,
       staffId: result[0].staff_id,
+      administrator: result[0].administrator,
     });
   } catch (error) {
     next(error);

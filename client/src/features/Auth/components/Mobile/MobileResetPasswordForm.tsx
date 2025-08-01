@@ -7,11 +7,10 @@ import { Buttons } from "../../../../components/Buttons";
 
 
 export const MobileResetPasswordForm = (
-  { onClick }: { onClick: (data: ForgetPasswordPayload) => void }
 ) => {
   const {
     register,
-    handleSubmit,
+    // handleSubmit,
     formState: { errors, isSubmitting }
   } = useForm<ForgetPasswordPayload>({
     resolver: zodResolver(schemaResetPassword)
@@ -49,7 +48,7 @@ export const MobileResetPasswordForm = (
         />
         <div className="mt-4">
           <Buttons
-            onClick={handleSubmit(onClick)}
+            // onClick={handleSubmit(onClick)}
             isSubmitting={isSubmitting}
             className={`${isSubmitting ? "bg-gray-400" : "bg-blue-500"} rounded-2xl py-2 text-white`}
           >

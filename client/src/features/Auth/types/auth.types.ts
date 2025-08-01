@@ -29,6 +29,7 @@ export interface StaffResponse {
   success: boolean;
   staffId: number;
   staff: string;
+  administrator: string;
 }
 
 // Res API Staff
