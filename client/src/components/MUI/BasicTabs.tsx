@@ -18,7 +18,7 @@ export const BasicTabs = ({ tabs }: BasicTabsProps) => {
                 {tabs.map((tab, i) => (
                     <label
                         key={i}
-                        className={`tab text-[10px] cursor-pointer px-2 py-1 ${i === activeIndex ? "tab-active" : ""
+                        className={`tab text-sm cursor-pointer px-2 py-1 ${i === activeIndex ? "tab-active" : ""
                             }`}
                         onClick={() => setActiveIndex(i)}
                         role="tab"

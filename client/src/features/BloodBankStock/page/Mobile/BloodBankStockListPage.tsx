@@ -63,9 +63,11 @@ export const BloodBankStockListPage = () => {
                         selectedGroupLabel={selectedGroupLabel}
                         onSelectGroup={(val) => setValue("selectedGroupLabel", val)}
                     />
-                    <BasicTabs
-                        tabs={tabsData}
-                    />
+                    <div className="mt-3">
+                        <BasicTabs
+                            tabs={tabsData}
+                        />
+                    </div>
                 </div>
 
             </div>
